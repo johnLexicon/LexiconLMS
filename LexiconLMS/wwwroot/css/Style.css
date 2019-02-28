@@ -1,0 +1,15 @@
+﻿
+html {
+    background: url(../images/) no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+.loginForm {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
