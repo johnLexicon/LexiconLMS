@@ -79,7 +79,7 @@ namespace LexiconLMS
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
+            
             CreateRoles(serviceProvider);
             CreateAdmin(serviceProvider);
         }
@@ -109,7 +109,8 @@ namespace LexiconLMS
 
             var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
-            var adminUserEmail = Configuration["AdminInfo:username"];
+
+            var adminUserEmail = Configuration["LexiconLMS:TeacherMail"];
             Task<User> administrator = userManager.FindByEmailAsync(adminUserEmail);
             administrator.Wait();
 
@@ -122,8 +123,8 @@ namespace LexiconLMS
                     UserName = adminUserEmail
                 };
 
-                var password = Configuration["AdminInfo:password"];
-                Task<IdentityResult> createAdmin = userManager.CreateAsync(user, password);
+                var teacherPw = Configuration["LexiconLMS:TeacherPW"];
+                Task<IdentityResult> createAdmin = userManager.CreateAsync(user, teacherPw);
                 createAdmin.Wait();
 
                 //If the admin user was succesfully created it adds the Administrator role to the user.

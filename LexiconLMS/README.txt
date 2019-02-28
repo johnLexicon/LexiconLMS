@@ -1,3 +1,3 @@
-//dotnet user-secrets set  "lexiconLMS:TeacherPW" "<individualPassword>"
+//PM> dotnet user-secrets set  "LexiconLMS:TeacherPW" "<individualPassword>"
 
-var TeacherPw = config["lexiconLMS:TeacherPW"];
+
