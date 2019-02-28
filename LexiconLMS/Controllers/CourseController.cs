@@ -41,7 +41,7 @@ namespace LexiconLMS.Controllers
                 _context.SaveChanges();
             }
 
-            return Ok();
+            return View();
         }
     }
 }
