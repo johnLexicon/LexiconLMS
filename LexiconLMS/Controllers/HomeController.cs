@@ -45,7 +45,7 @@ namespace LexiconLMS.Controllers
                 return View(LVM);
             }
 
-            var loginResult = await _signInManager.PasswordSignInAsync(user, LVM.Password, false, false);
+            var loginResult = await _signInManager.PasswordSignInAsync(user, LVM.Password, isPersistent:LVM.RememberMe, lockoutOnFailure: false);
 
             if (!loginResult.Succeeded)
             {
@@ -61,6 +61,14 @@ namespace LexiconLMS.Controllers
             return Ok();
 
         }
+
+
+        public async Task<IActionResult> Logout()
+        {
+           await  _signInManager.SignOutAsync();
+            return Redirect("http://www.lexicon.se");
+        }
+
 
         public IActionResult Privacy()
         {
