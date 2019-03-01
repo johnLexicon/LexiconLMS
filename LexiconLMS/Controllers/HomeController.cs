@@ -8,9 +8,11 @@ using LexiconLMS.Models;
 using LexiconLMS.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LexiconLMS.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private IMapper _mapper;
@@ -24,6 +26,8 @@ namespace LexiconLMS.Controllers
             _mapper = mapper;
 
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             if (_signInManager.IsSignedIn(User))
@@ -39,6 +43,7 @@ namespace LexiconLMS.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Index(LogInViewModel LVM)
         {
