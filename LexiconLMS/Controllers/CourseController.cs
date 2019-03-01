@@ -6,10 +6,13 @@ using AutoMapper;
 using LexiconLMS.Data;
 using LexiconLMS.Models;
 using LexiconLMS.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LexiconLMS.Controllers
 {
+
+    [Authorize(Roles = "Teacher")]
     public class CourseController : Controller
     {
         private readonly LexiconLMSContext _context;
