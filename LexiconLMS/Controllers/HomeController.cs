@@ -62,6 +62,14 @@ namespace LexiconLMS.Controllers
 
         }
 
+
+        public async Task<IActionResult> Logout()
+        {
+           await  _signInManager.SignOutAsync();
+            return View("Index");
+        }
+
+
         public IActionResult Privacy()
         {
             return View();

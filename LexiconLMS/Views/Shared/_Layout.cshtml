@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿
+@inject SignInManager<User> SignInManager
+@inject  UserManager<User>  UserManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -42,6 +46,19 @@
                     </ul>
                 </div>
             </div>
+
+
+            <ul class="nav navbar-nav navbar-right flex-grow-1">
+                @if (SignInManager.IsSignedIn(User))
+                {
+
+                    <li class="nav-item">
+                        <span style="color:white">@UserManager.GetUserName(User)</span>
+                        <a class="nav-link text-white" style="display: inline" id="login-link" asp-controller="Home" asp-action="Logout">Log Out</a>
+                    </li>
+
+                }
+            </ul>
         </nav>
     </header>
     <div class="container">
