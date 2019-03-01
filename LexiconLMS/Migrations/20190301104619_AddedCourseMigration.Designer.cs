@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LexiconLMS.Migrations
 {
     [DbContext(typeof(LexiconLMSContext))]
-    [Migration("20190228141928_AddCourseMigration")]
-    partial class AddCourseMigration
+    [Migration("20190301104619_AddedCourseMigration")]
+    partial class AddedCourseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
