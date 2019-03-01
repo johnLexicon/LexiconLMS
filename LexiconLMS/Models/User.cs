@@ -8,5 +8,6 @@ namespace LexiconLMS.Models
 {
     public class User : IdentityUser
     {
+        public Course Course { get; set; }
     }
 }
