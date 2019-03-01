@@ -24,8 +24,18 @@ namespace LexiconLMS.Controllers
             _mapper = mapper;
 
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            if (_signInManager.IsSignedIn(User))
+            {
+                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                var userRole = _userManager.GetRolesAsync(user).Result.Single();
+                if (userRole == "Teacher")
+                {
+                    return RedirectToAction("Index", "Teacher");
+                }
+            }
+
             return View();
         }
 
