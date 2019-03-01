@@ -53,9 +53,15 @@
                                         <input asp-for="Password" class="form-control" />
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="submit" value="Log In" class="btn btn-primary" />
-                                    </div>
+
+                                    
+                                        <input asp-for="RememberMe" type="checkbox"/>
+                                        <label>Keep me logged in</label>
+                              
+
+                                        <div class="form-group">
+                                            <input type="submit" value="Log In" class="btn btn-primary" />
+                                        </div>
                                 </form>
                             </div>
                         </div>
