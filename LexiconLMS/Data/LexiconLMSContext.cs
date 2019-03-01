@@ -18,12 +18,14 @@ namespace LexiconLMS.Data
 
         public DbSet<Course> Courses { get; set; }
 
+        public DbSet<Module> Modules { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.Entity<Course>();
+            builder.Entity<Module>();
         }
-
     }
 }
