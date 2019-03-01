@@ -45,7 +45,7 @@ namespace LexiconLMS.Controllers
                 return View(LVM);
             }
 
-            var loginResult = await _signInManager.PasswordSignInAsync(user, LVM.Password, isPersistent: true, lockoutOnFailure: false);
+            var loginResult = await _signInManager.PasswordSignInAsync(user, LVM.Password, isPersistent:LVM.RememberMe, lockoutOnFailure: false);
 
             if (!loginResult.Succeeded)
             {
