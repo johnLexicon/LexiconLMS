@@ -37,14 +37,32 @@ namespace LexiconLMS.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddCourseViewModel viewModel)
         {
+
+
             if (ModelState.IsValid)
             {
                 Course course = _mapper.Map<Course>(viewModel);
                 await _context.Courses.AddAsync(course);
                 _context.SaveChanges();
+
+                return RedirectToAction(nameof(Details), new { course.Id });
             }
 
             return View();
+        }
+
+        public IActionResult Details(int id)
+        {
+            var course = _context.Courses.FirstOrDefault(c => c.Id == id);
+
+            if(course is null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = _mapper.Map<CourseDetailsViewModel>(course);
+
+            return View(viewModel);
         }
     }
 }
