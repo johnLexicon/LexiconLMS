@@ -39,7 +39,11 @@ namespace LexiconLMS
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options =>
+                {
+                    options.Filters.Add(new ResponseCacheAttribute() { NoStore = true, Location = ResponseCacheLocation.None });
+                }
+            ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<LexiconLMSContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LexiconLMSContext"))
