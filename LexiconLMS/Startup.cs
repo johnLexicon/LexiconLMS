@@ -41,6 +41,7 @@ namespace LexiconLMS
 
             services.AddMvc(options =>
                 {
+                    //Disables the browser caching the pages. 
                     options.Filters.Add(new ResponseCacheAttribute() { NoStore = true, Location = ResponseCacheLocation.None });
                 }
             ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -56,6 +57,13 @@ namespace LexiconLMS
                 options.Password.RequireLowercase = false;
             })
             .AddEntityFrameworkStores<LexiconLMSContext>(); //The database context where to store the security info.
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                //Redirection url to our login page instead of the default url /Account/Login
+                options.LoginPath = "/Home/Index";
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
