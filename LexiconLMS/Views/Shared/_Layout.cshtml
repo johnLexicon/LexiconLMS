@@ -43,8 +43,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                       
-                    </ul>
+                        @if (User.IsInRole("Teacher"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="StudentAdmin" asp-action="Index">Students</a>
+                            </li>
+                        }
+                        </ul>
                 </div>
             </div>
 
@@ -52,17 +57,30 @@
             <ul class="nav navbar-nav navbar-right flex-grow-1">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <li class="nav-item">
-                        <span style="color:white">@UserManager.GetUserName(User)</span>
+                <li class="nav-item text-white">
+                    @if (User.IsInRole("Student"))
+                    {
+                    <a asp-controller="StudentAdmin" asp-action="Details" asp-route-id=@UserManager.GetUserId(User)>
+                        @UserManager.GetUserName(User)</a>
+                        }
+                        else
+                        {
+
+                        @UserManager.GetUserName(User)
+                        }
+                </li>
                         @if (User.IsInRole("Teacher"))
                         {
-                            <a class="nav-link text-white" asp-area="" asp-controller="UserAdmin" asp-action="Index">Teacher Accounts</a>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="UserAdmin" asp-action="Index">Teacher Accounts</a>
+                            </li>
                         }
+                        <li class="nav-item">
                             <a class="nav-link text-white" style="display: inline" id="login-link" asp-controller="Home" asp-action="Logout">Log Out</a>
-                    </li>
+                        </li>
 
-                }
-            </ul>
+                        }
+                    </ul>
         </nav>
     </header>
     <div class="container">
