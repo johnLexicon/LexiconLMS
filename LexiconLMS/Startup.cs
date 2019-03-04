@@ -39,7 +39,12 @@ namespace LexiconLMS
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options =>
+                {
+                    //Disables the browser caching the pages. 
+                    options.Filters.Add(new ResponseCacheAttribute() { NoStore = true, Location = ResponseCacheLocation.None });
+                }
+            ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<LexiconLMSContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LexiconLMSContext"))
@@ -52,8 +57,14 @@ namespace LexiconLMS
                 options.Password.RequireLowercase = false;
                 options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
             })
-            .AddEntityFrameworkStores<LexiconLMSContext>()
-            .AddDefaultTokenProviders(); //The database context where to store the security info.
+            .AddEntityFrameworkStores<LexiconLMSContext>(); //The database context where to store the security info.
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                //Redirection url to our login page instead of the default url /Account/Login
+                options.LoginPath = "/Home/Index";
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

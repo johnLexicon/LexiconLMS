@@ -8,9 +8,11 @@ using LexiconLMS.Models;
 using LexiconLMS.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LexiconLMS.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private IMapper _mapper;
@@ -24,11 +26,24 @@ namespace LexiconLMS.Controllers
             _mapper = mapper;
 
         }
-        public IActionResult Index()
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Index()
         {
+            if (_signInManager.IsSignedIn(User))
+            {
+                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                var userRole = _userManager.GetRolesAsync(user).Result.Single();
+                if (userRole == "Teacher")
+                {
+                    return RedirectToAction("Index", "Teacher");
+                }
+            }
+
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Index(LogInViewModel LVM)
         {
@@ -45,7 +60,7 @@ namespace LexiconLMS.Controllers
                 return View(LVM);
             }
 
-            var loginResult = await _signInManager.PasswordSignInAsync(user, LVM.Password, false, false);
+            var loginResult = await _signInManager.PasswordSignInAsync(user, LVM.Password, isPersistent:LVM.RememberMe, lockoutOnFailure: false);
 
             if (!loginResult.Succeeded)
             {
@@ -61,6 +76,14 @@ namespace LexiconLMS.Controllers
             return Ok();
 
         }
+
+
+        public async Task<IActionResult> Logout()
+        {
+           await  _signInManager.SignOutAsync();
+            return Redirect("http://www.lexicon.se");
+        }
+
 
         public IActionResult Privacy()
         {
