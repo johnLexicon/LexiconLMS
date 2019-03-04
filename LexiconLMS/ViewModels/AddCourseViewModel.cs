@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LexiconLMS.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -24,5 +26,13 @@ namespace LexiconLMS.ViewModels
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
+        public string TeacherId { get; set; }
+
+        //public IList<User> Teachers { get; set; }
+        public List<Tuple<string, string>> Teachers { get; set; }
+
+        [Display(Name = "Teachers")]
+        public IEnumerable<SelectListItem> FormattedTeachers
+        { get => Teachers.Select(t => new SelectListItem { Value = t.Item1, Text = t.Item2 }); }
     }
 }
