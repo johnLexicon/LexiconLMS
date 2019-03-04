@@ -24,5 +24,7 @@ namespace LexiconLMS.ViewModels
 
         [Display(Name = "Teacher email")]
         public string TeacherEmail { get; set; }
+
+        public List<ModuleViewModel> Modules { get; set; }
     }
 }

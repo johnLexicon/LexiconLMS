@@ -28,6 +28,6 @@ namespace LexiconLMS.Data
                 .HasOne(c => c.Teacher); //Needed for creating a foreign key to the Teacher.
 
             builder.Entity<Module>();
-        }
+        }     
     }
 }
