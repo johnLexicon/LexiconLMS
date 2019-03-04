@@ -4,14 +4,16 @@ using LexiconLMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LexiconLMS.Migrations
 {
     [DbContext(typeof(LexiconLMSContext))]
-    partial class LexiconLMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190304130623_CourseTeacherRelationMigration")]
+    partial class CourseTeacherRelationMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,6 +54,8 @@ namespace LexiconLMS.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int>("DocumentId");
+
                     b.Property<DateTime>("EndDate");
 
                     b.Property<string>("Name");
@@ -79,8 +83,6 @@ namespace LexiconLMS.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<string>("FullName");
 
                     b.Property<bool>("LockoutEnabled");
 

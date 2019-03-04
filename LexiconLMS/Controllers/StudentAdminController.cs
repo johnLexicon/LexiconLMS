@@ -1,35 +1,29 @@
-﻿using System;
+﻿using LexiconLMS.Models;
+using LexiconLMS.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LexiconLMS.Data;
-using LexiconLMS.Models;
-using LexiconLMS.ViewModels;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 namespace LexiconLMS.Controllers
 {
-    [Authorize(Roles ="Teacher")]
-    public class UserAdminController : Controller
+    [Authorize(Roles = "Teacher, Student")]
+    public class StudentAdminController : Controller
     {
         private readonly UserManager<User> _userManager;
 
-        public UserAdminController(UserManager<User> userManager)
+        public StudentAdminController(UserManager<User> userManager)
         {
             _userManager = userManager;
         }
 
-
-        // GET: UserAdmin
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Index()
         {
-            // TODO: currently returns ALL users, independent of role
-            // Should use the RoleManager.UsersInRole
-            
-            return View(await _userManager.GetUsersInRoleAsync("Teacher"));
+            return View(await _userManager.GetUsersInRoleAsync("Student"));
         }
 
         // GET: UserAdmin/Details/GUID
@@ -37,6 +31,12 @@ namespace LexiconLMS.Controllers
         {
             Task<User> theUser = _userManager.FindByIdAsync(id);
             theUser.Wait();
+
+            if(User.IsInRole("Student") &&  theUser.Result.Id != _userManager.GetUserId(User)) 
+                // a student is trying to inspect/edit another student
+            {
+                return NotFound();
+            }
             var vm = new UserAdminViewModel()
             {
                 Email = theUser.Result.Email,
@@ -46,12 +46,14 @@ namespace LexiconLMS.Controllers
             return View(vm);
         }
 
+        [Authorize(Roles = "Teacher")]
         // GET: UserAdmin/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Teacher")]
         // POST: UserAdmin/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -83,7 +85,7 @@ namespace LexiconLMS.Controllers
                 createUser.Wait();
                 if (createUser.Result.Succeeded)
                 {
-                    Task<IdentityResult> addToRoleResult = _userManager.AddToRoleAsync(newUser, "Teacher");
+                    Task<IdentityResult> addToRoleResult = _userManager.AddToRoleAsync(newUser, "Student");
                     addToRoleResult.Wait();
                 }
                 else
@@ -91,7 +93,8 @@ namespace LexiconLMS.Controllers
                     ModelState.AddModelError("Name", "Invalid user name");
                     return View(vm);
                 }
-            } else
+            }
+            else
             {
                 ModelState.AddModelError("Email", "User/email already exists, not created");
                 return View(vm);
@@ -104,6 +107,12 @@ namespace LexiconLMS.Controllers
         {
             var theUser = _userManager.FindByIdAsync(id);
             theUser.Wait();
+            if (User.IsInRole("Student") && theUser.Result.Id != _userManager.GetUserId(User))
+            // a student is trying to inspect/edit another student
+            {
+                return NotFound();
+            }
+
             var vm = new UserAdminViewModel()
             {
                 Id = theUser.Result.Id,
@@ -118,6 +127,11 @@ namespace LexiconLMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(string id, [Bind("Id,Name,Password,Password2,Email")] UserAdminViewModel vm)
         {
+            if (User.IsInRole("Student") && vm.Id != _userManager.GetUserId(User))
+            // a student is trying to inspect/edit another student
+            {
+                return NotFound();
+            }
             if (id != vm.Id)
             {
                 return NotFound();
@@ -161,6 +175,7 @@ namespace LexiconLMS.Controllers
             }
         }
 
+        [Authorize(Roles = "Teacher")]
         // GET: UserAdmin/Delete/GUID
         public ActionResult Delete(string id)
         {
@@ -176,6 +191,7 @@ namespace LexiconLMS.Controllers
             return View(vm);
         }
 
+        [Authorize(Roles = "Teacher")]
         // POST: UserAdmin/Delete/GUID
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
