@@ -25,7 +25,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
-            <div class="container col-md-10">
+            <div class="container col-md-9">
                 <picture class="float-left">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                         <img style="width:110px; height:38px" src="~/images/logo-lexicon_2x.gif" />
@@ -54,29 +54,26 @@
             </div>
 
 
-            <ul class="nav navbar-nav navbar-right flex-grow-1">
+            <ul class="nav navbar-nav navbar-right flex-grow-2">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                <li class="nav-item text-white">
-                    @if (User.IsInRole("Student"))
+                    if (User.IsInRole("Student"))
                     {
-                    <a asp-controller="StudentAdmin" asp-action="Details" asp-route-id=@UserManager.GetUserId(User)>
-                        @UserManager.GetUserName(User)</a>
-                        }
-                        else
-                        {
-
-                        @UserManager.GetUserName(User)
-                        }
-                </li>
+                    <li class="nav-item text-white">
+                        <a class="nav-link text-white" asp-controller="StudentAdmin" asp-action="Details" asp-route-id=@UserManager.GetUserId(User)>@UserManager.GetUserName(User)</a>
+                        </li>
+                    } else
+                    {
+                    <span class="nav-link text-white">@UserManager.GetUserName(User)</span>
+                    }
                         @if (User.IsInRole("Teacher"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="UserAdmin" asp-action="Index">Teacher Accounts</a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-white" style="display: inline" id="login-link" asp-controller="Home" asp-action="Logout">Log Out</a>
+                        <li class="nav-item text-white">
+                            <a class="nav-link text-white" asp-area="" asp-controller="UserAdmin" asp-action="Index">Teacher Accounts</a>
+                        </li>
+                    }
+                        <li class="nav-item text-white">
+                            <a class="nav-link text-white" id="login-link" asp-controller="Home" asp-action="Logout">Log Out</a>
                         </li>
 
                         }
