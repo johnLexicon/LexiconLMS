@@ -72,6 +72,9 @@ namespace LexiconLMS.Controllers
             if (role=="Teacher")
             {
               return   RedirectToAction("Index","Teacher");
+            } else if (role == "Student")
+            {
+                return RedirectToAction("Index", "Student");
             }
             return Ok();
 
