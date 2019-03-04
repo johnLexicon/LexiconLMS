@@ -39,7 +39,12 @@ namespace LexiconLMS
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options =>
+                {
+                    //Disables the browser caching the pages. 
+                    options.Filters.Add(new ResponseCacheAttribute() { NoStore = true, Location = ResponseCacheLocation.None });
+                }
+            ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<LexiconLMSContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LexiconLMSContext"))
@@ -50,8 +55,18 @@ namespace LexiconLMS
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
+                options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
             })
-            .AddEntityFrameworkStores<LexiconLMSContext>(); //The database context where to store the security info.
+            .AddEntityFrameworkStores<LexiconLMSContext>()//The database context where to store the security info.
+            .AddDefaultTokenProviders();
+
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                //Redirection url to our login page instead of the default url /Account/Login
+                options.LoginPath = "/Home/Index";
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -114,6 +129,7 @@ namespace LexiconLMS
 
 
             var adminUserEmail = Configuration["LexiconLMS:TeacherMail"];
+            var adminUserName = Configuration["LexiconLMS:RootTeacherUserName"];
             Task<User> administrator = userManager.FindByEmailAsync(adminUserEmail);
             administrator.Wait();
 
@@ -123,7 +139,8 @@ namespace LexiconLMS
                 User user = new User
                 {
                     Email = adminUserEmail,
-                    UserName = adminUserEmail
+                    UserName = adminUserEmail,
+                    FullName = adminUserName
                 };
 
                 var teacherPw = Configuration["LexiconLMS:TeacherPW"];

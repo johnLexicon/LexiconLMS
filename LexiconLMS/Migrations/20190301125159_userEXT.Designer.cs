@@ -4,64 +4,22 @@ using LexiconLMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LexiconLMS.Migrations
 {
     [DbContext(typeof(LexiconLMSContext))]
-    partial class LexiconLMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190301125159_userEXT")]
+    partial class userEXT
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("LexiconLMS.Models.Course", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description");
-
-                    b.Property<DateTime>("EndDate");
-
-                    b.Property<string>("Name");
-
-                    b.Property<DateTime>("StartDate");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Courses");
-                });
-
-            modelBuilder.Entity("LexiconLMS.Models.Module", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CourseId");
-
-                    b.Property<string>("Description");
-
-                    b.Property<int>("DocumentId");
-
-                    b.Property<DateTime>("EndDate");
-
-                    b.Property<string>("Name");
-
-                    b.Property<DateTime>("StartDate");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("Modules");
-                });
 
             modelBuilder.Entity("LexiconLMS.Models.User", b =>
                 {
@@ -72,8 +30,6 @@ namespace LexiconLMS.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
-
-                    b.Property<int?>("CourseId");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -106,8 +62,6 @@ namespace LexiconLMS.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -228,21 +182,6 @@ namespace LexiconLMS.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("LexiconLMS.Models.Module", b =>
-                {
-                    b.HasOne("LexiconLMS.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("LexiconLMS.Models.User", b =>
-                {
-                    b.HasOne("LexiconLMS.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
