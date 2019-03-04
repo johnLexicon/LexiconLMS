@@ -79,6 +79,10 @@ namespace LexiconLMS.Controllers
 
             var viewModel = _mapper.Map<CourseDetailsViewModel>(course);
 
+            viewModel.Modules = new List<ModuleViewModel>();
+            var modules = _context.Modules.Where(a => a.CourseId == id).ToList();
+            modules.ForEach(a => viewModel.Modules.Add(_mapper.Map<ModuleViewModel>(a)));
+
             return View(viewModel);
         }
     }
