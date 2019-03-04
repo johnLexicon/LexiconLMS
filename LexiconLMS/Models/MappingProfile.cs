@@ -13,6 +13,7 @@ namespace LexiconLMS.Models
         {
             CreateMap<Module, ModuleViewModel>();
             CreateMap<ModuleViewModel, Module>();
+            CreateMap<Course, CourseDetailsViewModel>().ForMember(a => a.Modules, opt => opt.Ignore());
         }
     }
 }

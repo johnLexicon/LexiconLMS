@@ -95,5 +95,79 @@ namespace LexiconLMS.Controllers
             }
             return View(@module);
         }
+
+
+        // GET: Module/Delete
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+
+            var module = await _context.Modules.FirstOrDefaultAsync(a => a.Id == id);
+            if (!(module is null))
+            {
+                _context.Remove(module);
+                _context.SaveChanges();
+
+                var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == module.CourseId);
+                if (!(course is null))
+                {
+                    return RedirectToAction("Details", "Course", new { id = course.Id });
+                }
+            }
+
+            return NotFound();
+        }
+
+
+        // GET: Module/Edit
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+
+            var module = await _context.Modules.FirstOrDefaultAsync(a => a.Id == id);
+            if (!(module is null))
+            {
+                var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == module.CourseId);
+                if (!(course is null))
+                {
+                    var model = _mapper.Map<Module, ModuleViewModel>(module);
+                    model.CourseId = course.Id;
+                    model.CourseName = course.Name;
+                    return View(model);
+                }
+            }
+
+            return NotFound();
+        }
+
+
+        // POST: Module/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("Id, Name, Description, StartDate, EndDate, CourseId")] ModuleViewModel @module)
+        {
+            if (ModelState.IsValid)
+            {
+                var moduleEntity = await _context.Modules.FirstOrDefaultAsync(a => a.Id == @module.Id);
+                //    var model = _mapper.Map<Module>(@module);
+                //    _context.Add(model);
+
+                //    await _context.SaveChangesAsync();
+                //    return RedirectToAction(nameof(Details), new { id = model.Id });
+                //}
+
+                return View(@module);
+            }
+
+            return NotFound();
+        }
     }
 }

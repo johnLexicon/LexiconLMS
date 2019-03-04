@@ -26,6 +26,6 @@ namespace LexiconLMS.Data
 
             builder.Entity<Course>();
             builder.Entity<Module>();
-        }
+        }     
     }
 }
