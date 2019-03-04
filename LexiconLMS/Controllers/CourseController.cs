@@ -34,7 +34,6 @@ namespace LexiconLMS.Controllers
             var courses = _context.Courses;
             var viewModels = await courses.ProjectTo<CourseListViewModel>(_mapper.ConfigurationProvider).ToListAsync();
 
-            //List<CourseListViewModel> viewModel = new List<CourseListViewModel>();
             return View(viewModels);
         }
 

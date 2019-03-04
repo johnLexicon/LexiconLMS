@@ -32,7 +32,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    <a asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.StartDate)
