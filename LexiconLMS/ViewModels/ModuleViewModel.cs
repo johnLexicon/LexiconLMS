@@ -37,7 +37,6 @@ namespace LexiconLMS.ViewModels
             Description = model.Description;
             StartDate = model.StartDate;
             EndDate = model.EndDate;
-            DocumentId = model.DocumentId;
         }
     }
 }
