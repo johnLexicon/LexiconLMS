@@ -157,14 +157,16 @@ namespace LexiconLMS.Controllers
             if (ModelState.IsValid)
             {
                 var moduleEntity = await _context.Modules.FirstOrDefaultAsync(a => a.Id == @module.Id);
-                //    var model = _mapper.Map<Module>(@module);
-                //    _context.Add(model);
 
-                //    await _context.SaveChangesAsync();
-                //    return RedirectToAction(nameof(Details), new { id = model.Id });
-                //}
+                moduleEntity.Name = @module.Name;
+                moduleEntity.StartDate = @module.StartDate;
+                moduleEntity.EndDate = @module.EndDate;
+                moduleEntity.Description = @module.Description;
 
-                return View(@module);
+                _context.Update(moduleEntity);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Details), new { id = moduleEntity.Id });
             }
 
             return NotFound();
