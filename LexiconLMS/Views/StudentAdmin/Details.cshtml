@@ -1,0 +1,36 @@
+﻿@model LexiconLMS.ViewModels.UserAdminViewModel
+
+@{
+    ViewData["Title"] = "Student account details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+<div>
+    <h4>Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (User.IsInRole("Teacher")) { 
+    <a asp-action="Delete" asp-route-id="@Model.Id">
+        <input type="submit" value="Remove account" class="btn btn-danger" />
+    </a>
+    }
+    <a class="btn btn-secondary" asp-action="Edit" role="button" asp-route-id="@Model.Id">Edit details</a>
+</div>
+
