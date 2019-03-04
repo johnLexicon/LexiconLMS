@@ -32,16 +32,9 @@
                 <input asp-for="EndDate" class="form-control" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DocumentId" class="control-label"></label>
-                <input asp-for="DocumentId" class="form-control" />
-                <span asp-validation-for="DocumentId" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">*@
-                @*<label asp-for="CourseId" class="control-label"></label>*@
-                <input type="hidden" asp-for="CourseId" class="form-control" />
-                @*<span asp-validation-for="CourseId" class="text-danger"></span>*@
-            @*</div>*@
+
+            <input type="hidden" asp-for="CourseId" class="form-control" />
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -50,7 +43,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
 </div>
 
 @section Scripts {

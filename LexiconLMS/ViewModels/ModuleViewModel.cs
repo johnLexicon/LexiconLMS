@@ -9,35 +9,30 @@ namespace LexiconLMS.ViewModels
 {
     public class ModuleViewModel
     {
+        public int Id { get; set; }
+
+        [Required]
+        public int CourseId { get; set; }
+
         [Display(Name = "Course Name")]
         public string CourseName { get; set; }
 
-        public int Id { get; set; }
+        [Required]
+        [Display(Name = "Module name")]
         public string Name { get; set; }
+
+        [Display(Name = "Description")]
         public string Description { get; set; }
 
+        [Required]
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
+        [Required]
         [Display(Name = "End date")]
         [DataType(DataType.Date)]
+        [EndDateLaterThanStartDate]
         public DateTime EndDate { get; set; }
-
-        public string StartDateDisplay { get { return StartDate.ToShortDateString(); }  }
-        public string EndDateDisplay { get { return EndDate.ToShortDateString(); } }
-
-        public int DocumentId { get; set; }
-        public int CourseId { get; set; }
-
-        public ModuleViewModel(Module model)
-        {
-            Id = model.Id;
-            Name = model.Name;
-            Description = model.Description;
-            StartDate = model.StartDate;
-            EndDate = model.EndDate;
-            DocumentId = model.DocumentId;
-        }
     }
 }
