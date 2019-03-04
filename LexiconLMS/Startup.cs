@@ -50,8 +50,10 @@ namespace LexiconLMS
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
+                options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
             })
-            .AddEntityFrameworkStores<LexiconLMSContext>(); //The database context where to store the security info.
+            .AddEntityFrameworkStores<LexiconLMSContext>()
+            .AddDefaultTokenProviders(); //The database context where to store the security info.
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -114,6 +116,7 @@ namespace LexiconLMS
 
 
             var adminUserEmail = Configuration["LexiconLMS:TeacherMail"];
+            var adminUserName = Configuration["LexiconLMS:RootTeacherUserName"];
             Task<User> administrator = userManager.FindByEmailAsync(adminUserEmail);
             administrator.Wait();
 
@@ -123,7 +126,8 @@ namespace LexiconLMS
                 User user = new User
                 {
                     Email = adminUserEmail,
-                    UserName = adminUserEmail
+                    UserName = adminUserEmail,
+                    FullName = adminUserName
                 };
 
                 var teacherPw = Configuration["LexiconLMS:TeacherPW"];
