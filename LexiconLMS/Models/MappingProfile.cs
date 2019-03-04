@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LexiconLMS.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,5 +9,10 @@ namespace LexiconLMS.Models
 {
     public class MappingProfile : Profile
     {
+        public MappingProfile()
+        {
+            CreateMap<Module, ModuleViewModel>();
+            CreateMap<ModuleViewModel, Module>();
+        }
     }
 }

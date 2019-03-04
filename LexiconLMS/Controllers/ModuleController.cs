@@ -49,10 +49,9 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            //var model = _mapper.Map<ModuleViewModel>(@module);
-            var model = new ModuleViewModel(@module);
+            var model = _mapper.Map<ModuleViewModel>(@module);
             model.CourseId = course.Id;
-            model.Name = course.Name;
+            model.CourseName = course.Name;
             return View(model);
         }
 
@@ -70,10 +69,12 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            //var model = _mapper.Map<ModuleViewModel>(new Module());
-            var model = new ModuleViewModel(new Module());
+            var model = _mapper.Map<ModuleViewModel>(new Module());
             model.CourseId = course.Id;
             model.CourseName = course.Name;
+            var dateTimeNow = DateTime.Now;
+            model.StartDate = dateTimeNow;
+            model.EndDate = dateTimeNow.AddDays(7);
             return View(model);
         }
 
@@ -82,13 +83,15 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,StartDate,EndDate,DocId,CourseId")] Module @module)
+        public async Task<IActionResult> Create([Bind("Name,Description,StartDate,EndDate,DocId,CourseId")] ModuleViewModel @module)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(@module);
+                var model = _mapper.Map<Module>(@module);
+                _context.Add(model);
+
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Details), new { module.Id });
+                return RedirectToAction(nameof(Details), new { id = model.Id });
             }
             return View(@module);
         }
