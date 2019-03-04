@@ -165,6 +165,7 @@ namespace LexiconLMS.Controllers
         {
             Task<User> theUser = _userManager.FindByIdAsync(id);
             theUser.Wait();
+
             var vm = new UserAdminViewModel()
             {
                 Email = theUser.Result.Email,
@@ -181,6 +182,13 @@ namespace LexiconLMS.Controllers
         {
             Task<User> theUser = _userManager.FindByIdAsync(id);
             theUser.Wait();
+
+            if (theUser.Result.Id == _userManager.GetUserId(User)) //user is trying to delete himself, we can't allow that!
+            {
+                ModelState.AddModelError("ModelOnly", "Can't delete yourself");
+                return View();
+            }
+
             var deleteUser = _userManager.DeleteAsync(theUser.Result);
             deleteUser.Wait();
             return RedirectToAction(nameof(Index));
