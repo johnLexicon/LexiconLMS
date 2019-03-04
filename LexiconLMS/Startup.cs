@@ -57,7 +57,9 @@ namespace LexiconLMS
                 options.Password.RequireLowercase = false;
                 options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
             })
-            .AddEntityFrameworkStores<LexiconLMSContext>(); //The database context where to store the security info.
+            .AddEntityFrameworkStores<LexiconLMSContext>()//The database context where to store the security info.
+            .AddDefaultTokenProviders();
+
 
             services.ConfigureApplicationCookie(options =>
             {

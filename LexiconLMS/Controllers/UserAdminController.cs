@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 using LexiconLMS.Data;
 using LexiconLMS.Models;
 using LexiconLMS.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LexiconLMS.Controllers
 {
-    //[Route("Teachers")]
+    [Authorize(Roles ="Teacher")]
     public class UserAdminController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -89,6 +90,10 @@ namespace LexiconLMS.Controllers
                     ModelState.AddModelError("Name", "Invalid user name");
                     return View(vm);
                 }
+            } else
+            {
+                ModelState.AddModelError("Email", "User/email already exists, not created");
+                return View(vm);
             }
             return RedirectToAction(nameof(Index));
         }
