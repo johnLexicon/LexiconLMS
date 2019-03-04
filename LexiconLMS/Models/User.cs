@@ -9,7 +9,6 @@ namespace LexiconLMS.Models
 {
     public class User : IdentityUser
     {
-        public Course Course { get; set; }
         [Display(Name="Name")]
         public string FullName { get; set; }
     }

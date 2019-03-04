@@ -13,8 +13,6 @@ namespace LexiconLMS.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public int DocumentId { get; set; } /* This Property is wrong, should be removed at next db change */
-
         public int CourseId { get; set; }
         public Course Course { get; set; }
     }

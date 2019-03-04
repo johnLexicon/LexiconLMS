@@ -24,7 +24,9 @@ namespace LexiconLMS.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Course>();
+            builder.Entity<Course>()
+                .HasOne(c => c.Teacher); //Needed for creating a foreign key to the Teacher.
+
             builder.Entity<Module>();
         }
     }
