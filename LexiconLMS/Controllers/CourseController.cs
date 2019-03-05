@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using LexiconLMS.Data;
 using LexiconLMS.Models;
 using LexiconLMS.ViewModels;
@@ -28,9 +29,12 @@ namespace LexiconLMS.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var courses = _context.Courses;
+            var viewModels = await courses.ProjectTo<CourseListViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+
+            return View(viewModels);
         }
 
         public async Task<IActionResult> Add()

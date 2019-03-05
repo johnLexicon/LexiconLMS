@@ -40,16 +40,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+
                         @if (User.IsInRole("Teacher"))
                         {
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Course" asp-action="Index">Courses</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="StudentAdmin" asp-action="Index">Students</a>
                             </li>
                         }
-                        </ul>
+                    </ul>
                 </div>
             </div>
 

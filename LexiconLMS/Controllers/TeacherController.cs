@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using LexiconLMS.Data;
+using LexiconLMS.Models;
+using LexiconLMS.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LexiconLMS.Controllers
@@ -10,9 +15,27 @@ namespace LexiconLMS.Controllers
     [Authorize(Roles = "Teacher")]
     public class TeacherController : Controller
     {
+        private readonly LexiconLMSContext _context;
+        private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
+
+        public TeacherController(LexiconLMSContext context, UserManager<User> userManager, IMapper mapper)
+        {
+            _context = context;
+            _mapper = mapper;
+            _userManager = userManager;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var userId = _userManager.GetUserId(User);
+            var courses = _context.Courses.Where(c => c.Teacher != null && c.Teacher.Id == userId);
+            TeacherPageViewModel viewModel = new TeacherPageViewModel
+            {
+                Courses = courses.ToList()
+            };
+
+            return View(viewModel);
         }
     }
 }
