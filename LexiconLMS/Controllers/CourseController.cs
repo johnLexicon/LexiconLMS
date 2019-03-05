@@ -41,9 +41,12 @@ namespace LexiconLMS.Controllers
         {
             var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
 
+            var startDate = DateTime.Now;
             AddCourseViewModel viewModel = new AddCourseViewModel
             {
-                Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList()
+                Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList(),
+                StartDate = startDate,
+                EndDate = startDate.AddDays(7)
             };
 
             return View(viewModel);
@@ -64,7 +67,7 @@ namespace LexiconLMS.Controllers
                 return RedirectToAction(nameof(Details), new { course.Id });
             }
 
-            return View();
+            return View(viewModel);
         }
 
         public IActionResult Details(int id)
