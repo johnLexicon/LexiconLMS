@@ -4,6 +4,8 @@
     ViewData["Title"] = "Details";
 }
 
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
 <h4>Course Details</h4>
 <hr />
 <dl class="row">
@@ -38,6 +40,33 @@
         @Html.DisplayFor(model => model.TeacherEmail)
     </dd>
 </dl>
+
+<hr />
+<table data-toggle="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().Name)</th>
+            <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().StartDate)</th>
+            <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().EndDate)</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var module in Model.Modules)
+        {
+        <tr>
+            <td>@Html.ActionLink(module.Name, "Details", "Module",new { id = @module.Id })</td>
+            <td>@module.StartDate</td>
+            <td>@module.EndDate</td>
+            <td><a href="@Url.Action("Delete", "Module", new { id = module.Id })"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+            <td><a href="@Url.Action("Edit", "Module", new { id = module.Id })"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
 
 <div>
     <a asp-action="Add">Back to create course page</a>
