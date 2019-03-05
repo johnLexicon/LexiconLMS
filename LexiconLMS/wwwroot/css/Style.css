@@ -1,0 +1,43 @@
+﻿
+
+body, html {
+    height: 100%;
+    color:white;
+    overflow:hidden;
+ 
+    
+}
+
+.loginForm {
+    width:500px;
+    margin: 0 auto;
+    display: inline-block;
+    margin-top:100px;
+
+}
+.bg {
+    /* The image used */
+    background-image: url(../images/abstract-background-design_1297-78.jpg);
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center
+}
+
+
+/*.loginLogo {
+    position:absolute;
+    top:10%;
+    left:50%;
+    display:inline-block;
+    margin: 0 auto;
+    width: 100%;
+
+}*/
+
+.loginLogo{
+    margin-top:20px;
+}

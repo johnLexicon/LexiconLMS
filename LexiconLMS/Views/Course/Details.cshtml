@@ -1,0 +1,79 @@
+﻿@model CourseDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<h4>Course Details</h4>
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.StartDate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.StartDate)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.EndDate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.EndDate)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Description)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Description)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.TeacherEmail)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.TeacherEmail)
+    </dd>
+</dl>
+
+<hr />
+<table data-toggle="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().Name)</th>
+            <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().StartDate)</th>
+            <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().EndDate)</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var module in Model.Modules)
+        {
+        <tr>
+            <td>@Html.ActionLink(module.Name, "Details", "Module",new { id = @module.Id })</td>
+            <td>@module.StartDate</td>
+            <td>@module.EndDate</td>
+            <td><a href="@Url.Action("Delete", "Module", new { id = module.Id })"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+            <td><a href="@Url.Action("Edit", "Module", new { id = module.Id })"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<div>
+    <a asp-action="Add">Back to create course page</a>
+</div>
+<div>
+    <a asp-action="Create" asp-controller="Module" asp-route-id="@Model.Id">Create Module</a>
+</div>
+
+
+

@@ -1,0 +1,33 @@
+﻿using LexiconLMS.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace LexiconLMS.Data
+{
+    public class LexiconLMSContext : IdentityDbContext<User>
+    {
+        public LexiconLMSContext(DbContextOptions<LexiconLMSContext> options) : base(options)
+        {
+        }
+
+        /*** Properties of DbSets for entities that you want to interact with directly ***/
+
+        public DbSet<Course> Courses { get; set; }
+
+        public DbSet<Module> Modules { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Course>()
+                .HasOne(c => c.Teacher); //Needed for creating a foreign key to the Teacher.
+
+            builder.Entity<Module>();
+        }     
+    }
+}
