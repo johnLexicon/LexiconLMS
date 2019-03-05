@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LexiconLMS.ViewModels
 {
-    public class ModuleViewModel
+    public class ModuleViewModel : IDateInterval
     {
         public int Id { get; set; }
 
