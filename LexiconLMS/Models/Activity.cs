@@ -1,10 +1,31 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace LexiconLMS.Models
 {
-    public class Activity
+    public class Activityy
     {
-        public Activity()
-        {
-        }
+        public int Id { get; set; }
+
+        [Required]
+        public String Name { get;  set; }
+
+        [DataType(DataType.Date)]
+        public DateTime StartTime { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime EndTime { get; set; }
+
+        public String Description { get; set; }
+
+        //fk
+        public int ActivityTypeId { get; set; }
+        public int ModuleId{ get; set; }
+
+        //nav ref
+        public ActivityType ActivityType{ get; set; }
+        public Module Module { get; set; }
+
+
     }
 }
