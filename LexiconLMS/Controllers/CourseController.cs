@@ -37,7 +37,7 @@ namespace LexiconLMS.Controllers
             return View(viewModels);
         }
 
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> Create()
         {
             var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
 
@@ -53,7 +53,7 @@ namespace LexiconLMS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddCourseViewModel viewModel)
+        public async Task<IActionResult> Create(AddCourseViewModel viewModel)
         {
             
             if (ModelState.IsValid)
