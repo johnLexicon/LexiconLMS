@@ -4,14 +4,16 @@ using LexiconLMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LexiconLMS.Migrations
 {
     [DbContext(typeof(LexiconLMSContext))]
-    partial class LexiconLMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190305204145_AddActivityy")]
+    partial class AddActivityy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,6 +48,9 @@ namespace LexiconLMS.Migrations
 
                     b.Property<int>("ModuleId");
 
+                    b.Property<string>("Name")
+                        .IsRequired();
+
                     b.Property<DateTime>("StartTime");
 
                     b.HasKey("Id");
@@ -54,7 +59,7 @@ namespace LexiconLMS.Migrations
 
                     b.HasIndex("ModuleId");
 
-                    b.ToTable("Activities");
+                    b.ToTable("Activityy");
                 });
 
             modelBuilder.Entity("LexiconLMS.Models.Course", b =>
@@ -269,7 +274,7 @@ namespace LexiconLMS.Migrations
             modelBuilder.Entity("LexiconLMS.Models.Activityy", b =>
                 {
                     b.HasOne("LexiconLMS.Models.ActivityType", "ActivityType")
-                        .WithMany()
+                        .WithMany("Activities")
                         .HasForeignKey("ActivityTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
 

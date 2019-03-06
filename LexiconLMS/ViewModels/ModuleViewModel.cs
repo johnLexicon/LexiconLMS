@@ -34,5 +34,8 @@ namespace LexiconLMS.ViewModels
         [DataType(DataType.Date)]
         [EndDateLaterThanStartDate]
         public DateTime EndDate { get; set; }
+
+
+        public ICollection<ActivityViewModel> Activities{ get; set; }
     }
 }
