@@ -19,8 +19,4 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Views\UserAdmin\Index.cshtml" />
-  </ItemGroup>
 </Project>
