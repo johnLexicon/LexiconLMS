@@ -6,6 +6,9 @@ namespace LexiconLMS.ViewModels
 {
     public class ActivityViewModel: IDateInterval
     {
+
+        public int Id { get; set; }
+
         [Required]
         public int ModuleId { get; set; }
 
