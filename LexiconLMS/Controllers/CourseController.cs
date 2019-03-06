@@ -69,7 +69,7 @@ namespace LexiconLMS.Controllers
             return View(viewModels);
         }
 
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> Create()
         {
             var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
             var students = await _userManager.GetUsersInRoleAsync("Student");
@@ -79,15 +79,15 @@ namespace LexiconLMS.Controllers
             {
                 Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList(),
                 StartDate = startDate,
-                EndDate = startDate.AddDays(7),
                 Students = students.Where(u => u.CourseId is null).Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList()
+                EndDate = startDate.AddMonths(1)
             };
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddCourseViewModel viewModel)
+        public async Task<IActionResult> Create(AddCourseViewModel viewModel)
         {
             
             if (ModelState.IsValid)
@@ -108,6 +108,11 @@ namespace LexiconLMS.Controllers
                 _context.SaveChanges();
 
                 return RedirectToAction(nameof(Details), new { course.Id });
+            }
+            else
+            {
+                var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
+                viewModel.Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList();
             }
 
             return View(viewModel);

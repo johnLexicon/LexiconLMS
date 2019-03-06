@@ -20,6 +20,10 @@ namespace LexiconLMS.Data
 
         public DbSet<Module> Modules { get; set; }
 
+        public DbSet<Activityy> Activities { get; set; }
+
+        public DbSet<ActivityType> ActivityType { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -38,6 +42,13 @@ namespace LexiconLMS.Data
 
             builder.Entity<User>()
                 .HasOne<Course>(c => c.Course);
+
+            builder.Entity<Module>();
+
+            builder.Entity<Activityy>();
+            builder.Entity<ActivityType>();
+
+
 
         }     
     }

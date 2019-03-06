@@ -19,6 +19,44 @@ namespace LexiconLMS.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("LexiconLMS.Models.ActivityType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActivityType");
+                });
+
+            modelBuilder.Entity("LexiconLMS.Models.Activityy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ActivityTypeId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("EndTime");
+
+                    b.Property<int>("ModuleId");
+
+                    b.Property<DateTime>("StartTime");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityTypeId");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("Activities");
+                });
+
             modelBuilder.Entity("LexiconLMS.Models.Course", b =>
                 {
                     b.Property<int>("Id")
@@ -228,7 +266,20 @@ namespace LexiconLMS.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("LexiconLMS.Models.Module", b =>
+            modelBuilder.Entity("LexiconLMS.Models.Activityy", b =>
+                {
+                    b.HasOne("LexiconLMS.Models.ActivityType", "ActivityType")
+                        .WithMany()
+                        .HasForeignKey("ActivityTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("LexiconLMS.Models.Module", "Module")
+                        .WithMany("Activities")
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("LexiconLMS.Models.Course", b =>
                 {
                     b.HasOne("LexiconLMS.Models.Course", "Course")
                         .WithMany()
