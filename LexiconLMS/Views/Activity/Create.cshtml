@@ -5,9 +5,17 @@
 <h1>@Html.DisplayNameFor(a => a.ModuleName): @Html.DisplayFor(a => a.ModuleName)</h1>
 @*<h4>Create Activity</h4>*@
 <div>
-    <a asp-controller="Activity" asp-action="Create" >Create New Activity</a>
+    <a asp-controller="Activity" asp-action="Create">Create New Activity</a>
 </div>
 <hr />
+
+<div class="col-sm-10">
+    <strong> @Html.DisplayFor(model => model.ModuleName)</strong>  
+
+    @Html.DisplayFor(model => model.Course.Name)
+</div>
+
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -23,10 +31,10 @@
 
 
             @*<div class="form-group">
-            <label asp-for="Name" class="control-label"></label>
-            <textarea asp-for="Name" class="form-control"></textarea>
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>*@
+                    <label asp-for="Name" class="control-label"></label>
+                    <textarea asp-for="Name" class="form-control"></textarea>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>*@
 
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
