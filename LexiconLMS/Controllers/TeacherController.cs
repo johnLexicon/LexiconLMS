@@ -29,7 +29,8 @@ namespace LexiconLMS.Controllers
         public IActionResult Index()
         {
             var userId = _userManager.GetUserId(User);
-            var courses = _context.Courses.Where(c => c.Teacher != null && c.Teacher.Id == userId);
+            var today = DateTime.Now;
+            var courses = _context.Courses.Where(c => c.Teacher != null && c.StartDate <= today && c.EndDate >= today);
             TeacherPageViewModel viewModel = new TeacherPageViewModel
             {
                 Courses = courses.ToList()

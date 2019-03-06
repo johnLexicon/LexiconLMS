@@ -4,46 +4,19 @@
 }
 
 <h1>Teacher's Page</h1>
-<h4>My courses</h4>
-<table class="table table-striped table-hover" style="margin-top: 15px">
-    <thead>
-        <tr>
-            <th>
-                Course Name
-            </th>
-            <th>
-                Start Date
-            </th>
-            <th>
-                End Date
-            </th>
-            <th>
-                Description
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Courses)
-        {
-            <tr>
-                <td>
-                    <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Description)
-                </td>
-                <td>
-                    @*<a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i> Ändra</a>
-                        <a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle fa-lg"></i> Info</a>*@
-                    @*<a asp-action="DeleteConfirmed" asp-route-id="@item.Id" class="text-danger ml-1"><i class="fas fa-car"></i> Utcheckning</a>*@
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<h4>Ongoing Courses</h4>
+<ul class="list-group">
+    @foreach (var item in Model.Courses)
+    {
+        <li class="list-group-item">
+            <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+        </li>
+    }
+</ul>
+
+
+<div class="form-group">
+    <a asp-controller="Course" asp-action="Index" class="btn btn-primary">Other Courses</a>
+    <a asp-controller="Course" asp-action="Create" class="btn btn-primary">Create Course</a>
+</div>
+

@@ -22,6 +22,5 @@
 
   <ItemGroup>
     <Content Remove="Views\UserAdmin\Index.cshtml" />
-    <Content Remove="Views\Course\Index.cshtml" />
   </ItemGroup>
 </Project>
