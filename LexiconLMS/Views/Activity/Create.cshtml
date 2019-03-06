@@ -3,7 +3,10 @@
     ViewData["Title"] = "Create Activity";
 }
 <h1>@Html.DisplayNameFor(a => a.ModuleName): @Html.DisplayFor(a => a.ModuleName)</h1>
-<h4>Create Activity</h4>
+@*<h4>Create Activity</h4>*@
+<div>
+    <a asp-controller="Activity" asp-action="Create" >Create New Activity</a>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">

@@ -91,6 +91,24 @@ namespace LexiconLMS.Controllers
         }
 
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var activity = await _context.Activities
+                .Include(v => v.Module)
+                .Include(v => v.ActivityType)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (activity == null)
+            {
+                return NotFound();
+            }
+
+            return View(activity);
+        }
 
 
 
