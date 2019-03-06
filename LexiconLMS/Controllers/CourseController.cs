@@ -29,10 +29,42 @@ namespace LexiconLMS.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            var courses = _context.Courses;
-            var viewModels = await courses.ProjectTo<CourseListViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+            var courses = _context.Courses.Include(u => u.Users);
+            //var viewModels = await courses.ProjectTo<CourseListViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+
+            var Teachers = _userManager.GetUsersInRoleAsync("Teacher");
+            Teachers.Wait();
+
+            List<CourseListViewModel> viewModels = new List<CourseListViewModel>();
+            foreach (var course in courses)
+            {
+
+                if(course.Users is null)
+                {
+                    course.Users = new List<User>();
+                }
+                var theTeacher = course.Users.Intersect(Teachers.Result);
+
+                if (theTeacher.Count() < 1)
+                {
+                    theTeacher = new List<User>() { new User() { FullName = "not assigned" } };
+                }
+
+
+                var vm = new CourseListViewModel()
+                {
+                    Id = course.Id,
+                    Name = course.Name,
+                    Description = course.Description,
+                    StartDate = course.StartDate,
+                    EndDate = course.EndDate,
+                    TeacherName = theTeacher.First().FullName,
+                    NumberOfStudents = course.Users.Except(theTeacher).Count(),
+                };
+                viewModels.Add(vm);
+            }
 
             return View(viewModels);
         }
@@ -40,13 +72,15 @@ namespace LexiconLMS.Controllers
         public async Task<IActionResult> Add()
         {
             var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
+            var students = await _userManager.GetUsersInRoleAsync("Student");
 
             var startDate = DateTime.Now;
             AddCourseViewModel viewModel = new AddCourseViewModel
             {
                 Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList(),
                 StartDate = startDate,
-                EndDate = startDate.AddDays(7)
+                EndDate = startDate.AddDays(7),
+                Students = students.Where(u => u.CourseId is null).Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList()
             };
 
             return View(viewModel);
@@ -60,7 +94,16 @@ namespace LexiconLMS.Controllers
             {
                 var teacher = _userManager.Users.FirstOrDefault(u => u.Id == viewModel.TeacherId);
                 Course course = _mapper.Map<Course>(viewModel);
-                course.Teacher = teacher;
+
+                List<User> participants = new List<User>();
+
+                participants.Add(teacher);
+               
+                var students = _userManager.Users.Where(u => viewModel.StudentIds.Contains(u.Id));
+
+                participants.AddRange(students);
+                course.Users = participants;
+
                 await _context.Courses.AddAsync(course);
                 _context.SaveChanges();
 
@@ -72,7 +115,7 @@ namespace LexiconLMS.Controllers
 
         public IActionResult Details(int id)
         {
-            var course = _context.Courses.Include(c => c.Teacher).FirstOrDefault(c => c.Id == id);
+            var course = _context.Courses.Include(c => c.Users).FirstOrDefault(c => c.Id == id);
 
             if(course is null)
             {
@@ -80,6 +123,23 @@ namespace LexiconLMS.Controllers
             }
 
             var viewModel = _mapper.Map<CourseDetailsViewModel>(course);
+
+            var teacher = _userManager.GetUsersInRoleAsync("Teacher");
+            teacher.Wait();
+
+            var theTeacher = course.Users.Intersect(teacher.Result);
+
+            if (theTeacher.Count() < 1)
+            {
+                theTeacher = new List<User>() { new User() { Email = "not assigned" } };
+            }
+
+            viewModel.TeacherEmail = theTeacher.FirstOrDefault().Email;
+            viewModel.Students = course.Users.Except(theTeacher);
+            if(viewModel.Students.Count() < 1)
+            {
+                viewModel.Students = new List<User>() { new User() { Email = "none" } };
+            }
 
             viewModel.Modules = new List<ModuleViewModel>();
             var modules = _context.Modules.Where(a => a.CourseId == id).ToList();

@@ -41,14 +41,23 @@
             </div>
 
             <div class="form-group col-md-6">
-                <label asp-for="FormattedTeachers" class="control-label"></label>
-                <select asp-for="TeacherId" asp-items="@Model.FormattedTeachers" class="form-control">
+                <label asp-for="FormatedTeachers" class="control-label"></label>
+                <select asp-for="TeacherId" asp-items="@Model.FormatedTeachers" class="form-control">
                     <option value="0">None</option>
                 </select>
                 <span asp-validation-for="Teachers" class="text-danger"></span>
             </div>
             <input asp-for="TeacherId" type="hidden" />
             @Html.HiddenFor(m => m.Teachers)
+
+            <div class="form-group col-md-6">
+                <label asp-for="FormatedStudents" class="control-label"></label>
+                <select asp-for="StudentIds" asp-items="@Model.FormatedStudents" class="form-control"></select>
+                <span asp-validation-for="Students" class="text-danger"></span>
+            </div>
+            <input asp-for="StudentIds" type="hidden" />
+            @Html.HiddenFor(m => m.Students)
+
         </form>
 
     </div>

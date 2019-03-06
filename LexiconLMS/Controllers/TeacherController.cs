@@ -29,7 +29,7 @@ namespace LexiconLMS.Controllers
         public IActionResult Index()
         {
             var userId = _userManager.GetUserId(User);
-            var courses = _context.Courses.Where(c => c.Teacher != null && c.Teacher.Id == userId);
+            var courses = _context.Courses.Where(c => c.Users != null); //.FirstOrDefault( && c.Teacher.Id == userId); TODO: filter only own courses
             TeacherPageViewModel viewModel = new TeacherPageViewModel
             {
                 Courses = courses.ToList()

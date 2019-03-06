@@ -4,14 +4,16 @@ using LexiconLMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LexiconLMS.Migrations
 {
     [DbContext(typeof(LexiconLMSContext))]
-    partial class LexiconLMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190306092013_userCourse")]
+    partial class userCourse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,7 +73,9 @@ namespace LexiconLMS.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<int?>("CourseId");
+                    b.Property<int>("CourseId");
+
+                    b.Property<int?>("CourseId1");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -105,7 +109,10 @@ namespace LexiconLMS.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
+                    b.HasIndex("CourseId")
+                        .IsUnique();
+
+                    b.HasIndex("CourseId1");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -239,8 +246,13 @@ namespace LexiconLMS.Migrations
             modelBuilder.Entity("LexiconLMS.Models.User", b =>
                 {
                     b.HasOne("LexiconLMS.Models.Course", "Course")
-                        .WithMany("Users")
-                        .HasForeignKey("CourseId");
+                        .WithOne("Teacher")
+                        .HasForeignKey("LexiconLMS.Models.User", "CourseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("LexiconLMS.Models.Course")
+                        .WithMany("StudentUsers")
+                        .HasForeignKey("CourseId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -17,8 +17,8 @@ namespace LexiconLMS.Models
             CreateMap<User, CourseDetailsViewModel>()
                 .ForMember(dest => dest.TeacherEmail, from => from.MapFrom(src => src.Email));
             CreateMap<Course, CourseDetailsViewModel > ().ForMember(a => a.Modules, opt => opt.Ignore());
-            CreateMap<Course, CourseListViewModel>()
-                .ForMember(dest => dest.TeacherName, from => from.MapFrom(src => src.Teacher.FullName));
+            //CreateMap<Course, CourseListViewModel>()
+            //    .ForMember(dest => dest.TeacherName, from => from.MapFrom(src => src.Users.Intersect(_userManager.GetUsersInRole("Teacher")).FullName));//TODO: takes first instead of first teacher
         }
 
     }

@@ -25,33 +25,39 @@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfStudents)
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TeacherName)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => item.Description)
-                </td>
-                <td>
-                    @*<a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i> Ändra</a>
-                    <a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle fa-lg"></i> Info</a>*@
-                    @*<a asp-action="DeleteConfirmed" asp-route-id="@item.Id" class="text-danger ml-1"><i class="fas fa-car"></i> Utcheckning</a>*@
-                </td>
-            </tr>
+        <tr>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeacherName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.NumberOfStudents)
+            </td>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i> Ändra</a>
+                <a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle fa-lg"></i> Info</a>*@
+                @*<a asp-action="DeleteConfirmed" asp-route-id="@item.Id" class="text-danger ml-1"><i class="fas fa-car"></i> Utcheckning</a>*@
+            </td>
+        </tr>
         }
     </tbody>
 </table>

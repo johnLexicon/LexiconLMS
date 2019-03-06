@@ -13,13 +13,16 @@ namespace LexiconLMS.ViewModels
         public int Id { get; set; }
 
         [Display(Name = "Course name")]
+        [Required]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
+        [Required]
         public string Description { get; set; }
 
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]
+        [Required]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "End date")]
@@ -27,13 +30,20 @@ namespace LexiconLMS.ViewModels
         [EndDateLaterThanStartDate]
         public DateTime EndDate { get; set; }
 
+        //Teachers
         public string TeacherId { get; set; }
 
-        //public IList<User> Teachers { get; set; }
         public List<Tuple<string, string>> Teachers { get; set; }
-
-        [Display(Name = "Teachers")]
-        public IEnumerable<SelectListItem> FormattedTeachers
+        [Display(Name = "Teacher")]
+        public IEnumerable<SelectListItem> FormatedTeachers
         { get => Teachers.Select(t => new SelectListItem { Value = t.Item1, Text = t.Item2 }); }
+
+        //Students
+        public IEnumerable<string> StudentIds { get; set; }
+
+        public List<Tuple<string, string>> Students { get; set; }
+        [Display(Name = "Students")]
+        public IEnumerable<SelectListItem> FormatedStudents
+        { get => Students.Select(t => new SelectListItem { Value = t.Item1, Text = t.Item2 }); }
     }
 }
