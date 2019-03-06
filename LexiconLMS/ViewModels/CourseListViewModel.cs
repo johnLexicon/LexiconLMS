@@ -24,5 +24,8 @@ namespace LexiconLMS.ViewModels
 
         [Display(Name = "Teacher")]
         public string TeacherName { get; set; }
+
+        [Display(Name = "Number of students")]
+        public int NumberOfStudents { get; set; }
     }
 }
