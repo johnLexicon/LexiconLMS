@@ -28,8 +28,20 @@ namespace LexiconLMS.Data
         {
             base.OnModelCreating(builder);
 
+            //builder.Entity<Course>()
+            //    .HasOne<User>(c => c.Teacher) //Needed for creating a foreign key to the Teacher.
+            //    .WithOne(d => d.Course)
+            //    .HasForeignKey<User>(e => e.CourseId);
+
+            builder.Entity<Module>();
+
             builder.Entity<Course>()
-                .HasOne(c => c.Teacher); //Needed for creating a foreign key to the Teacher.
+                .HasMany<User>(u => u.Users);
+                
+            
+
+            builder.Entity<User>()
+                .HasOne<Course>(c => c.Course);
 
             builder.Entity<Module>();
 

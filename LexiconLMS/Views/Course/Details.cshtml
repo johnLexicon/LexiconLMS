@@ -39,6 +39,14 @@
     <dd class="col-sm-10">
         @Html.DisplayFor(model => model.TeacherEmail)
     </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Students)
+    </dt>
+    @foreach (var student in Model.Students) 
+        { <dd class="col-sm-10">
+        @student
+    </dd>
+    }
 </dl>
 
 <hr />

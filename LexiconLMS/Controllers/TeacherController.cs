@@ -30,7 +30,7 @@ namespace LexiconLMS.Controllers
         {
             var userId = _userManager.GetUserId(User);
             var today = DateTime.Now;
-            var courses = _context.Courses.Where(c => c.Teacher != null && c.StartDate <= today && c.EndDate >= today);
+            var courses = _context.Courses.Where(c => c.Users != null && c.StartDate <= today && c.EndDate >= today);
             TeacherPageViewModel viewModel = new TeacherPageViewModel
             {
                 Courses = courses.ToList()
