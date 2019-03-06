@@ -66,6 +66,11 @@ namespace LexiconLMS.Controllers
 
                 return RedirectToAction(nameof(Details), new { course.Id });
             }
+            else
+            {
+                var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
+                viewModel.Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList();
+            }
 
             return View(viewModel);
         }
