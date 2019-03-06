@@ -46,7 +46,7 @@ namespace LexiconLMS.Controllers
             {
                 Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList(),
                 StartDate = startDate,
-                EndDate = startDate.AddDays(7)
+                EndDate = startDate.AddMonths(1)
             };
 
             return View(viewModel);
