@@ -17,13 +17,14 @@ namespace LexiconLMS.Models
         protected override ValidationResult IsValid(
             object value, ValidationContext validationContext)
         {
-            ModuleViewModel module = (ModuleViewModel)validationContext.ObjectInstance;
-
-            if (module.EndDate.CompareTo(module.StartDate) > 0)
+            if(validationContext.ObjectInstance is IDateInterval module)
             {
-                return ValidationResult.Success;
+                if (module.EndDate.CompareTo(module.StartDate) <= 0)
+                {
+                    return new ValidationResult("End Date must be later than Start Date");
+                }                
             }
-            return new ValidationResult("End Date must be later than Start Date");
+            return ValidationResult.Success;
         }
 
         void IClientModelValidator.AddValidation(ClientModelValidationContext context)
