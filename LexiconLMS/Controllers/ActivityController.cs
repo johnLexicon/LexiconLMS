@@ -44,7 +44,7 @@ namespace LexiconLMS.Controllers
             {
                 return NotFound();
             }
-            var module = await _context.Modules.FirstOrDefaultAsync(m => m.Id == id);
+            var module = await _context.Modules.Include(m=>m.Course).FirstOrDefaultAsync(m => m.Id == id);
 
             if (module is null)
             {
@@ -55,6 +55,8 @@ namespace LexiconLMS.Controllers
 
             model.ModuleId = module.Id;
             model.ModuleName =module.Name;
+            model.Module = module;
+            model.Course = module.Course;
 
           
             var startTimeActivity = module.StartDate;
@@ -91,6 +93,24 @@ namespace LexiconLMS.Controllers
         }
 
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var activity = await _context.Activities
+                .Include(v => v.Module)
+                .Include(v => v.ActivityType)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (activity == null)
+            {
+                return NotFound();
+            }
+
+            return View(activity);
+        }
 
 
 
