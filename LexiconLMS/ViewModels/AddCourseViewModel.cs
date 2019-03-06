@@ -14,7 +14,6 @@ namespace LexiconLMS.ViewModels
 
         [Required]
         [Display(Name = "Course name")]
-        [Required]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
@@ -24,7 +23,6 @@ namespace LexiconLMS.ViewModels
         [Required]
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]
-        [Required]
         public DateTime StartDate { get; set; }
 
         [Required]

@@ -79,7 +79,7 @@ namespace LexiconLMS.Controllers
             {
                 Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList(),
                 StartDate = startDate,
-                Students = students.Where(u => u.CourseId is null).Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList()
+                Students = students.Where(u => u.CourseId is null).Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList(),
                 EndDate = startDate.AddMonths(1)
             };
 
