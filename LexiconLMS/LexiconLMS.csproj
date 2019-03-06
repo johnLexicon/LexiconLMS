@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
-    <Folder Include="Views\Activity\" />
   </ItemGroup>
 
   <ItemGroup>

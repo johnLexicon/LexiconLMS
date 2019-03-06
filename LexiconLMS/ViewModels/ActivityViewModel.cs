@@ -13,9 +13,9 @@ namespace LexiconLMS.ViewModels
         [Display(Name ="Module name")]
         public string ModuleName { get; set; }
 
-        [Required]
-        [Display(Name = "Activity name")]
-        public string Name { get; set; }
+        //[Required]
+        //[Display(Name = "Activity name")]
+        //public string Name { get; set; }
 
         public string Description { get; set; }
 
@@ -30,8 +30,13 @@ namespace LexiconLMS.ViewModels
         [EndDateLaterThanStartDate]
         public DateTime EndDate { get; set; }
 
-        [Required]
-        public ActivityType ActivityType { get; set; }
+        //[Required]
+        //public ActivityType ActivityType { get; set; }
+
+        public int ActivityTypeId { get; set; }
+
+        //[Required]
+        //public Module Module { get; set; }
 
 
     }

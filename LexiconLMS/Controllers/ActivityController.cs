@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using LexiconLMS.Data;
 using LexiconLMS.Models;
 using LexiconLMS.ViewModels;
@@ -19,14 +20,21 @@ namespace LexiconLMS.Controllers
     {
 
         private readonly LexiconLMSContext _context;
-       
+        private readonly IMapper _mapper;
 
-        public ActivityController(LexiconLMSContext context)
+        public ActivityController(LexiconLMSContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
            
         }
 
+
+        public async Task<IActionResult> Index()
+        {
+            var model = await _context.Activities.Include(a=>a.ActivityType).ToListAsync();
+            return View(model);
+        }
 
         // GET: Activity/Create
         public async Task<IActionResult> Create(int id)
@@ -44,12 +52,15 @@ namespace LexiconLMS.Controllers
             }
 
             var model = new ActivityViewModel();
+
             model.ModuleId = module.Id;
             model.ModuleName =module.Name;
 
-            var dateTimeNow = DateTime.Now;
-            model.StartDate = dateTimeNow;
-            model.EndDate = dateTimeNow.AddDays(7);
+          
+            var startTimeActivity = module.StartDate;
+            model.StartDate = startTimeActivity;
+           
+            model.EndDate = startTimeActivity.AddDays(7);
 
             ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type");
 
@@ -59,19 +70,26 @@ namespace LexiconLMS.Controllers
         // POST: Activity/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,StartDate,EndDate,ModuleId,ModuleName,ActivityType")] ActivityViewModel @activity)
+        public async Task<IActionResult> Create([Bind("Description,StartDate,EndDate,ModuleId,ModuleName,ActivityTypeId")] ActivityViewModel viewModel)
         {
+
             if (ModelState.IsValid)
             {
-                _context.Add(@activity);
+      
+                Activityy activity = _mapper.Map<Activityy>(viewModel);
+                activity.ActivityType = await _context.ActivityType.FirstOrDefaultAsync(at => at.Id == viewModel.ActivityTypeId);
+                activity.Module = await _context.Modules.FirstOrDefaultAsync(m => m.Id == viewModel.ModuleId);
+                await _context.Activities.AddAsync(activity);
                 await _context.SaveChangesAsync();
-              //  return RedirectToAction(nameof(Details), new { id = @activity.Id });
+                // return RedirectToAction(nameof(Details), new { id = viewModel.Id });
+                return RedirectToAction(nameof(Index));
             }
          
-            ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type", @activity.ActivityType);
-            return View(@activity);
+            ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type");
+            return View(viewModel);
 
         }
+
 
 
 

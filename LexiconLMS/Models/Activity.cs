@@ -7,9 +7,6 @@ namespace LexiconLMS.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        public String Name { get;  set; }
-
         [DataType(DataType.Date)]
         public DateTime StartTime { get; set; }
 
