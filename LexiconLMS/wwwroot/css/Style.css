@@ -9,15 +9,83 @@ body, html {
 }
 
 .loginForm {
-    width:500px;
-    margin: 0 auto;
+    /*width: 500px;
+    margin: auto auto;
     display: inline-block;
-    margin-top:100px;
-
+    margin-top: 100px;
+    background: none;
+    transition: 0.2s;*/
+    width: 500px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-0%);
+    background: rgba(0,0,0,0.5);
+    text-align: center;
 }
+
+.form-control {
+    /*background-color: rgba(0, 0, 0, 0.0);
+    width: 480px;
+    transition: 0.5s;
+    color: white;
+    border-radius: 30px;*/
+    color: white;
+    font-weight: 500;
+    border-radius: 24px;
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 1px solid grey;
+    padding: 14px 10px;
+    width: 350px;
+    outline: none;
+    color: white;
+    border-radius: 12px;
+    transition: 0.25s;
+}
+    .form-control:focus {
+        /*border: 0;
+        background: none;
+        display: block;
+        margin: 20px auto;
+        text-align: center;*/
+        border-color: rgb(227,112,5);
+        padding: 14px 10px;
+        /*outline: none;
+        color: white;*/
+        border-radius: 24px;
+        border-width: 3px;
+        /*transition: 0.25s;*/
+    }
+
+.loginButton {
+    width: 200px;
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+    border-color: dimgray;
+    background-color: rgba(0,0,0,0);
+}
+    .loginButton:hover {
+        border-color: rgb(227,112,5);
+        background-color: rgba(227,112,5,1);
+    }
 .bg {
     /* The image used */
-    background-image: url(../images/abstract-background-design_1297-78.jpg);
+    /*background-image: url(../images/abstract-background-design_1297-78.jpg);*/
     /* Full height */
     height: 100%;
     /* Center and scale the image nicely */
@@ -28,16 +96,27 @@ body, html {
 }
 
 
-/*.loginLogo {
-    position:absolute;
-    top:10%;
-    left:50%;
-    display:inline-block;
-    margin: 0 auto;
+.loginLogo {
+    position:relative;
+    display:block;
+    margin: auto auto;
+    padding: 2rem;
     width: 100%;
 
-}*/
-
-.loginLogo{
-    margin-top:20px;
 }
+.video-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+}
+    .video-bg:first-child {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
