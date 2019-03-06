@@ -12,16 +12,19 @@ namespace LexiconLMS.ViewModels
     {
         public int Id { get; set; }
 
+        [Required]
         [Display(Name = "Course name")]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
         public string Description { get; set; }
 
+        [Required]
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
+        [Required]
         [Display(Name = "End date")]
         [DataType(DataType.Date)]
         [EndDateLaterThanStartDate]
