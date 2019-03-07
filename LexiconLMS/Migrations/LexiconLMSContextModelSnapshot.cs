@@ -42,11 +42,11 @@ namespace LexiconLMS.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("EndTime");
+                    b.Property<DateTime>("EndDate");
 
                     b.Property<int>("ModuleId");
 
-                    b.Property<DateTime>("StartTime");
+                    b.Property<DateTime>("StartDate");
 
                     b.HasKey("Id");
 
@@ -279,7 +279,7 @@ namespace LexiconLMS.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("LexiconLMS.Models.Course", b =>
+            modelBuilder.Entity("LexiconLMS.Models.Module", b =>
                 {
                     b.HasOne("LexiconLMS.Models.Course", "Course")
                         .WithMany()

@@ -113,8 +113,50 @@ namespace LexiconLMS.Controllers
         }
 
 
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var activity = await _context.Activities.FindAsync(id);
 
 
+            if (activity == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = _mapper.Map<ActivityViewModel>(activity);
+            ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type", activity.ActivityTypeId);
+            return View(viewModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Description,StartDate,EndDate,ModuleId,ModuleName,ActivityTypeId")] ActivityViewModel AVM)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var ActivityEntity = await _context.Activities.FirstOrDefaultAsync(a => a.Id == AVM.Id);
+
+                ActivityEntity.Description = AVM.Description;
+                ActivityEntity.StartDate = AVM.StartDate;
+                ActivityEntity.EndDate = AVM.EndDate;
+                //ActivityEntity.ModuleId = AVM.ModuleId;
+                ActivityEntity.ActivityTypeId = AVM.ActivityTypeId;
+
+                _context.Update(ActivityEntity);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Details), new { id = id });
+            }
+            ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type", AVM.ActivityTypeId);
+            return View(AVM);
+        }
 
 
 
