@@ -21,6 +21,7 @@ namespace LexiconLMS.Models
 
 
             CreateMap<ActivityViewModel, Activityy>();
+            CreateMap<Activityy, ActivityViewModel>();
         }
 
     }

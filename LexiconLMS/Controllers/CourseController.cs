@@ -96,23 +96,35 @@ namespace LexiconLMS.Controllers
                 Course course = _mapper.Map<Course>(viewModel);
 
                 List<User> participants = new List<User>();
-
-                participants.Add(teacher);
+                if (!(teacher is null))
+                {
+                    participants.Add(teacher);
+                }
                
                 var students = _userManager.Users.Where(u => viewModel.StudentIds.Contains(u.Id));
 
                 participants.AddRange(students);
                 course.Users = participants;
 
+                //if (course.Users is null) {
+                //    course.Users = new List<User>() {
+                //        new Models.User() {
+                //            Email = "blah" }
+                //    };
+                //};
+
                 await _context.Courses.AddAsync(course);
                 _context.SaveChanges();
 
-                return RedirectToAction(nameof(Details), new { course.Id });
+                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Details), new { course.Id });
             }
             else
             {
                 var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
                 viewModel.Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList();
+                var students = await _userManager.GetUsersInRoleAsync("Student");
+                viewModel.Students = students.Where(u => u.CourseId is null).Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList();
             }
 
             return View(viewModel);

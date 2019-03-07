@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace LexiconLMS.ViewModels
 {
-    public class CourseListViewModel
+    public class StudenCourseViewModel
     {
         public int Id { get; set; }
 
-        [Display(Name = "Name")]
+        [Display(Name = "Course name")]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
@@ -24,10 +24,9 @@ namespace LexiconLMS.ViewModels
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
-        [Display(Name = "Teacher")]
-        public string TeacherName { get; set; }
+        [Display(Name = "Teacher email")]
+        public string TeacherEmail { get; set; }
 
-        [Display(Name = "Number of students")]
-        public int NumberOfStudents { get; set; }
+        public List<ModuleViewModel> Modules { get; set; }
     }
 }

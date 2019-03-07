@@ -42,11 +42,11 @@ namespace LexiconLMS.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("EndTime");
+                    b.Property<DateTime>("EndDate");
 
                     b.Property<int>("ModuleId");
 
-                    b.Property<DateTime>("StartTime");
+                    b.Property<DateTime>("StartDate");
 
                     b.HasKey("Id");
 
