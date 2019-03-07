@@ -167,24 +167,14 @@ namespace LexiconLMS.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            Course courseToDelete = await _context.Courses.FirstOrDefaultAsync(c => c.Id == id);
-
+            Course courseToDelete = await _context.Courses.Include(c => c.Users).FirstOrDefaultAsync(c => c.Id == id);
+            
             if (courseToDelete is null)
             {
                 return NotFound();
             }
 
-            var allStudents = await _userManager.GetUsersInRoleAsync("Student");
-
-            var studentsInCourse = allStudents.Where(s => s.CourseId != null && s.CourseId == courseToDelete.Id);
-            //var studentsInCourse = courseToDelete.Users.Intersect(allStudents);
-
             _context.Remove(courseToDelete);
-
-            if(studentsInCourse != null)
-            {
-                _context.Users.RemoveRange(studentsInCourse);
-            }
             
             await _context.SaveChangesAsync();
 

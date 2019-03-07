@@ -36,14 +36,12 @@ namespace LexiconLMS.Data
             builder.Entity<Module>();
 
             builder.Entity<Course>()
-                .HasMany<User>(u => u.Users);
-                //.WithOne(c => c.Course)
-                //.OnDelete(DeleteBehavior.SetNull);
+                .HasMany<User>(u => u.Users)
+                .WithOne(c => c.Course)
+                .OnDelete(DeleteBehavior.SetNull);
 
             builder.Entity<User>()
-                .HasOne<Course>(c => c.Course)
-                .WithMany(u => u.Users)
-                .OnDelete(DeleteBehavior.SetNull);
+                .HasOne<Course>(c => c.Course);
 
             builder.Entity<Module>();
 
