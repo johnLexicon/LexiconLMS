@@ -14,24 +14,29 @@ namespace LexiconLMS.Models
             var options = serviceProvider.GetRequiredService<DbContextOptions<LexiconLMSContext>>();
             using (var context = new LexiconLMSContext(options))
             {
-                if (context.ActivityType.Any())
+                try
                 {
-                    return;
+                    if (context.ActivityType.Any())
+                    {
+                        return;
+                    }
 
-                }
-
-                // Let's seed!
-                var ActivityTypes = new List<ActivityType>()
+                    // Let's seed!
+                    var ActivityTypes = new List<ActivityType>()
                     { new ActivityType() { Type = "E-Learning"},
                     new ActivityType() { Type = "Lectures"},
                     new ActivityType() { Type = "Exercise" },
                     };
-                //people.Add(person);
+                    //people.Add(person);
 
-                context.ActivityType.AddRange(ActivityTypes);
-                context.SaveChanges();
+                    context.ActivityType.AddRange(ActivityTypes);
+                    context.SaveChanges();
+                }
+                catch
+                {
+                    //Table ActivityType should exist, but if it doesn't, don't crash the application completely.
+                }
             }
         }
-
     }
 }
