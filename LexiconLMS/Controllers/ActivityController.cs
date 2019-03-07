@@ -144,8 +144,8 @@ namespace LexiconLMS.Controllers
                 var ActivityEntity = await _context.Activities.FirstOrDefaultAsync(a => a.Id == AVM.Id);
 
                 ActivityEntity.Description = AVM.Description;
-                ActivityEntity.StartTime = AVM.StartDate;
-                ActivityEntity.EndTime = ActivityEntity.EndTime;
+                ActivityEntity.StartDate = AVM.StartDate;
+                ActivityEntity.EndDate = AVM.EndDate;
                 //ActivityEntity.ModuleId = AVM.ModuleId;
                 ActivityEntity.ActivityTypeId = AVM.ActivityTypeId;
 
