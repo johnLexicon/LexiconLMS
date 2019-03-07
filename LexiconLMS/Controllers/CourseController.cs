@@ -114,7 +114,7 @@ namespace LexiconLMS.Controllers
                 var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
                 viewModel.Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList();
                 var students = await _userManager.GetUsersInRoleAsync("Student");
-                viewModel.Students = students.Where(u => u.CourseId is null).Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList(),
+                viewModel.Students = students.Where(u => u.CourseId is null).Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList();
             }
 
             return View(viewModel);
