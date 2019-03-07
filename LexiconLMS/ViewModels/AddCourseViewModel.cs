@@ -39,12 +39,12 @@ namespace LexiconLMS.ViewModels
         public IEnumerable<SelectListItem> FormatedTeachers
         { get => Teachers.Select(t => new SelectListItem { Value = t.Item1, Text = t.Item2 }); }
 
-        //Students
-        public IEnumerable<string> StudentIds { get; set; }
+        ////Students
+        //public IEnumerable<string> StudentIds { get; set; }
 
-        public List<Tuple<string, string>> Students { get; set; }
-        [Display(Name = "Students")]
-        public IEnumerable<SelectListItem> FormatedStudents
-        { get => Students.Select(t => new SelectListItem { Value = t.Item1, Text = t.Item2 }); }
+        //public List<Tuple<string, string>> Students { get; set; }
+        //[Display(Name = "Students")]
+        //public IEnumerable<SelectListItem> FormatedStudents
+        //{ get => Students.Select(t => new SelectListItem { Value = t.Item1, Text = t.Item2 }); }
     }
 }

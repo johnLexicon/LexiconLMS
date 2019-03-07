@@ -35,13 +35,18 @@ namespace LexiconLMS.Controllers
             var modules = _context.Modules.Where(a => a.CourseId == user.CourseId).OrderBy(b=>b.EndDate).ToList();
 
             var model = new StudenCourseViewModel();
-            model.Name = course.Name;
-            model.Description = course.Description;
+            if (!(course is null))
+            {
+                model.Name = course.Name;
+                model.Description = course.Description;
 
-            model.StartDate = course.StartDate;
-            model.EndDate = course.EndDate;
-            model.Id = course.Id;
-
+                model.StartDate = course.StartDate;
+                model.EndDate = course.EndDate;
+                model.Id = course.Id;
+            } else
+            {
+                model.Name = "Not in any course!";
+            }
             model.Modules = new List<ModuleViewModel>();
             modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleViewModel>(m)));
 
