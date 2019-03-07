@@ -51,6 +51,7 @@
                 <label asp-for="FormatedStudents" class="control-label"></label>
                 <select asp-for="StudentIds" asp-items="@Model.FormatedStudents" class="form-control"></select>
                 <span asp-validation-for="Students" class="text-danger"></span>
+            <a asp-controller="StudentAdmin" asp-action="Create" class="btn btn-sm btn-secondary"><i class="fa fa-user"></i> New Student</a>
             </div>
             <input asp-for="StudentIds" type="hidden" />
             @Html.HiddenFor(m => m.Students)
