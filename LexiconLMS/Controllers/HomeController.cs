@@ -84,7 +84,9 @@ namespace LexiconLMS.Controllers
         public async Task<IActionResult> Logout()
         {
            await  _signInManager.SignOutAsync();
-            return Redirect("http://www.lexicon.se");
+            // return Redirect("http://www.lexicon.se");
+            return RedirectToAction("Index", "Home");
+
         }
 
 
