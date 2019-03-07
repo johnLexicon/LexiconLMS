@@ -164,5 +164,21 @@ namespace LexiconLMS.Controllers
 
             return View(viewModel);
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            Course courseToDelete = await _context.Courses.Include(c => c.Users).FirstOrDefaultAsync(c => c.Id == id);
+            
+            if (courseToDelete is null)
+            {
+                return NotFound();
+            }
+
+            _context.Remove(courseToDelete);
+            
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
