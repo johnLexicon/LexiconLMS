@@ -48,9 +48,12 @@ namespace LexiconLMS.Controllers
 
         [Authorize(Roles = "Teacher")]
         // GET: UserAdmin/Create
-        public ActionResult Create()
+        public ActionResult Create(int Id)
         {
-            return View();
+            var vm = new UserAdminCreateViewModel() {
+                CourseId = Id,
+            };
+            return View(vm);
         }
 
         [Authorize(Roles = "Teacher")]
@@ -78,8 +81,8 @@ namespace LexiconLMS.Controllers
                 {
                     Email = vm.Email,
                     UserName = vm.Email,
-                    FullName = vm.Name
-
+                    FullName = vm.Name,
+                    CourseId = vm.CourseId
                 };
                 Task<IdentityResult> createUser = _userManager.CreateAsync(newUser, vm.Password);
                 createUser.Wait();
@@ -99,7 +102,7 @@ namespace LexiconLMS.Controllers
                 ModelState.AddModelError("Email", "User/email already exists, not created");
                 return View(vm);
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details), nameof(Course), new { id = vm.CourseId });
         }
 
         // GET: UserAdmin/Edit/GUID
@@ -117,7 +120,7 @@ namespace LexiconLMS.Controllers
             {
                 Id = theUser.Result.Id,
                 Name = theUser.Result.FullName,
-                Email = theUser.Result.Email
+                Email = theUser.Result.Email,               
             };
             return View(vm);
         }
