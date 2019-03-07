@@ -38,6 +38,10 @@ namespace LexiconLMS.Controllers
                 {
                     return RedirectToAction("Index", "Teacher");
                 }
+                else if(userRole == "Student")
+                {
+                    return RedirectToAction("Index", "Student");
+                }
             }
 
             return View();
