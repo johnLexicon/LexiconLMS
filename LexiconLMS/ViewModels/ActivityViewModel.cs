@@ -34,11 +34,11 @@ namespace LexiconLMS.ViewModels
         public DateTime EndDate { get; set; }
 
         //[Required]
-        //public ActivityType ActivityType { get; set; }
+        public ActivityType ActivityType { get; set; }
 
         public int ActivityTypeId { get; set; }
 
-        public string ActivityTypeType { get; set; }
+       
 
         //[Required]
         public Module Module { get; set; }
