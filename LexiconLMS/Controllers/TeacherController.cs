@@ -30,6 +30,8 @@ namespace LexiconLMS.Controllers
         {
             var userId = _userManager.GetUserId(User);
             var today = DateTime.Now;
+
+            //TODO: Change condition to show courses that are ongoing and the logged in teacher teaches.
             var courses = _context.Courses.Where(c => c.Users != null && c.StartDate <= today && c.EndDate >= today);
             TeacherPageViewModel viewModel = new TeacherPageViewModel
             {
