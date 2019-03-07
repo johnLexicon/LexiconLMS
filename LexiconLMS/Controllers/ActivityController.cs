@@ -32,7 +32,7 @@ namespace LexiconLMS.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var model = await _context.Activities.Include(a=>a.ActivityType).ToListAsync();
+            var model = await _context.Activities.Include(a=>a.ActivityType).Include(a=>a.Module).ToListAsync();
             return View(model);
         }
 
@@ -159,6 +159,28 @@ namespace LexiconLMS.Controllers
         }
 
 
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+
+            var activity = await _context.Activities.FirstOrDefaultAsync(a => a.Id == id);
+            if (!(activity is null))
+            {
+                _context.Remove(activity);
+                _context.SaveChanges();
+
+                var module = await _context.Modules.FirstOrDefaultAsync(a => a.Id == activity.ModuleId);
+                if (!(module is null))
+                {
+                    return RedirectToAction("Details", "module", new { id = module.Id });
+                }
+            }
+
+            return NotFound();
+        }
 
 
 
