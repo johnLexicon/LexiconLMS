@@ -1,7 +1,47 @@
-﻿
+﻿@model StudenCourseViewModel
+
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Student's Page</h1>
+<h1>Student, Welcome to the Course</h1>
+
+<style>
+.jumbotron {
+    padding: 2rem 2rem;
+}
+
+.img-course {
+    width: 150px;
+    height: 50px;
+}
+</style>
+
+<div class="jumbotron">
+    <div class="media">
+        <div class="media-body">
+            <img src="~/images/logo-lexicon_2x.gif" class="img-course" alt="~/images/logo-lexicon_2x.gif">
+            <h5 class="display-5">@Html.DisplayFor(a => a.Name)</h5>
+            <p>
+                @Html.DisplayFor(a => a.Description)
+            </p>
+            <a class="btn btn-primary stretched-link disabled mb-5" href="@Url.Action("Details", "Course", new { id = Model.Id })">Details</a>
+        </div>
+    </div>
+
+    <div class="shadow p-3 mb-1 bg-secondary rounded">
+        <h5 class="display-5">Moduler:</h5>
+
+        @foreach (var module in Model.Modules)
+        {
+        <div class="shadow p-3 mb-2 bg-light rounded">
+            <p class="float-left pr-3">@Html.DisplayFor(a => module.StartDate) - @Html.DisplayFor(a => module.EndDate)</p>
+            <a class="disabled" href="@Url.Action("Details", "Module", new { id = module.Id })" onclick="return false;">@Html.DisplayFor(b => module.Name)</a>
+            <i class="float-lg-right fa fa-chevron-circle-up" aria-hidden="true"></i>
+        </div>
+        }
+        
+    </div>
+</div>
+
 
