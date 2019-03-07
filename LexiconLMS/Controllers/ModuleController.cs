@@ -52,6 +52,14 @@ namespace LexiconLMS.Controllers
             var model = _mapper.Map<ModuleViewModel>(@module);
             model.CourseId = course.Id;
             model.CourseName = course.Name;
+
+
+
+
+            model.Activities = new List<ActivityViewModel>();
+            var activities = _context.Activities.Include(a=>a.Module).Where(a => a.ModuleId == id).ToList();
+            activities.ForEach(a => model.Activities.Add(_mapper.Map<ActivityViewModel>(a)));
+
             return View(model);
         }
 

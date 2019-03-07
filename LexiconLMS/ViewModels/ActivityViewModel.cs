@@ -37,7 +37,7 @@ namespace LexiconLMS.ViewModels
         //public ActivityType ActivityType { get; set; }
 
         public int ActivityTypeId { get; set; }
-
+      
         //[Required]
         public Module Module { get; set; }
         public Course Course { get; set; }
