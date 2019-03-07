@@ -146,10 +146,10 @@ namespace LexiconLMS.Controllers
 
             viewModel.TeacherEmail = theTeacher.FirstOrDefault().Email;
             viewModel.Students = course.Users.Except(theTeacher);
-            if(viewModel.Students.Count() < 1)
-            {
-                viewModel.Students = new List<User>() { new User() { Email = "none" } };
-            }
+            //if(viewModel.Students.Count() < 1)
+            //{
+            //    viewModel.Students = new List<User>() { new User() { Email = "none" } };
+            //}
 
             viewModel.Modules = new List<ModuleViewModel>();
             var modules = _context.Modules.Where(a => a.CourseId == id).ToList();
