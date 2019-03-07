@@ -38,8 +38,6 @@
 </div>
 <div>
     <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
-</div>
 
-<div>
-    <a asp-action="Create" asp-controller="Activity" asp-route-id="@Model.Id">Create Activity</a>
+    <a asp-action="Create" asp-controller="Activity" asp-route-id="@Model.Id" class="btn btn-primary">Create Activity</a>
 </div>

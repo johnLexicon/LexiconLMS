@@ -10,9 +10,12 @@
 <hr />
 
 <div class="col-sm-10">
-    <strong> @Html.DisplayFor(model => model.ModuleName)</strong>  
+    <h4>Create New Activity For</h4>  
+    <strong>
+        @Html.DisplayFor(model => model.ModuleName)
 
-    @Html.DisplayFor(model => model.Course.Name)
+        @Html.DisplayFor(model => model.Course.Name)
+    </strong>
 </div>
 
 
@@ -21,25 +24,17 @@
         <form asp-action="Create">
             <div asp-validation-summary="All" class="text-danger"></div>
 
+            @*<div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <textarea asp-for="Name" class="form-control"></textarea>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>*@
 
             <div class="form-group">
                 <label asp-for="ActivityTypeId" class="control-label"></label>
                 <select asp-for="ActivityTypeId" class="form-control" asp-items="ViewBag.ActivityTypeId">
                     <option value="0">None</option>
                 </select>
-            </div>
-
-
-            @*<div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <textarea asp-for="Name" class="form-control"></textarea>
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>*@
-
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
@@ -50,6 +45,14 @@
                 <label asp-for="EndDate" class="control-label"></label>
                 <input asp-for="EndDate" class="form-control" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
+
+
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
             </div>
             <input type="hidden" asp-for="ModuleId" class="form-control" />
             <input type="hidden" asp-for="ModuleName" class="form-control" />
@@ -57,16 +60,12 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
 
-
-
-
-
-
         </form>
     </div>
 </div>
 <div>
-    <a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId">Back to Module</a>
+    <a asp-controller="Documents" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-primary">Add Activity Documents</a>
+    <a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId" class="btn btn-info">Back to Module</a>
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

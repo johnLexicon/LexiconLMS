@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Activity Details</h1>
 
 <div>
-    <h4>Activity</h4>
     <hr />
     <dl class="row">
         @*<dt class = "col-sm-2">
@@ -52,15 +51,8 @@
 <div>
 
     <div>
-        <a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId">Back to Module</a>
-        <span>|</span>
-
-
-
-        <a asp-action="Create" asp-controller="Documents" asp-route-id="@Model.Id">Create Documents</a>
-        <span>|</span>
-
+        <a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId" class="btn btn-info">Back to Module</a>
 
         @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
     </div>
