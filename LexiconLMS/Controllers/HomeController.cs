@@ -32,7 +32,12 @@ namespace LexiconLMS.Controllers
         {
             if (_signInManager.IsSignedIn(User))
             {
-                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                if(user is null)
+                {
+                    return View();
+                }
+
                 var userRole = _userManager.GetRolesAsync(user).Result.Single();
                 if (userRole == "Teacher")
                 {
