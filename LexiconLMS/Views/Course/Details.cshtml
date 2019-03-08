@@ -44,6 +44,23 @@
 
 <hr />
 <div>
+    <a asp-action="Create" asp-controller="CourseDocument" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> Add Document</a>
+</div>
+<table class="table table-light" data-toggle="table">
+    <tbody>
+        @foreach (var document in Model.Documents)
+        {
+            <tr>
+                <td>@Html.ActionLink(document.Name, "Display", "CourseDocument", new { id = document.Id })</td>
+
+                <td><a href="@Url.Action("Delete", "CourseDocument", new { id = document.Id })"><i class="fa fa-backspace" aria-hidden="true"></i></a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+<div>
     <a asp-action="Create" asp-controller="StudentAdmin" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-user-plus"></i> Add Student</a>
 </div>
 <table class="table table-dark" data-toggle="table">

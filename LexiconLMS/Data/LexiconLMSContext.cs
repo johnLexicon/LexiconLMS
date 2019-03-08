@@ -51,5 +51,7 @@ namespace LexiconLMS.Data
 
 
         }     
+
+        public DbSet<LexiconLMS.Models.CourseDocument> CourseDocument { get; set; }
     }
 }
