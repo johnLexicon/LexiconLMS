@@ -32,5 +32,7 @@ namespace LexiconLMS.ViewModels
         public IEnumerable<User> Students { get; set; }
 
         public List<ModuleViewModel> Modules { get; set; }
+
+        public IEnumerable<CourseDocument> Documents { get; set; }
     }
 }
