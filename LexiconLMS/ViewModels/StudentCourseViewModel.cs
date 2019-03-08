@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LexiconLMS.ViewModels
 {
-    public class StudenCourseViewModel
+    public class StudentCourseViewModel
     {
         public int Id { get; set; }
 

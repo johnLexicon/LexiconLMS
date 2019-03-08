@@ -36,7 +36,7 @@ namespace LexiconLMS.Controllers
 
             var students = _context.Users.Where(a => a.CourseId == user.CourseId).ToList();
 
-            var model = new StudenCourseViewModel();
+            var model = new StudentCourseViewModel();
             if (!(course is null))
             {
                 model.Name = course.Name;
