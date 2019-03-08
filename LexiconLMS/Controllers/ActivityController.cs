@@ -141,14 +141,13 @@ namespace LexiconLMS.Controllers
 
             if (ModelState.IsValid)
             {
-                var ActivityEntity = await _context.Activities.FirstOrDefaultAsync(a => a.Id == AVM.Id);
+                var ActivityEntity = await _context.Activities.Include(a =>a.ActivityType).FirstOrDefaultAsync(a => a.Id == AVM.Id);
 
                 ActivityEntity.Description = AVM.Description;
                 ActivityEntity.StartDate = AVM.StartDate;
                 ActivityEntity.EndDate = AVM.EndDate;
                 //ActivityEntity.ModuleId = AVM.ModuleId;
                 ActivityEntity.ActivityTypeId = AVM.ActivityTypeId;
-
                 _context.Update(ActivityEntity);
                 await _context.SaveChangesAsync();
 

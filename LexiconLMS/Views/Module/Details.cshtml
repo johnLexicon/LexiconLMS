@@ -36,6 +36,40 @@
         </dd>
     </dl>
 </div>
+
+
+<hr />
+<table class="table table-dark" data-toggle="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(a => a.Activities.FirstOrDefault().ActivityType.Type)</th>
+            <th>@Html.DisplayNameFor(a => a.Activities.FirstOrDefault().StartDate)</th>
+            <th>@Html.DisplayNameFor(a => a.Activities.FirstOrDefault().EndDate)</th>
+            <th>@Html.DisplayNameFor(a => a.Activities.FirstOrDefault().Description)</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var activity in Model.Activities)
+        {
+        <tr>
+            <td>@Html.ActionLink(activity.ActivityType.Type, "Details", "Activity", new { id = @activity.Id })</td>
+            @*<td>@activity.ActivityType.Type</td>*@
+            <td>@activity.StartDate</td>
+            <td>@activity.EndDate</td>
+            <td>@activity.Description</td>
+            <td><a href="@Url.Action("Delete", "Activity", new { id =activity.Id})"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+            <td><a href="@Url.Action("Edit", "Activity", new { id = activity.Id })"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+
+
 <div>
     <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
 
