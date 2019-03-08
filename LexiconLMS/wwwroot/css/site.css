@@ -76,3 +76,7 @@ body {
         width: 100px;
         height: 100px;
     }
+
+.bgcolor {
+    background-color: rgb(106, 135, 165);
+}
