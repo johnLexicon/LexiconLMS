@@ -30,7 +30,7 @@
         {
         <div class="shadow p-3 mb-2 bg-light rounded">
             <p class="float-left pr-3">@Html.DisplayFor(a => module.StartDate) - @Html.DisplayFor(a => module.EndDate)</p>
-            <a class="disabled" href="@Url.Action("Details", "Module", new { id = module.Id })" onclick="return true;">@Html.DisplayFor(b => module.Name)</a>
+            <a class="disabled" href="@Url.Action("Details", "Module", new { id = module.Id })" onclick="return false;">@Html.DisplayFor(b => module.Name)</a>
             <i class="float-lg-right fa fa-chevron-circle-up" aria-hidden="true"></i>
 
 
@@ -38,12 +38,14 @@
 
                 @foreach (var activity in module.Activities)
                 {
-                    <p>
-                        @Html.DisplayFor(a => activity.StartDate) - @Html.DisplayFor(a => activity.EndDate)
-                        @*<a  href="@Url.Action("Details","Activity",new { id=activity.Id})">*@
-                        @Html.ActionLink(activity.ActivityType.Type, "Details", "Activity", new { id = activity.Id })
-                    </p>
-                    @*</a>*@
+                   
+                <p>
+                    @Html.DisplayFor(a => activity.StartDate) - @Html.DisplayFor(a => activity.EndDate)
+                    @*<a  href="@Url.Action("Details","Activity",new { id=activity.Id})" onclick="return false;">@Html.DisplayFor(a =>activity.ActivityType.Type)</a>*@
+                    @Html.ActionLink(activity.ActivityType.Type, "Details", "Activity", new { id = activity.Id })
+                </p>
+                  
+            
                 }
 
             </div>
