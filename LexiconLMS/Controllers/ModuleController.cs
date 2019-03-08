@@ -53,7 +53,7 @@ namespace LexiconLMS.Controllers
             model.CourseId = course.Id;
             model.CourseName = course.Name;
 
-
+            
 
             model.Activities = new List<ActivityViewModel>();
             var activities = _context.Activities.Include(a=>a.Module).Include(a=>a.ActivityType).Where(a => a.ModuleId == id).ToList();
