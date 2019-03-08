@@ -23,6 +23,9 @@ namespace LexiconLMS.ViewModels
 
         [Required]
         public string Name { get; set; }
+
+        [Required]
+        public int CourseId { get; set; }
     }
 
     public class UserAdminViewModel
@@ -45,5 +48,8 @@ namespace LexiconLMS.ViewModels
 
         [Required]
         public string Name { get; set; }
+
+        [Required]
+        public int CourseId { get; set; }
     }
 }
