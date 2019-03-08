@@ -9,6 +9,7 @@ using LexiconLMS.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LexiconLMS.Controllers
 {
@@ -32,10 +33,19 @@ namespace LexiconLMS.Controllers
 
             var course = await _context.Courses.FindAsync(user.CourseId);
 
-            var modules = _context.Modules.Where(a => a.CourseId == user.CourseId).OrderBy(b => b.EndDate).ToList();
+            var modules = _context.Modules.Include(a=>a.Activities).Where(a => a.CourseId == user.CourseId).OrderBy(b => b.EndDate).ToList();
 
             var students = _context.Users.Where(a => a.CourseId == user.CourseId).ToList();
+            var activities = new List<Activityy>();
+            //showing Activities
 
+            foreach(var m in modules)
+            {
+                 activities = _context.Activities.Include(a=>a.Module).Include(a=>a.ActivityType).Where(a => a.ModuleId ==m.Id).ToList();
+            }
+         
+
+            //
             var model = new StudentCourseViewModel();
             if (!(course is null))
             {
@@ -53,6 +63,10 @@ namespace LexiconLMS.Controllers
             model.Modules = new List<ModuleViewModel>();
             modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleViewModel>(m)));
             model.Students = StudentsToRows(students);
+
+            //
+            model.activities = new List<ActivityViewModel>();
+            activities.ForEach(a => model.activities.Add(_mapper.Map<ActivityViewModel>(a)));
 
             return View(model);
         }

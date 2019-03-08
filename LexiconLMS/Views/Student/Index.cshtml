@@ -28,11 +28,31 @@
 
         @foreach (var module in Model.Modules)
         {
-            <div class="shadow p-3 mb-2 bg-light rounded">
-                <p class="float-left pr-3">@Html.DisplayFor(a => module.StartDate) - @Html.DisplayFor(a => module.EndDate)</p>
-                <a class="disabled" href="@Url.Action("Details", "Module", new { id = module.Id })" onclick="return false;">@Html.DisplayFor(b => module.Name)</a>
-                <i class="float-lg-right fa fa-chevron-circle-up" aria-hidden="true"></i>
+        <div class="shadow p-3 mb-2 bg-light rounded">
+            <p class="float-left pr-3">@Html.DisplayFor(a => module.StartDate) - @Html.DisplayFor(a => module.EndDate)</p>
+            <a class="disabled" href="@Url.Action("Details", "Module", new { id = module.Id })" onclick="return false;">@Html.DisplayFor(b => module.Name)</a>
+            <i class="float-lg-right fa fa-chevron-circle-up" aria-hidden="true"></i>
+
+
+            <div class="shadow p-3 mb-1 rounded activities bgcolor">
+
+                @foreach (var activity in module.Activities)
+                {
+                   
+                <p>
+                    @Html.DisplayFor(a => activity.StartDate) - @Html.DisplayFor(a => activity.EndDate)
+                    @*<a  href="@Url.Action("Details","Activity",new { id=activity.Id})" onclick="return false;">@Html.DisplayFor(a =>activity.ActivityType.Type)</a>*@
+                    @Html.ActionLink(activity.ActivityType.Type, "Details", "Activity", new { id = activity.Id })
+                </p>
+                  
+            
+                }
+
             </div>
+
+        </div>
+
+
         }
     </div>
 
@@ -41,19 +61,19 @@
         <div class="shadow p-3 mb-2 bg-light rounded course-avatars">
             @for (var i = 0; i < Model.Students.Count; i++)
             {
-            <div class="row">
-                @for (var j = 0; j < Model.Students[i].Count; j++)
-                {
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <img src="~/images/Avatar.jpg" alt="avatar" />
-                            <div class="card-body">
-                                <h5 class="card-title">@Model.Students[i][j].FullName</h5>
+                <div class="row">
+                    @for (var j = 0; j < Model.Students[i].Count; j++)
+                    {
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <img src="~/images/Avatar.jpg" alt="avatar" />
+                                <div class="card-body">
+                                    <h5 class="card-title">@Model.Students[i][j].FullName</h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-            </div>
+                    }
+                </div>
             }
         </div>
     </div>
@@ -65,8 +85,21 @@
     </div>
 </div>
 
-    
 
 
+
+@section scripts
+    {
+<script>
+    $(document).ready(function () {
+        $(".fa-chevron-circle-up").click(function () {
+           
+                //$(".activities").first().slideToggle();
+
+            $(this).siblings(".activities").fadeToggle('slow');
+        });
+    });
+</script>
+}
 
 
