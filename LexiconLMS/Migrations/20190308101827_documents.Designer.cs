@@ -4,14 +4,16 @@ using LexiconLMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LexiconLMS.Migrations
 {
     [DbContext(typeof(LexiconLMSContext))]
-    partial class LexiconLMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190308101827_documents")]
+    partial class documents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,11 +94,13 @@ namespace LexiconLMS.Migrations
 
                     b.Property<DateTime>("UploadTime");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UploadedById");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
+
+                    b.HasIndex("UploadedById");
 
                     b.ToTable("CourseDocument");
                 });
@@ -310,6 +314,10 @@ namespace LexiconLMS.Migrations
                         .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("LexiconLMS.Models.User", "UploadedBy")
+                        .WithMany()
+                        .HasForeignKey("UploadedById");
                 });
 
             modelBuilder.Entity("LexiconLMS.Models.Module", b =>
