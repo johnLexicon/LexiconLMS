@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LexiconLMS.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -28,5 +29,7 @@ namespace LexiconLMS.ViewModels
         public string TeacherEmail { get; set; }
 
         public List<ModuleViewModel> Modules { get; set; }
+
+        public List<List<User>> Students { get; set; }
     }
 }

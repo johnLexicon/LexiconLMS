@@ -32,7 +32,9 @@ namespace LexiconLMS.Controllers
 
             var course = await _context.Courses.FindAsync(user.CourseId);
 
-            var modules = _context.Modules.Where(a => a.CourseId == user.CourseId).OrderBy(b=>b.EndDate).ToList();
+            var modules = _context.Modules.Where(a => a.CourseId == user.CourseId).OrderBy(b => b.EndDate).ToList();
+
+            var students = _context.Users.Where(a => a.CourseId == user.CourseId).ToList();
 
             var model = new StudenCourseViewModel();
             if (!(course is null))
@@ -43,14 +45,36 @@ namespace LexiconLMS.Controllers
                 model.StartDate = course.StartDate;
                 model.EndDate = course.EndDate;
                 model.Id = course.Id;
-            } else
+            }
+            else
             {
                 model.Name = "Not in any course!";
             }
             model.Modules = new List<ModuleViewModel>();
             modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleViewModel>(m)));
+            model.Students = StudentsToRows(students);
 
             return View(model);
+        }
+
+        private static List<List<User>> StudentsToRows(List<User> students)
+        {
+            var studentsList = new List<List<User>>();
+
+            const int studentsPerRow = 3;
+            var row = new List<User>();
+            for (var i = 0; i < students.Count; i++)
+            {
+                var usr = students[i];
+                if (i % studentsPerRow == 0)
+                {
+                    row = new List<User>();
+                    studentsList.Add(row);
+                }
+                row.Add(usr);
+            }
+
+            return studentsList;
         }
     }
 }

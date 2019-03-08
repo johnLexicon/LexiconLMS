@@ -63,3 +63,16 @@ body {
     width: 150px;
     height: 50px;
 }
+
+.course-avatars {
+    height: 300px;
+    overflow: auto;
+}
+
+    .course-avatars .card {
+        margin: 1rem;
+    }
+    .course-avatars img {
+        width: 100px;
+        height: 100px;
+    }
