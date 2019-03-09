@@ -92,14 +92,19 @@ namespace LexiconLMS.Models
             {
                 Course course = context.Courses.Include(c => c.Users).FirstOrDefault(c => c.Id == -1);
 
-                if (course != null && course.Users != null && course.Users.Any())
+                if(course is null)
+                {
+                    return;
+                }
+
+                if (course.Users != null && course.Users.Any())
                 {
                     return;
                 }
 
                 var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
                 //TODO: Change this to netCoreCourseParticipants or something
-                var passwordForParticipants = config["LexiconLMS:TeacherPW"];
+                var passwordForParticipants = config["LexiconLMS:CourseParticipantPW"];
 
                 for (var i = 0; i < 20; i++)
                 {

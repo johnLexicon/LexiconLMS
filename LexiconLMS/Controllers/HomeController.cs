@@ -85,7 +85,10 @@ namespace LexiconLMS.Controllers
             {
                 return RedirectToAction("Index", "Student");
             }
-            return Ok();
+            else
+            {
+                return NotFound();
+            }
 
         }
 
