@@ -21,7 +21,6 @@ namespace LexiconLMS
             {
                 var services = scope.ServiceProvider;
                 SeedData.Initialize(services);
-                SeedData.SeedCourseParticipants(services);
             }
 
 

@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using LexiconLMS.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LexiconLMS.Models
 {
-    public class SeedData
+    public static class SeedData
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
@@ -51,7 +52,7 @@ namespace LexiconLMS.Models
                         Name = "Programmerare och systemutvecklare Inriktning Microsoft .NET",
                         StartDate = new DateTime(2018, 11, 26),
                         EndDate = new DateTime(2019, 03, 22),
-                        Description = "Utbildningen mot programmerare och systemut-vecklare syftar till att skapa förutsättningar att ut-veckla kunskaper och färdigheter i programmering och att utveckla IT-system, applikationer eller delar av system. Utbildningen syftar till att inom valt språk täcka systemutveckling, frontend, backend, fullstack samt mobil applikationsutveckling."
+                        Description = "Utbildningen mot programmerare och systemutvecklare syftar till att skapa förutsättningar att ut-veckla kunskaper och färdigheter i programmering och att utveckla IT-system, applikationer eller delar av system. Utbildningen syftar till att inom valt språk täcka systemutveckling, frontend, backend, fullstack samt mobil applikationsutveckling."
                     }
                 );
 
@@ -86,6 +87,7 @@ namespace LexiconLMS.Models
         public static void SeedCourseParticipants(IServiceProvider serviceProvider)
         {
             var options = serviceProvider.GetRequiredService<DbContextOptions<LexiconLMSContext>>();
+            var config = serviceProvider.GetRequiredService<IConfiguration>();
             using (var context = new LexiconLMSContext(options))
             {
                 Course course = context.Courses.Include(c => c.Users).FirstOrDefault(c => c.Id == -1);
@@ -96,31 +98,33 @@ namespace LexiconLMS.Models
                 }
 
                 var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+                //TODO: Change this to netCoreCourseParticipants or something
+                var passwordForParticipants = config["LexiconLMS:TeacherPW"];
 
                 for (var i = 0; i < 20; i++)
                 {
                     var fullName = new Bogus.DataSets.Name().FullName();
                     var email = new Bogus.DataSets.Internet().Email();
-                    var student = new User { FullName = fullName, Email = email, UserName = email, CourseId = -1 };
-                    CreateUser(userManager, student, "Student");
+                    var userName = email;
+                    var student = new User { FullName = fullName, Email = email, UserName = userName, CourseId = -1 };
+                    CreateUser(userManager, student, "Student", passwordForParticipants);
                 }
 
                 User teacher = new User
                 {
-                    Email = "coreteacher@gmail.com",
-                    UserName = "coreteacher@gmail.com",
+                    Email = "teachernetcore@gmail.com",
+                    UserName = "teachernetcore@gmail.com",
                     FullName = new Bogus.DataSets.Name().FullName(),
                     CourseId = -1
                 };
 
-                CreateUser(userManager, teacher, "Teacher");
+                CreateUser(userManager, teacher, "Teacher", passwordForParticipants);
 
             }
         }
 
-        private static void CreateUser(UserManager<User> userManager, User user, string roleName)
+        private static void CreateUser(UserManager<User> userManager, User user, string roleName, string password = "secret123")
         {
-            var password = "secret123";
 
             Task<IdentityResult> createUserTask = userManager.CreateAsync(user, password);
             createUserTask.Wait();
