@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using LexiconLMS.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -87,7 +88,7 @@ namespace LexiconLMS.Models
         public static void SeedCourseParticipants(IServiceProvider serviceProvider)
         {
             var options = serviceProvider.GetRequiredService<DbContextOptions<LexiconLMSContext>>();
-            var config = serviceProvider.GetRequiredService<IConfiguration>();
+
             using (var context = new LexiconLMSContext(options))
             {
                 Course course = context.Courses.Include(c => c.Users).FirstOrDefault(c => c.Id == -1);
@@ -103,26 +104,25 @@ namespace LexiconLMS.Models
                 }
 
                 var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
-                //TODO: Change this to netCoreCourseParticipants or something
-                var passwordForParticipants = config["LexiconLMS:CourseParticipantPW"];
+                var mapper = serviceProvider.GetRequiredService<IMapper>();
+                var config = serviceProvider.GetRequiredService<IConfiguration>();
 
-                for (var i = 0; i < 20; i++)
+                var passwordForParticipants = config["LexiconLMS:SeededCourse:ParticipantPW"];
+                var localeCode = config["LexiconLMS:SeededCourse:LocaleCode"];
+                int.TryParse(config["LexiconLMS:SeededCourse:StudentsCount"], out int studentsCount);
+
+                //Create students
+                for (var i = 0; i < studentsCount; i++)
                 {
-                    var fullName = new Bogus.DataSets.Name().FullName();
-                    var email = new Bogus.DataSets.Internet().Email();
-                    var userName = email;
-                    var student = new User { FullName = fullName, Email = email, UserName = userName, CourseId = -1 };
+                    var bogusPerson = new Bogus.Person(localeCode);
+                    User student = mapper.Map<User>(bogusPerson);
+                    student.CourseId = course.Id;
                     CreateUser(userManager, student, "Student", passwordForParticipants);
                 }
 
-                User teacher = new User
-                {
-                    Email = "teachernetcore@gmail.com",
-                    UserName = "teachernetcore@gmail.com",
-                    FullName = new Bogus.DataSets.Name().FullName(),
-                    CourseId = -1
-                };
-
+                //CreateUser teacher
+                User teacher = mapper.Map<User>(new Bogus.Person(localeCode));
+                teacher.CourseId = course.Id;
                 CreateUser(userManager, teacher, "Teacher", passwordForParticipants);
 
             }
