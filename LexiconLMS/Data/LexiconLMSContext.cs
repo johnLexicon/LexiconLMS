@@ -48,6 +48,15 @@ namespace LexiconLMS.Data
             builder.Entity<Activityy>();
             builder.Entity<ActivityType>();
 
+            /*** Seed Data for Activity Types ***/
+
+            builder.Entity<ActivityType>()
+                .HasData(
+                    new ActivityType() { Id = 1, Type = "E-Learning" },
+                    new ActivityType() { Id = 2, Type = "Lectures" },
+                    new ActivityType() { Id = 3, Type = "Exercise" }
+                );
+
             /*** Seed Data for course ***/
 
             SeedData.SeedCourseData(builder);

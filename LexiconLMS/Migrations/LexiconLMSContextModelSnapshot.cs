@@ -30,6 +30,23 @@ namespace LexiconLMS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ActivityType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Type = "E-Learning"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Type = "Lectures"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Type = "Exercise"
+                        });
                 });
 
             modelBuilder.Entity("LexiconLMS.Models.Activityy", b =>
