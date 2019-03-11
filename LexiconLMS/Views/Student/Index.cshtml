@@ -8,41 +8,143 @@
         <div class="media-body">
             <img src="~/images/logo-lexicon_2x.gif" class="img-course" alt="logo lexicon">
             <h5 class="display-5">@Html.DisplayFor(a => a.Name)</h5>
-            <p>
-                @Html.DisplayFor(a => a.Description)
-            </p>
-            <p>
-                <strong>
-                    @Html.DisplayNameFor(a => a.StartDate) : @Html.DisplayFor(a => a.StartDate)
-                </strong>
-            </p>
-            <a class="btn btn-primary stretched-link  mb-5" href="@Url.Action("Details", "StudentCourse", new { id = Model.Id })">Details</a>
+
+            <a class="btn btn-primary stretched-link  mb-5" data-toggle="modal" data-target="#exampleModal" href="@Url.Action("Details", "StudentCourse", new { id = Model.Id })">Details</a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Course Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <p>
+                                <strong>@Html.DisplayNameFor(a => a.Description) :</strong>
+                                @Html.DisplayFor(a => a.Description)
+                            </p>
+                            <p>
+                                <strong>
+                                    @Html.DisplayNameFor(a => a.StartDate) :
+                                </strong>
+                                @Html.DisplayFor(a => a.StartDate)
+                            </p>
+                            <p>
+                                <strong>
+                                    @Html.DisplayNameFor(a => a.EndDate) :
+                                </strong>
+                                @Html.DisplayFor(a => a.EndDate)
+                            </p>
+
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
     <div class="shadow p-3 mb-1 bg-secondary rounded">
         <h5 class="display-5">Modules:</h5>
         @foreach (var module in Model.Modules)
         {
-            <div class="shadow p-3 mb-2 bg-light rounded">
-                <p class="float-left pr-3">@Html.DisplayFor(a => module.StartDate) - @Html.DisplayFor(a => module.EndDate)</p>
-                <a class="disabled" href="@Url.Action("Details", "StudentModule", new { id = module.Id })">@Html.DisplayFor(b => module.Name)</a>
-                <i class="float-lg-right fa fa-chevron-circle-down" aria-hidden="true"></i>
 
-                <div class="shadow p-3 mb-1 rounded activities bgcolor hide">
-                    @foreach (var activity in module.Activities)
-                    {
+        <div class="shadow p-3 mb-2 bg-light rounded">
+            @*<p class="float-left pr-3">@Html.DisplayFor(a => module.StartDate) - @Html.DisplayFor(a => module.EndDate)</p>*@
+            <a class="disabled" data-toggle="modal" data-target="#exampleModal1" href="@Url.Action("Details", "StudentModule", new { id = module.Id })">@Html.DisplayFor(b => module.Name)</a>
 
-                    <p>
-                        @Html.DisplayFor(a => activity.StartDate) - @Html.DisplayFor(a => activity.EndDate)
-                        @*<a  href="@Url.Action("Details","StudentActivity",new { id=activity.Id})" onclick="return false;">@Html.DisplayFor(a =>activity.ActivityType.Type)</a>*@
-                        @Html.ActionLink(activity.ActivityType.Type, "Details", "StudentActivity", new { id = activity.Id })
+            <i class="float-lg-right fa fa-chevron-circle-down" aria-hidden="true"></i>
+            <p>
 
-                    </p>
+                @Html.DisplayFor(a => module.StartDate)  -  @Html.DisplayFor(a => module.EndDate)
+            </p>
 
 
-                    }
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Module Details </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <p>
+                                <strong>@Html.DisplayNameFor(a => module.Description) :</strong>
+                                @Html.DisplayFor(a => module.Description)
+                            </p>
+
+                            <p>
+                                <strong>@Html.DisplayNameFor(a => module.StartDate) :</strong>
+                                @Html.DisplayFor(a => module.StartDate)
+                            </p>
+
+                            <p>
+                                <strong>@Html.DisplayNameFor(a => module.EndDate) :</strong>
+                                @Html.DisplayFor(a => module.EndDate)
+                            </p>
+
+
+                        </div>
+
+                    </div>
                 </div>
             </div>
+
+
+            <div class="shadow p-3 mb-1 rounded activities bgcolor hide">
+                @foreach (var activity in module.Activities)
+                {
+                    <a data-toggle="modal" data-target="#exampleModal2" asp-controller="StudentActivity" asp-action="Details" asp-route-id="@activity.Id">@activity.ActivityType.Type</a>
+                    <p>
+                        @Html.DisplayFor(a => activity.StartDate) - @Html.DisplayFor(a => activity.EndDate)
+                    </p>
+       
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Activity Details </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <p>
+                                <strong>@Html.DisplayNameFor(a => activity.Description) :</strong>
+                                @Html.DisplayFor(a => activity.Description)
+                            </p>
+
+                            <p>
+                                @*@Html.DisplayFor(a => activity.StartDate) - @Html.DisplayFor(a => activity.EndDate)*@
+
+                                @*<a  href="@Url.Action("Details","StudentActivity",new { id=activity.Id})" onclick="return false;">@Html.DisplayFor(a =>activity.ActivityType.Type)</a>*@
+                                @*@Html.ActionLink(activity.ActivityType.Type, "Details", "StudentActivity", new { id = activity.Id })*@
+                                @*<a class="btn btn-primary" asp-controller="StudentActivity" asp-action="Details" asp-route-id="@activity.Id">@activity.ActivityType.Type</a>*@
+                            </p>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        }
+            </div>
+        </div>
 
 
         }
