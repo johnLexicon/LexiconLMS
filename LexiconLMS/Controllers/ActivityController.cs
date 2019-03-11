@@ -32,7 +32,7 @@ namespace LexiconLMS.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var model = await _context.Activities.Include(a=>a.ActivityType).Include(a=>a.Module).ToListAsync();
+            var model = await _context.Activities.Include(a=>a.ActivityType).Include(a=>a.Module).Include(a => a.Module.Course).ToListAsync();
             return View(model);
         }
 

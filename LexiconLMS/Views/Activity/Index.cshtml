@@ -31,10 +31,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-
-
             <th>
                 @Html.DisplayNameFor(model => model.Module)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Module.Course)
             </th>
 
             <th></th>
@@ -61,7 +62,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Module.Name)
             </td>
-
+            <td>
+                @Html.DisplayFor(modelItem => item.Module.Course.Name)
+            </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
