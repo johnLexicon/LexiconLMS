@@ -28,7 +28,7 @@
                 <a class="disabled" href="@Url.Action("Details", "StudentModule", new { id = module.Id })">@Html.DisplayFor(b => module.Name)</a>
                 <i class="float-lg-right fa fa-chevron-circle-down" aria-hidden="true"></i>
 
-                <div class="shadow p-3 mb-1 rounded activities bgcolor">
+                <div class="shadow p-3 mb-1 rounded activities bgcolor hide">
                     @foreach (var activity in module.Activities)
                     {
 
@@ -80,7 +80,8 @@
 @section scripts
     {
 <script>
-$(document).ready(function () {
+    $(document).ready(function () {
+        $("hide").css("display", "block");
         $(".fa-chevron-circle-down").click(function () {
             $(this).siblings(".activities").fadeToggle(1000,'linear');
 
