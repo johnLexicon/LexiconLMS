@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="shadow p-3 mb-1 bg-secondary rounded">
-        <h5 class="display-5">Moduler:</h5>
+        <h5 class="display-5">Modules:</h5>
         @foreach (var module in Model.Modules)
         {
             <div class="shadow p-3 mb-2 bg-light rounded">
@@ -28,7 +28,7 @@
                 <a class="disabled" href="@Url.Action("Details", "StudentModule", new { id = module.Id })">@Html.DisplayFor(b => module.Name)</a>
                 <i class="float-lg-right fa fa-chevron-circle-down" aria-hidden="true"></i>
 
-                <div class="shadow p-3 mb-1 rounded activities bgcolor">
+                <div class="shadow p-3 mb-1 rounded activities bgcolor hide">
                     @foreach (var activity in module.Activities)
                     {
 
@@ -80,7 +80,8 @@
 @section scripts
     {
 <script>
-$(document).ready(function () {
+    $(document).ready(function () {
+     
         $(".fa-chevron-circle-down").click(function () {
             $(this).siblings(".activities").fadeToggle(1000,'linear');
 
