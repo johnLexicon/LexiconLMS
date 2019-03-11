@@ -75,6 +75,7 @@ namespace LexiconLMS
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                SeedData.SeedCourseParticipants(serviceProvider);
             }
             else
             {

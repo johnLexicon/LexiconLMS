@@ -48,7 +48,9 @@ namespace LexiconLMS.Data
             builder.Entity<Activityy>();
             builder.Entity<ActivityType>();
 
+            /*** Seed Data for course ***/
 
+            SeedData.SeedCourseData(builder);
 
         }     
 

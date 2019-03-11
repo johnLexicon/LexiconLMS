@@ -32,7 +32,12 @@ namespace LexiconLMS.Controllers
         {
             if (_signInManager.IsSignedIn(User))
             {
-                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                if(user is null)
+                {
+                    return View();
+                }
+
                 var userRole = _userManager.GetRolesAsync(user).Result.Single();
                 if (userRole == "Teacher")
                 {
@@ -57,7 +62,7 @@ namespace LexiconLMS.Controllers
 
             }
 
-            var user = await _userManager.FindByEmailAsync(LVM.Email);
+            var user = await _userManager.FindByNameAsync(LVM.Email);
             if (user == null)
             {
                 ModelState.AddModelError("", "User Name Not Found!");
@@ -80,7 +85,10 @@ namespace LexiconLMS.Controllers
             {
                 return RedirectToAction("Index", "Student");
             }
-            return Ok();
+            else
+            {
+                return NotFound();
+            }
 
         }
 
