@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LexiconLMS.Migrations
 {
     [DbContext(typeof(LexiconLMSContext))]
-    [Migration("20190311085103_SeedCourseDataMigration")]
+    [Migration("20190311141918_SeedCourseDataMigration")]
     partial class SeedCourseDataMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,23 @@ namespace LexiconLMS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ActivityType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Type = "E-Learning"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Type = "Lectures"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Type = "Exercise"
+                        });
                 });
 
             modelBuilder.Entity("LexiconLMS.Models.Activityy", b =>

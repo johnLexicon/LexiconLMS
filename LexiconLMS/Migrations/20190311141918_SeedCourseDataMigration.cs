@@ -8,6 +8,16 @@ namespace LexiconLMS.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.InsertData(
+                table: "ActivityType",
+                columns: new[] { "Id", "Type" },
+                values: new object[,]
+                {
+                    { 1, "E-Learning" },
+                    { 2, "Lectures" },
+                    { 3, "Exercise" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Courses",
                 columns: new[] { "Id", "Description", "EndDate", "Name", "StartDate" },
                 values: new object[] { -1, "Utbildningen mot programmerare och systemutvecklare syftar till att skapa förutsättningar att ut-veckla kunskaper och färdigheter i programmering och att utveckla IT-system, applikationer eller delar av system. Utbildningen syftar till att inom valt språk täcka systemutveckling, frontend, backend, fullstack samt mobil applikationsutveckling.", new DateTime(2019, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Programmerare och systemutvecklare Inriktning Microsoft .NET", new DateTime(2018, 11, 26, 0, 0, 0, 0, DateTimeKind.Unspecified) });
@@ -179,6 +189,21 @@ namespace LexiconLMS.Migrations
                 table: "Activities",
                 keyColumn: "Id",
                 keyValue: -1);
+
+            migrationBuilder.DeleteData(
+                table: "ActivityType",
+                keyColumn: "Id",
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                table: "ActivityType",
+                keyColumn: "Id",
+                keyValue: 2);
+
+            migrationBuilder.DeleteData(
+                table: "ActivityType",
+                keyColumn: "Id",
+                keyValue: 3);
 
             migrationBuilder.DeleteData(
                 table: "Modules",
