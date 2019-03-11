@@ -35,7 +35,9 @@ namespace LexiconLMS.Controllers
 
             var modules = _context.Modules.Include(a=>a.Activities).Where(a => a.CourseId == user.CourseId).OrderBy(b => b.EndDate).ToList();
 
-            var students = _context.Users.Where(a => a.CourseId == user.CourseId).ToList();
+            var students = await _userManager.GetUsersInRoleAsync("Student");
+            var studentsInCourse = students.Where(p => p.CourseId == user.CourseId).ToList();
+
             var activities = new List<Activityy>();
             //showing Activities
 
@@ -62,7 +64,7 @@ namespace LexiconLMS.Controllers
             }
             model.Modules = new List<ModuleViewModel>();
             modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleViewModel>(m)));
-            model.Students = StudentsToRows(students);
+            model.Students = StudentsToRows(studentsInCourse);
 
             //
             model.activities = new List<ActivityViewModel>();
