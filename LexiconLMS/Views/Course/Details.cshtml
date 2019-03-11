@@ -63,9 +63,9 @@
 <div>
     <a asp-action="Create" asp-controller="StudentAdmin" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-user-plus"></i> Add Student</a>
 </div>
-<table class="table table-dark" data-toggle="table">
+<table class="table table-hover" data-toggle="table">
     <thead>
-        <tr>
+        <tr class="table-info">
             <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().FullName)</th>
             <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().Email)</th>
             @*<th></th>*@
@@ -75,7 +75,7 @@
     <tbody>
         @foreach (var student in Model.Students)
         {
-            <tr>
+            <tr class="table-active">
                 <td>@Html.ActionLink(student.FullName, "Details", "StudentAdmin", new { id = @student.Id })</td>
                 @*<td>@student.FullName</td>*@
                 <td>@student.Email</td>
@@ -90,9 +90,9 @@
 <div>
     <a asp-action="Create" asp-controller="Module" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> Add Module</a>
 </div>
-<table class="table table-dark" data-toggle="table">
+<table class="table table-hover" data-toggle="table">
     <thead>
-        <tr>
+        <tr class="table-info">
             <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().Name)</th>
             <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().StartDate)</th>
             <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().EndDate)</th>
@@ -103,10 +103,10 @@
     <tbody>
         @foreach (var module in Model.Modules)
         {
-            <tr>
+            <tr class="table-active">
                 <td>@Html.ActionLink(module.Name, "Details", "Module", new { id = @module.Id })</td>
-                <td>@module.StartDate</td>
-                <td>@module.EndDate</td>
+                <td>@module.StartDate.ToShortDateString()</td>
+                <td>@module.EndDate.ToShortDateString()</td>
                 <td><a href="@Url.Action("Edit", "Module", new { id = module.Id })"><i class="fas fa-edit" aria-hidden="true"></i></a></td>
                 <td><a href="@Url.Action("Delete", "Module", new { id = module.Id })"><i class="fa fa-backspace" aria-hidden="true"></i></a></td>
             </tr>
@@ -117,7 +117,7 @@
 <hr />
 
 <div>
-    <a asp-action="Create">Back to create course page</a>
+    <a asp-action="Create" class="btn btn-primary">Back to create course page</a>
 </div>
 
 
