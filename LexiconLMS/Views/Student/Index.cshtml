@@ -1,11 +1,8 @@
 ﻿@model StudentCourseViewModel
-
 @{
     ViewData["Title"] = "Index";
 }
-
 <h1>Student, Welcome to the Course</h1>
-
 <div class="jumbotron">
     <div class="media">
         <div class="media-body">
@@ -19,43 +16,37 @@
                     @Html.DisplayNameFor(a => a.StartDate) : @Html.DisplayFor(a => a.StartDate)
                 </strong>
             </p>
-            <a class="btn btn-primary stretched-link disabled mb-5" href="@Url.Action("Details", "Course", new { id = Model.Id })">Details</a>
+            <a class="btn btn-primary stretched-link  mb-5" href="@Url.Action("Details", "StudentCourse", new { id = Model.Id })">Details</a>
         </div>
     </div>
-
     <div class="shadow p-3 mb-1 bg-secondary rounded">
         <h5 class="display-5">Moduler:</h5>
-
         @foreach (var module in Model.Modules)
         {
-        <div class="shadow p-3 mb-2 bg-light rounded">
-            <p class="float-left pr-3">@Html.DisplayFor(a => module.StartDate) - @Html.DisplayFor(a => module.EndDate)</p>
-            <a class="disabled" href="@Url.Action("Details", "Module", new { id = module.Id })" onclick="return false;">@Html.DisplayFor(b => module.Name)</a>
-            <i class="float-lg-right fa fa-chevron-circle-up" aria-hidden="true"></i>
+            <div class="shadow p-3 mb-2 bg-light rounded">
+                <p class="float-left pr-3">@Html.DisplayFor(a => module.StartDate) - @Html.DisplayFor(a => module.EndDate)</p>
+                <a class="disabled" href="@Url.Action("Details", "StudentModule", new { id = module.Id })">@Html.DisplayFor(b => module.Name)</a>
+                <i class="float-lg-right fa fa-chevron-circle-down" aria-hidden="true"></i>
+
+                <div class="shadow p-3 mb-1 rounded activities bgcolor">
+                    @foreach (var activity in module.Activities)
+                    {
+
+                    <p>
+                        @Html.DisplayFor(a => activity.StartDate) - @Html.DisplayFor(a => activity.EndDate)
+                        @*<a  href="@Url.Action("Details","StudentActivity",new { id=activity.Id})" onclick="return false;">@Html.DisplayFor(a =>activity.ActivityType.Type)</a>*@
+                        @Html.ActionLink(activity.ActivityType.Type, "Details", "StudentActivity", new { id = activity.Id })
+
+                    </p>
 
 
-            <div class="shadow p-3 mb-1 rounded activities bgcolor">
-
-                @foreach (var activity in module.Activities)
-                {
-                   
-                <p>
-                    @Html.DisplayFor(a => activity.StartDate) - @Html.DisplayFor(a => activity.EndDate)
-                    @*<a  href="@Url.Action("Details","Activity",new { id=activity.Id})" onclick="return false;">@Html.DisplayFor(a =>activity.ActivityType.Type)</a>*@
-                    @Html.ActionLink(activity.ActivityType.Type, "Details", "Activity", new { id = activity.Id })
-                </p>
-                  
-            
-                }
-
+                    }
+                </div>
             </div>
-
-        </div>
 
 
         }
     </div>
-
     <div class="shadow p-3 mb-1 bg-secondary rounded">
         <h5 class="display-5">Students:</h5>
         <div class="shadow p-3 mb-2 bg-light rounded course-avatars">
@@ -86,20 +77,22 @@
 </div>
 
 
-
-
 @section scripts
     {
 <script>
-    $(document).ready(function () {
-        $(".fa-chevron-circle-up").click(function () {
-           
-                //$(".activities").first().slideToggle();
+$(document).ready(function () {
+        $(".fa-chevron-circle-down").click(function () {
+            $(this).siblings(".activities").fadeToggle(1000,'linear');
 
-            $(this).siblings(".activities").fadeToggle('slow');
+            if($(this).hasClass("fa-chevron-circle-down")){
+               $(this).removeClass("fa-chevron-circle-down");
+               $(this).addClass("fa-chevron-circle-up");
+                 }
+            else{
+                  $(this).removeClass("fa-chevron-circle-up");
+                  $(this).addClass("fa-chevron-circle-down");
+                 }
         });
-    });
-</script>
+    });</script>
 }
-
 
