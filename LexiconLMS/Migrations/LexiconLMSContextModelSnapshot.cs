@@ -164,6 +164,114 @@ namespace LexiconLMS.Migrations
                             EndDate = new DateTime(2018, 12, 5, 16, 0, 0, 0, DateTimeKind.Unspecified),
                             ModuleId = -1,
                             StartDate = new DateTime(2018, 12, 5, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -13,
+                            ActivityTypeId = 1,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2018, 12, 8, 17, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -2,
+                            StartDate = new DateTime(2018, 12, 8, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -14,
+                            ActivityTypeId = 2,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2018, 12, 10, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -2,
+                            StartDate = new DateTime(2018, 12, 10, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -15,
+                            ActivityTypeId = 3,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2019, 1, 8, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -3,
+                            StartDate = new DateTime(2019, 1, 10, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -16,
+                            ActivityTypeId = 1,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2019, 1, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -3,
+                            StartDate = new DateTime(2019, 1, 11, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -17,
+                            ActivityTypeId = 2,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2019, 2, 8, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -4,
+                            StartDate = new DateTime(2019, 2, 10, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -18,
+                            ActivityTypeId = 1,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2019, 2, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -4,
+                            StartDate = new DateTime(2019, 2, 11, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -19,
+                            ActivityTypeId = 3,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2019, 2, 23, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -5,
+                            StartDate = new DateTime(2019, 2, 23, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -20,
+                            ActivityTypeId = 1,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2019, 2, 24, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -5,
+                            StartDate = new DateTime(2019, 2, 24, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -21,
+                            ActivityTypeId = 2,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2019, 3, 9, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -6,
+                            StartDate = new DateTime(2019, 3, 9, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -22,
+                            ActivityTypeId = 2,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2019, 3, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -6,
+                            StartDate = new DateTime(2019, 3, 10, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -23,
+                            ActivityTypeId = 1,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2019, 3, 17, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -7,
+                            StartDate = new DateTime(2019, 3, 17, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -24,
+                            ActivityTypeId = 2,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2019, 3, 18, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -7,
+                            StartDate = new DateTime(2019, 3, 18, 8, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -189,7 +297,7 @@ namespace LexiconLMS.Migrations
                         new
                         {
                             Id = -1,
-                            Description = "Utbildningen mot programmerare och systemut-vecklare syftar till att skapa förutsättningar att ut-veckla kunskaper och färdigheter i programmering och att utveckla IT-system, applikationer eller delar av system. Utbildningen syftar till att inom valt språk täcka systemutveckling, frontend, backend, fullstack samt mobil applikationsutveckling.",
+                            Description = "Utbildningen mot programmerare och systemutvecklare syftar till att skapa förutsättningar att ut-veckla kunskaper och färdigheter i programmering och att utveckla IT-system, applikationer eller delar av system. Utbildningen syftar till att inom valt språk täcka systemutveckling, frontend, backend, fullstack samt mobil applikationsutveckling.",
                             EndDate = new DateTime(2019, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Programmerare och systemutvecklare Inriktning Microsoft .NET",
                             StartDate = new DateTime(2018, 11, 26, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -269,16 +377,16 @@ namespace LexiconLMS.Migrations
                             Description = "Ut a lobortis eros, at blandit metu",
                             EndDate = new DateTime(2019, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Databas",
-                            StartDate = new DateTime(2018, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateTime(2019, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = -4,
                             CourseId = -1,
                             Description = "Vestibulum pharetra ultrices pulvinar",
-                            EndDate = new DateTime(2019, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateTime(2019, 2, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "FrontEnd",
-                            StartDate = new DateTime(2019, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateTime(2019, 2, 9, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {

@@ -62,7 +62,7 @@ namespace LexiconLMS.Controllers
 
             }
 
-            var user = await _userManager.FindByEmailAsync(LVM.Email);
+            var user = await _userManager.FindByNameAsync(LVM.Email);
             if (user == null)
             {
                 ModelState.AddModelError("", "User Name Not Found!");

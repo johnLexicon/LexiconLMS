@@ -61,8 +61,8 @@ namespace LexiconLMS.Models
                 .HasData(
                     new Module { Id = -1, Name = "Programmering", Description = "Lorem ipsum dolor sit amet", StartDate = new DateTime(2018, 11, 26), EndDate = new DateTime(2018, 12, 07), CourseId = -1 },
                     new Module { Id = -2, Name = "Avancerad Programmering", Description = "Cras ut euismod enim", StartDate = new DateTime(2018, 12, 10), EndDate = new DateTime(2019, 01, 02), CourseId = -1 },
-                    new Module { Id = -3, Name = "Databas", Description = "Ut a lobortis eros, at blandit metu", StartDate = new DateTime(2018, 01, 31), EndDate = new DateTime(2019, 02, 08), CourseId = -1 },
-                    new Module { Id = -4, Name = "FrontEnd", Description = "Vestibulum pharetra ultrices pulvinar", StartDate = new DateTime(2019, 01, 03), EndDate = new DateTime(2019, 01, 11), CourseId = -1 },
+                    new Module { Id = -3, Name = "Databas", Description = "Ut a lobortis eros, at blandit metu", StartDate = new DateTime(2019, 01, 03), EndDate = new DateTime(2019, 02, 08), CourseId = -1 },
+                    new Module { Id = -4, Name = "FrontEnd", Description = "Vestibulum pharetra ultrices pulvinar", StartDate = new DateTime(2019, 02, 09), EndDate = new DateTime(2019, 02, 21), CourseId = -1 },
                     new Module { Id = -5, Name = "BackEnd", Description = "Fusce semper, tortor ac condimentum", StartDate = new DateTime(2019, 02, 22), EndDate = new DateTime(2019, 03, 01), CourseId = -1 },
                     new Module { Id = -6, Name = "Applikationsutveckling", Description = "Vestibulum sit amet magna turpis", StartDate = new DateTime(2019, 03, 02), EndDate = new DateTime(2019, 03, 15), CourseId = -1 },
                     new Module { Id = -7, Name = "Testning av mjukvara", Description = "Nunc libero quam, varius id mattis ut", StartDate = new DateTime(2019, 03, 16), EndDate = new DateTime(2019, 03, 22), CourseId = -1 }
@@ -81,7 +81,19 @@ namespace LexiconLMS.Models
                     new Activityy { Id = -9, ActivityTypeId = 3, StartDate = new DateTime(2018, 12, 02, 8, 0, 0), EndDate = new DateTime(2018, 12, 02, 17, 0, 0), ModuleId = -1, Description = "Mauris venenatis" },
                     new Activityy { Id = -10, ActivityTypeId = 1, StartDate = new DateTime(2018, 12, 03, 8, 0, 0), EndDate = new DateTime(2018, 12, 03, 15, 30, 0), ModuleId = -1, Description = "Nunc tempus finibus mollis" },
                     new Activityy { Id = -11, ActivityTypeId = 2, StartDate = new DateTime(2018, 12, 04, 8, 0, 0), EndDate = new DateTime(2018, 12, 04, 17, 15, 0), ModuleId = -1, Description = "Mauris venenatis" },
-                    new Activityy { Id = -12, ActivityTypeId = 3, StartDate = new DateTime(2018, 12, 05, 8, 0, 0), EndDate = new DateTime(2018, 12, 05, 16, 0, 0), ModuleId = -1, Description = "Nunc tempus finibus mollis" }
+                    new Activityy { Id = -12, ActivityTypeId = 3, StartDate = new DateTime(2018, 12, 05, 8, 0, 0), EndDate = new DateTime(2018, 12, 05, 16, 0, 0), ModuleId = -1, Description = "Nunc tempus finibus mollis" },
+                    new Activityy { Id = -13, ActivityTypeId = 1, StartDate = new DateTime(2018, 12, 08, 8, 0, 0), EndDate = new DateTime(2018, 12, 08, 17, 15, 0), ModuleId = -2, Description = "Mauris venenatis" },
+                    new Activityy { Id = -14, ActivityTypeId = 2, StartDate = new DateTime(2018, 12, 10, 8, 0, 0), EndDate = new DateTime(2018, 12, 10, 16, 0, 0), ModuleId = -2, Description = "Nunc tempus finibus mollis" },
+                    new Activityy { Id = -15, ActivityTypeId = 3, StartDate = new DateTime(2019, 01, 10, 8, 0, 0), EndDate = new DateTime(2019, 01, 08, 10, 15, 0), ModuleId = -3, Description = "Mauris venenatis" },
+                    new Activityy { Id = -16, ActivityTypeId = 1, StartDate = new DateTime(2019, 01, 11, 8, 0, 0), EndDate = new DateTime(2019, 01, 10, 11, 0, 0), ModuleId = -3, Description = "Nunc tempus finibus mollis" },
+                    new Activityy { Id = -17, ActivityTypeId = 2, StartDate = new DateTime(2019, 02, 10, 8, 0, 0), EndDate = new DateTime(2019, 02, 08, 10, 15, 0), ModuleId = -4, Description = "Mauris venenatis" },
+                    new Activityy { Id = -18, ActivityTypeId = 1, StartDate = new DateTime(2019, 02, 11, 8, 0, 0), EndDate = new DateTime(2019, 02, 10, 11, 0, 0), ModuleId = -4, Description = "Nunc tempus finibus mollis" },
+                    new Activityy { Id = -19, ActivityTypeId = 3, StartDate = new DateTime(2019, 02, 23, 8, 0, 0), EndDate = new DateTime(2019, 02, 23, 10, 15, 0), ModuleId = -5, Description = "Mauris venenatis" },
+                    new Activityy { Id = -20, ActivityTypeId = 1, StartDate = new DateTime(2019, 02, 24, 8, 0, 0), EndDate = new DateTime(2019, 02, 24, 11, 0, 0), ModuleId = -5, Description = "Nunc tempus finibus mollis" },
+                    new Activityy { Id = -21, ActivityTypeId = 2, StartDate = new DateTime(2019, 03, 09, 8, 0, 0), EndDate = new DateTime(2019, 03, 09, 10, 15, 0), ModuleId = -6, Description = "Mauris venenatis" },
+                    new Activityy { Id = -22, ActivityTypeId = 2, StartDate = new DateTime(2019, 03, 10, 8, 0, 0), EndDate = new DateTime(2019, 03, 10, 11, 0, 0), ModuleId = -6, Description = "Nunc tempus finibus mollis" },
+                    new Activityy { Id = -23, ActivityTypeId = 1, StartDate = new DateTime(2019, 03, 17, 8, 0, 0), EndDate = new DateTime(2019, 03, 17, 10, 15, 0), ModuleId = -7, Description = "Mauris venenatis" },
+                    new Activityy { Id = -24, ActivityTypeId = 2, StartDate = new DateTime(2019, 03, 18, 8, 0, 0), EndDate = new DateTime(2019, 03, 18, 11, 0, 0), ModuleId = -7, Description = "Nunc tempus finibus mollis" }
                 );
         }
 
@@ -107,7 +119,7 @@ namespace LexiconLMS.Models
                 var mapper = serviceProvider.GetRequiredService<IMapper>();
                 var config = serviceProvider.GetRequiredService<IConfiguration>();
 
-                var passwordForParticipants = config["LexiconLMS:SeededCourse:ParticipantPW"];
+                var passwordForParticipants = (config["LexiconLMS:SeededCourse:ParticipantPW"] != null) ? config["LexiconLMS:SeededCourse:ParticipantPW"] : "secret123";
                 var localeCode = config["LexiconLMS:SeededCourse:LocaleCode"];
                 int.TryParse(config["LexiconLMS:SeededCourse:StudentsCount"], out int studentsCount);
 
