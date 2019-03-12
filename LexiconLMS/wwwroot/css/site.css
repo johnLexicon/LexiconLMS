@@ -85,3 +85,54 @@ body {
 .hide{
     display:none;
 }
+.newcolor{
+    background-color:green;
+}
+
+.licolor:nth-child(odd) {
+    background-color: #eaeaea;
+}
+
+.btn-purple {
+    background-color: #6e3694;
+    color:white;
+    margin-top:10px;
+}
+
+.btn-green {
+    background-color: #41ad49;
+    color: white;
+    margin-top:10px;
+}
+
+.btn-red {
+    background-color: #d32f2f;
+    color: white;
+    margin-top: 10px;
+}
+.tablestyle {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    .tablestyle td, .tablestyle th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    .tablestyle tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .tablestyle tr:hover {
+        background-color: #ddd;
+    }
+
+    .tablestyle th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }

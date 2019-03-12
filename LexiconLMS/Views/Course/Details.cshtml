@@ -40,13 +40,13 @@
         @Html.DisplayFor(model => model.TeacherEmail)
     </dd>
 </dl>
-<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info"><i class="fas fa-edit"></i> Edit Course Details</a>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-purple"><i class="fas fa-edit"></i> Edit Course Details</a>
 
 <hr />
 <div>
     <a asp-action="Create" asp-controller="CourseDocument" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> Add Document</a>
 </div>
-<table class="table table-light" data-toggle="table">
+<table class="table" data-toggle="table">
     <tbody>
         @foreach (var document in Model.Documents)
         {
@@ -66,7 +66,7 @@
 <div>
     <a asp-action="Create" asp-controller="StudentAdmin" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-user-plus"></i> Add Student</a>
 </div>
-<table class="table table-hover" data-toggle="table">
+<table class="table tablestyle" data-toggle="table">
     <thead>
         <tr class="table-info">
             <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().FullName)</th>
@@ -93,7 +93,7 @@
 <div>
     <a asp-action="Create" asp-controller="Module" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> Add Module</a>
 </div>
-<table class="table table-hover" data-toggle="table">
+<table class="table tablestyle" data-toggle="table">
     <thead>
         <tr class="table-info">
             <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().Name)</th>
@@ -120,7 +120,7 @@
 <hr />
 
 <div>
-    <a asp-action="Create" class="btn btn-primary">Back to create course page</a>
+    <a asp-action="Create" class="btn btn-purple">Back to create course page</a>
 </div>
 
 

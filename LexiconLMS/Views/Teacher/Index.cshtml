@@ -8,7 +8,7 @@
 <ul class="list-group">
     @foreach (var item in Model.Courses)
     {
-        <li class="list-group-item">
+        <li class="list-group-item licolor">
             <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
         </li>
     }
@@ -16,7 +16,7 @@
 
 
 <div class="form-group">
-    <a asp-controller="Course" asp-action="Index" class="btn btn-primary">Other Courses</a>
-    <a asp-controller="Course" asp-action="Create" class="btn btn-info">Create Course</a>
+    <a asp-controller="Course" asp-action="Index" class="btn btn-purple">Other Courses</a>
+    <a asp-controller="Course" asp-action="Create" class="btn btn-green">Create Course</a>
 </div>
 
