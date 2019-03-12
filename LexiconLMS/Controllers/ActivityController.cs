@@ -84,7 +84,6 @@ namespace LexiconLMS.Controllers
                 await _context.Activities.AddAsync(activity);
                 await _context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
-                // return RedirectToAction(nameof(Details), new { id =activity.Id});
                 return RedirectToAction("Details", "module", new { id = activity.Module.Id });
             }
          
