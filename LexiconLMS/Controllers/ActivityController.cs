@@ -83,8 +83,8 @@ namespace LexiconLMS.Controllers
                 activity.Module = await _context.Modules.FirstOrDefaultAsync(m => m.Id == viewModel.ModuleId);
                 await _context.Activities.AddAsync(activity);
                 await _context.SaveChangesAsync();
-                // return RedirectToAction(nameof(Details), new { id = viewModel.Id });
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id =activity.Id});
             }
          
             ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type");
@@ -103,7 +103,7 @@ namespace LexiconLMS.Controllers
             var activity = await _context.Activities
                 .Include(v => v.Module)
                 .Include(v => v.ActivityType)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id== id);
             if (activity == null)
             {
                 return NotFound();
