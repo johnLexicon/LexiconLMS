@@ -54,3 +54,34 @@ body {
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.jumbotron {
+    padding: 2rem 2rem;
+}
+
+.img-course {
+    width: 150px;
+    height: 50px;
+}
+
+.course-avatars {
+    height: 300px;
+    overflow: auto;
+}
+
+    .course-avatars .card {
+        margin: 1rem;
+    }
+    .course-avatars img {
+        width: 100px;
+        height: 100px;
+    }
+
+.bgcolor {
+    background-color: rgba(181, 189, 197, 0.5);
+    
+}
+
+.hide{
+    display:none;
+}

@@ -21,14 +21,15 @@
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/css/Lexicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
-            <div class="container col-md-9">
+            <div class="container col-md-7">
                 <picture class="float-left">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img style="width:110px; height:38px" src="~/images/logo-lexicon_2x.gif" />
+                        <img style="width:110px; height:38px" src="~/images/Lexicon_webblogo.png" />
                     </a>
                 </picture>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -40,16 +41,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+
                         @if (User.IsInRole("Teacher"))
                         {
+                            <li>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Course" asp-action="Index">Courses</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="StudentAdmin" asp-action="Index">Students</a>
                             </li>
                         }
-                        </ul>
+                    </ul>
                 </div>
             </div>
 

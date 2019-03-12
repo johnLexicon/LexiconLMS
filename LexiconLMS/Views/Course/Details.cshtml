@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
 
 <h4>Course Details</h4>
 <hr />
@@ -40,11 +40,62 @@
         @Html.DisplayFor(model => model.TeacherEmail)
     </dd>
 </dl>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info"><i class="fas fa-edit"></i> Edit Course Details</a>
 
 <hr />
-<table data-toggle="table">
+<div>
+    <a asp-action="Create" asp-controller="CourseDocument" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> Add Document</a>
+</div>
+<table class="table table-light" data-toggle="table">
+    <tbody>
+        @foreach (var document in Model.Documents)
+        {
+            <tr>
+                <td>@Html.ActionLink(document.Name, "Display", "CourseDocument", new { id = document.Id })</td>
+                <td>@document.Description</td>
+                <td>@document.UploadTime</td>
+                <td>@(document.DocumentData.Length) bytes</td>
+
+                <td><a href="@Url.Action("Delete", "CourseDocument", new { id = document.Id })"><i class="fa fa-backspace" aria-hidden="true"></i></a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+<div>
+    <a asp-action="Create" asp-controller="StudentAdmin" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-user-plus"></i> Add Student</a>
+</div>
+<table class="table table-hover" data-toggle="table">
     <thead>
-        <tr>
+        <tr class="table-info">
+            <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().FullName)</th>
+            <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().Email)</th>
+            @*<th></th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model.Students)
+        {
+            <tr class="table-active">
+                <td>@Html.ActionLink(student.FullName, "Details", "StudentAdmin", new { id = @student.Id })</td>
+                @*<td>@student.FullName</td>*@
+                <td>@student.Email</td>
+                <td><a href="@Url.Action("Delete", "StudentAdmin", new { id = student.Id })"><i class="fa fa-backspace" aria-hidden="true"></i></a></td>
+                @*<td><a href="@Url.Action("Edit", "StudentAdmin", new { id = student.Id })"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a></td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+<div>
+    <a asp-action="Create" asp-controller="Module" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> Add Module</a>
+</div>
+<table class="table table-hover" data-toggle="table">
+    <thead>
+        <tr class="table-info">
             <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().Name)</th>
             <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().StartDate)</th>
             <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().EndDate)</th>
@@ -55,13 +106,13 @@
     <tbody>
         @foreach (var module in Model.Modules)
         {
-        <tr>
-            <td>@Html.ActionLink(module.Name, "Details", "Module",new { id = @module.Id })</td>
-            <td>@module.StartDate</td>
-            <td>@module.EndDate</td>
-            <td><a href="@Url.Action("Delete", "Module", new { id = module.Id })"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-            <td><a href="@Url.Action("Edit", "Module", new { id = module.Id })"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-        </tr>
+            <tr class="table-active">
+                <td>@Html.ActionLink(module.Name, "Details", "Module", new { id = @module.Id })</td>
+                <td>@module.StartDate.ToShortDateString()</td>
+                <td>@module.EndDate.ToShortDateString()</td>
+                <td><a href="@Url.Action("Edit", "Module", new { id = module.Id })"><i class="fas fa-edit" aria-hidden="true"></i></a></td>
+                <td><a href="@Url.Action("Delete", "Module", new { id = module.Id })"><i class="fa fa-backspace" aria-hidden="true"></i></a></td>
+            </tr>
         }
     </tbody>
 </table>
@@ -69,11 +120,9 @@
 <hr />
 
 <div>
-    <a asp-action="Add">Back to create course page</a>
+    <a asp-action="Create" class="btn btn-primary">Back to create course page</a>
 </div>
-<div>
-    <a asp-action="Create" asp-controller="Module" asp-route-id="@Model.Id">Create Module</a>
-</div>
+
 
 
 

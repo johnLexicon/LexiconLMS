@@ -19,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -36,15 +36,18 @@
             <input type="hidden" asp-for="CourseId" class="form-control" />
 
             <div class="form-group">
+                <a class="btn btn-info" asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Details" asp-controller="Course" class="btn btn-danger" asp-route-id="@Model.CourseId">Cancel</a>
+
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
-</div>
+
+  
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -20,14 +20,49 @@ namespace LexiconLMS.Data
 
         public DbSet<Module> Modules { get; set; }
 
+        public DbSet<Activityy> Activities { get; set; }
+
+        public DbSet<ActivityType> ActivityType { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Course>()
-                .HasOne(c => c.Teacher); //Needed for creating a foreign key to the Teacher.
+            //builder.Entity<Course>()
+            //    .HasOne<User>(c => c.Teacher) //Needed for creating a foreign key to the Teacher.
+            //    .WithOne(d => d.Course)
+            //    .HasForeignKey<User>(e => e.CourseId);
 
             builder.Entity<Module>();
+
+            builder.Entity<Course>()
+                .HasMany<User>(u => u.Users)
+                .WithOne(c => c.Course)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            builder.Entity<User>()
+                .HasOne<Course>(c => c.Course);
+
+            builder.Entity<Module>();
+
+            builder.Entity<Activityy>();
+            builder.Entity<ActivityType>();
+
+            /*** Seed Data for Activity Types ***/
+
+            builder.Entity<ActivityType>()
+                .HasData(
+                    new ActivityType() { Id = 1, Type = "E-Learning" },
+                    new ActivityType() { Id = 2, Type = "Lectures" },
+                    new ActivityType() { Id = 3, Type = "Exercise" }
+                );
+
+            /*** Seed Data for course ***/
+
+            SeedData.SeedCourseData(builder);
+
         }     
+
+        public DbSet<LexiconLMS.Models.CourseDocument> CourseDocument { get; set; }
     }
 }

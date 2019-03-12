@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LexiconLMS.ViewModels
 {
-    public class ModuleViewModel
+    public class ModuleViewModel : IDateInterval
     {
         public int Id { get; set; }
 
@@ -34,5 +34,8 @@ namespace LexiconLMS.ViewModels
         [DataType(DataType.Date)]
         [EndDateLaterThanStartDate]
         public DateTime EndDate { get; set; }
+
+
+        public ICollection<ActivityViewModel> Activities{ get; set; }
     }
 }

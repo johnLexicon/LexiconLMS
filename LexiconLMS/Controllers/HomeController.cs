@@ -32,11 +32,20 @@ namespace LexiconLMS.Controllers
         {
             if (_signInManager.IsSignedIn(User))
             {
-                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                if(user is null)
+                {
+                    return View();
+                }
+
                 var userRole = _userManager.GetRolesAsync(user).Result.Single();
                 if (userRole == "Teacher")
                 {
                     return RedirectToAction("Index", "Teacher");
+                }
+                else if(userRole == "Student")
+                {
+                    return RedirectToAction("Index", "Student");
                 }
             }
 
@@ -53,7 +62,7 @@ namespace LexiconLMS.Controllers
 
             }
 
-            var user = await _userManager.FindByEmailAsync(LVM.Email);
+            var user = await _userManager.FindByNameAsync(LVM.Email);
             if (user == null)
             {
                 ModelState.AddModelError("", "User Name Not Found!");
@@ -76,7 +85,10 @@ namespace LexiconLMS.Controllers
             {
                 return RedirectToAction("Index", "Student");
             }
-            return Ok();
+            else
+            {
+                return NotFound();
+            }
 
         }
 
@@ -84,7 +96,9 @@ namespace LexiconLMS.Controllers
         public async Task<IActionResult> Logout()
         {
            await  _signInManager.SignOutAsync();
-            return Redirect("http://www.lexicon.se");
+            // return Redirect("http://www.lexicon.se");
+            return RedirectToAction("Index", "Home");
+
         }
 
 

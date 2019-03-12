@@ -19,6 +19,279 @@ namespace LexiconLMS.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("LexiconLMS.Models.ActivityType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActivityType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Type = "E-Learning"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Type = "Lectures"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Type = "Exercise"
+                        });
+                });
+
+            modelBuilder.Entity("LexiconLMS.Models.Activityy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ActivityTypeId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<int>("ModuleId");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityTypeId");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("Activities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1,
+                            ActivityTypeId = 1,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2018, 11, 26, 12, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -1,
+                            StartDate = new DateTime(2018, 11, 26, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -2,
+                            ActivityTypeId = 2,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2018, 11, 26, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -1,
+                            StartDate = new DateTime(2018, 11, 26, 13, 15, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -3,
+                            ActivityTypeId = 3,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2018, 11, 27, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -1,
+                            StartDate = new DateTime(2018, 11, 27, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -4,
+                            ActivityTypeId = 1,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2018, 11, 28, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -1,
+                            StartDate = new DateTime(2018, 11, 28, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -5,
+                            ActivityTypeId = 2,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2018, 11, 29, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -1,
+                            StartDate = new DateTime(2018, 11, 29, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -6,
+                            ActivityTypeId = 2,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2018, 11, 30, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -1,
+                            StartDate = new DateTime(2018, 11, 30, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -7,
+                            ActivityTypeId = 1,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2018, 12, 26, 12, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -1,
+                            StartDate = new DateTime(2018, 12, 1, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -8,
+                            ActivityTypeId = 2,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2018, 12, 1, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -1,
+                            StartDate = new DateTime(2018, 12, 1, 13, 15, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -9,
+                            ActivityTypeId = 3,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2018, 12, 2, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -1,
+                            StartDate = new DateTime(2018, 12, 2, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -10,
+                            ActivityTypeId = 1,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2018, 12, 3, 15, 30, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -1,
+                            StartDate = new DateTime(2018, 12, 3, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -11,
+                            ActivityTypeId = 2,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2018, 12, 4, 17, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -1,
+                            StartDate = new DateTime(2018, 12, 4, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -12,
+                            ActivityTypeId = 3,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2018, 12, 5, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -1,
+                            StartDate = new DateTime(2018, 12, 5, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -13,
+                            ActivityTypeId = 1,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2018, 12, 8, 17, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -2,
+                            StartDate = new DateTime(2018, 12, 8, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -14,
+                            ActivityTypeId = 2,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2018, 12, 10, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -2,
+                            StartDate = new DateTime(2018, 12, 10, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -15,
+                            ActivityTypeId = 3,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2019, 1, 8, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -3,
+                            StartDate = new DateTime(2019, 1, 10, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -16,
+                            ActivityTypeId = 1,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2019, 1, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -3,
+                            StartDate = new DateTime(2019, 1, 11, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -17,
+                            ActivityTypeId = 2,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2019, 2, 8, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -4,
+                            StartDate = new DateTime(2019, 2, 10, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -18,
+                            ActivityTypeId = 1,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2019, 2, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -4,
+                            StartDate = new DateTime(2019, 2, 11, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -19,
+                            ActivityTypeId = 3,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2019, 2, 23, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -5,
+                            StartDate = new DateTime(2019, 2, 23, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -20,
+                            ActivityTypeId = 1,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2019, 2, 24, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -5,
+                            StartDate = new DateTime(2019, 2, 24, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -21,
+                            ActivityTypeId = 2,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2019, 3, 9, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -6,
+                            StartDate = new DateTime(2019, 3, 9, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -22,
+                            ActivityTypeId = 2,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2019, 3, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -6,
+                            StartDate = new DateTime(2019, 3, 10, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -23,
+                            ActivityTypeId = 1,
+                            Description = "Mauris venenatis",
+                            EndDate = new DateTime(2019, 3, 17, 10, 15, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -7,
+                            StartDate = new DateTime(2019, 3, 17, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -24,
+                            ActivityTypeId = 2,
+                            Description = "Nunc tempus finibus mollis",
+                            EndDate = new DateTime(2019, 3, 18, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModuleId = -7,
+                            StartDate = new DateTime(2019, 3, 18, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
             modelBuilder.Entity("LexiconLMS.Models.Course", b =>
                 {
                     b.Property<int>("Id")
@@ -33,13 +306,44 @@ namespace LexiconLMS.Migrations
 
                     b.Property<DateTime>("StartDate");
 
-                    b.Property<string>("TeacherId");
+                    b.HasKey("Id");
+
+                    b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1,
+                            Description = "Utbildningen mot programmerare och systemutvecklare syftar till att skapa förutsättningar att ut-veckla kunskaper och färdigheter i programmering och att utveckla IT-system, applikationer eller delar av system. Utbildningen syftar till att inom valt språk täcka systemutveckling, frontend, backend, fullstack samt mobil applikationsutveckling.",
+                            EndDate = new DateTime(2019, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Programmerare och systemutvecklare Inriktning Microsoft .NET",
+                            StartDate = new DateTime(2018, 11, 26, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("LexiconLMS.Models.CourseDocument", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CourseId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<byte[]>("DocumentData");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("UploadTime");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("CourseId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("CourseDocument");
                 });
 
             modelBuilder.Entity("LexiconLMS.Models.Module", b =>
@@ -63,6 +367,71 @@ namespace LexiconLMS.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("Modules");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1,
+                            CourseId = -1,
+                            Description = "Lorem ipsum dolor sit amet",
+                            EndDate = new DateTime(2018, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Programmering",
+                            StartDate = new DateTime(2018, 11, 26, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -2,
+                            CourseId = -1,
+                            Description = "Cras ut euismod enim",
+                            EndDate = new DateTime(2019, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Avancerad Programmering",
+                            StartDate = new DateTime(2018, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -3,
+                            CourseId = -1,
+                            Description = "Ut a lobortis eros, at blandit metu",
+                            EndDate = new DateTime(2019, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Databas",
+                            StartDate = new DateTime(2019, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -4,
+                            CourseId = -1,
+                            Description = "Vestibulum pharetra ultrices pulvinar",
+                            EndDate = new DateTime(2019, 2, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "FrontEnd",
+                            StartDate = new DateTime(2019, 2, 9, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -5,
+                            CourseId = -1,
+                            Description = "Fusce semper, tortor ac condimentum",
+                            EndDate = new DateTime(2019, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "BackEnd",
+                            StartDate = new DateTime(2019, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -6,
+                            CourseId = -1,
+                            Description = "Vestibulum sit amet magna turpis",
+                            EndDate = new DateTime(2019, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Applikationsutveckling",
+                            StartDate = new DateTime(2019, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = -7,
+                            CourseId = -1,
+                            Description = "Nunc libero quam, varius id mattis ut",
+                            EndDate = new DateTime(2019, 3, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Testning av mjukvara",
+                            StartDate = new DateTime(2019, 3, 16, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("LexiconLMS.Models.User", b =>
@@ -74,6 +443,8 @@ namespace LexiconLMS.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<int?>("CourseId");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -106,6 +477,8 @@ namespace LexiconLMS.Migrations
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -228,11 +601,25 @@ namespace LexiconLMS.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("LexiconLMS.Models.Course", b =>
+            modelBuilder.Entity("LexiconLMS.Models.Activityy", b =>
                 {
-                    b.HasOne("LexiconLMS.Models.User", "Teacher")
+                    b.HasOne("LexiconLMS.Models.ActivityType", "ActivityType")
                         .WithMany()
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("ActivityTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("LexiconLMS.Models.Module", "Module")
+                        .WithMany("Activities")
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("LexiconLMS.Models.CourseDocument", b =>
+                {
+                    b.HasOne("LexiconLMS.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LexiconLMS.Models.Module", b =>
@@ -241,6 +628,14 @@ namespace LexiconLMS.Migrations
                         .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("LexiconLMS.Models.User", b =>
+                {
+                    b.HasOne("LexiconLMS.Models.Course", "Course")
+                        .WithMany("Users")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

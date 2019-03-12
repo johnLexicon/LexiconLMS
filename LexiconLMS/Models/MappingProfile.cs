@@ -17,6 +17,12 @@ namespace LexiconLMS.Models
             CreateMap<User, CourseDetailsViewModel>()
                 .ForMember(dest => dest.TeacherEmail, from => from.MapFrom(src => src.Email));
             CreateMap<Course, CourseDetailsViewModel > ().ForMember(a => a.Modules, opt => opt.Ignore());
+
+            CreateMap<ActivityViewModel, Activityy>();
+            CreateMap<Activityy, ActivityViewModel>();
+
+            CreateMap<Bogus.Person, User>()
+                .ForMember(dest => dest.UserName, from => from.MapFrom(src => src.Email));
         }
 
     }

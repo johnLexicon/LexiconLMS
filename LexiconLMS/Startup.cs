@@ -75,6 +75,9 @@ namespace LexiconLMS
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                CreateRoles(serviceProvider);
+                CreateAdmin(serviceProvider);
+                SeedData.SeedCourseParticipants(serviceProvider);
             }
             else
             {
@@ -98,8 +101,7 @@ namespace LexiconLMS
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
             
-            CreateRoles(serviceProvider);
-            CreateAdmin(serviceProvider);
+
         }
 
         private void CreateRoles(IServiceProvider serviceProvider)

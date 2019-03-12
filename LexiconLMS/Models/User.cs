@@ -11,5 +11,11 @@ namespace LexiconLMS.Models
     {
         [Display(Name="Name")]
         public string FullName { get; set; }
+
+        public int? CourseId { get; set; }
+
+        //Nav property
+        public Course Course { get; set; }
+
     }
 }
