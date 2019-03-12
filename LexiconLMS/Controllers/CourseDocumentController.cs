@@ -82,14 +82,12 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            //var document = await _context.CourseDocument.FirstOrDefaultAsync(a => a.Id == id);
             var document = _context.CourseDocument.FirstOrDefault(a => a.Id == id);
             if (!(document is null))
             {
                 _context.Remove(document);
                 _context.SaveChanges();
 
-                //var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == document.EntityId);
                 var course = _context.Courses.FirstOrDefault(a => a.Id == document.CourseId);
 
                 if (!(course is null))
@@ -101,6 +99,7 @@ namespace LexiconLMS.Controllers
             return NotFound();
         }
 
+        [Authorize(Roles ="Teacher, Student")]
         public ActionResult Display(int id)
         {
             var document = _context.CourseDocument.FirstOrDefault(d => d.Id == id);
@@ -112,8 +111,16 @@ namespace LexiconLMS.Controllers
 
             string contentType;
             new FileExtensionContentTypeProvider().TryGetContentType(document.Name, out contentType);
-            contentType = "application/force-download"; //Hackish, maybe not nessecary 
-            return new FileStreamResult(new MemoryStream(document.DocumentData), contentType) { FileDownloadName = document.Name };
+            if (contentType == "application/pdf")
+            {
+                //handle pdf:s separately
+                return new FileStreamResult(new MemoryStream(document.DocumentData), contentType);
+            }
+            else
+            {
+                contentType = "application/force-download"; //Hackish, maybe not nessecary 
+                return new FileStreamResult(new MemoryStream(document.DocumentData), contentType) { FileDownloadName = document.Name };
+            }
 
         }
     }

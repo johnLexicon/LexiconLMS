@@ -44,26 +44,6 @@
 
 <hr />
 <div>
-    <a asp-action="Create" asp-controller="CourseDocument" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> Add Document</a>
-</div>
-<table class="table" data-toggle="table">
-    <tbody>
-        @foreach (var document in Model.Documents)
-        {
-            <tr>
-                <td>@Html.ActionLink(document.Name, "Display", "CourseDocument", new { id = document.Id })</td>
-                <td>@document.Description</td>
-                <td>@document.UploadTime</td>
-                <td>@(document.DocumentData.Length) bytes</td>
-
-                <td><a href="@Url.Action("Delete", "CourseDocument", new { id = document.Id })"><i class="fa fa-backspace" aria-hidden="true"></i></a></td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<hr />
-<div>
     <a asp-action="Create" asp-controller="StudentAdmin" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-user-plus"></i> Add Student</a>
 </div>
 <table class="table tablestyle" data-toggle="table">
@@ -89,7 +69,6 @@
     </tbody>
 </table>
 
-<hr />
 <div>
     <a asp-action="Create" asp-controller="Module" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> Add Module</a>
 </div>
@@ -117,7 +96,22 @@
     </tbody>
 </table>
 
-<hr />
+<div>
+    <a asp-action="Create" asp-controller="CourseDocument" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-file-upload"></i> Add Document</a>
+</div>
+<table class="table table-light" data-toggle="table">
+    <tbody>
+        @foreach (var document in Model.Documents)
+        {
+            <tr>
+                <td><i class="fas fa-file-download"></i> @Html.ActionLink(document.Name, "Display", "CourseDocument", new { id = document.Id }) (@document.Filezise)</td>
+                <td><i class="fas fa-info-circle"></i> @document.Description</td>
+                <td><i class="fas fa-clock"></i> @Html.DisplayFor(d => document.UploadTime)</td>
+                <td><a href="@Url.Action("Delete", "CourseDocument", new { id = document.Id })"><i class="fa fa-backspace" aria-hidden="true"></i></a></td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 <div>
     <a asp-action="Create" class="btn btn-purple">Back to create course page</a>

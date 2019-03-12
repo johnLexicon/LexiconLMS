@@ -20,6 +20,7 @@ namespace LexiconLMS.Models
 
             CreateMap<ActivityViewModel, Activityy>();
             CreateMap<Activityy, ActivityViewModel>();
+            CreateMap<GenericDocument, DocumentListViewModel>();
 
             CreateMap<Bogus.Person, User>()
                 .ForMember(dest => dest.UserName, from => from.MapFrom(src => src.Email));
