@@ -109,7 +109,16 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            return View(document);
+            var isPdf = document.Name.EndsWith(".pdf", StringComparison.CurrentCulture);
+            var contentType = isPdf ? "application/pdf" : "text/plain";
+
+            MemoryStream stream = new MemoryStream();
+            
+            stream.Write(document.DocumentData, 0, document.DocumentData.Length);
+            stream.Position = 0;
+
+            return new FileStreamResult(stream, contentType);
+
         }
     }
 }
