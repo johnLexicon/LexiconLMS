@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Humanizer;
 using LexiconLMS.Data;
 using LexiconLMS.Models;
 using LexiconLMS.ViewModels;
@@ -54,10 +55,16 @@ namespace LexiconLMS.Controllers
 
             viewModel.TeacherEmail = theTeacher.FirstOrDefault().Email;
 
-            viewModel.Documents = _context.CourseDocument.Where(d => d.CourseId == id).ToList();
+            viewModel.Documents = new List<DocumentListViewModel>();
+            var documents = _context.CourseDocument.Where(d => d.CourseId == id).ToList();
+            foreach (var doc in documents)
+            {
+                var newDoc = _mapper.Map<DocumentListViewModel>(doc);
+                newDoc.Filezise = (doc.DocumentData.Length).Bytes().Humanize("#.#");
+                viewModel.Documents.Add(newDoc);
+            }
 
             viewModel.Students = course.Users.Except(theTeacher);
-
 
             viewModel.Modules = new List<ModuleViewModel>();
             var modules = _context.Modules.Where(a => a.CourseId == id).ToList();
@@ -65,7 +72,5 @@ namespace LexiconLMS.Controllers
 
             return View(viewModel);
         }
-
-
     }
 }

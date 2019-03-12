@@ -33,6 +33,6 @@ namespace LexiconLMS.ViewModels
 
         public List<ModuleViewModel> Modules { get; set; }
 
-        public IEnumerable<CourseDocument> Documents { get; set; }
+        public List<DocumentListViewModel> Documents { get; set; }
     }
 }
