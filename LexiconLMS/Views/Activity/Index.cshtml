@@ -67,11 +67,11 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
-                    <a asp-controller="Activity" asp-action="Create" asp-route-Id="@item.Module.Id">Add Another Activity</a>
-                 
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+
                 </td>
+              
             </tr>
         }
     </tbody>
