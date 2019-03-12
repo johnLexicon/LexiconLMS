@@ -52,6 +52,9 @@
         {
             <tr>
                 <td>@Html.ActionLink(document.Name, "Display", "CourseDocument", new { id = document.Id })</td>
+                <td>@document.Description</td>
+                <td>@document.UploadTime</td>
+                <td>@(document.DocumentData.Length) bytes</td>
 
                 <td><a href="@Url.Action("Delete", "CourseDocument", new { id = document.Id })"><i class="fa fa-backspace" aria-hidden="true"></i></a></td>
             </tr>

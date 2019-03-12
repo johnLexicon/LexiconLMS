@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace LexiconLMS.Controllers
 {
@@ -109,7 +110,11 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            return View(document);
+            string contentType;
+            new FileExtensionContentTypeProvider().TryGetContentType(document.Name, out contentType);
+            contentType = "application/force-download"; //Hackish, maybe not nessecary 
+            return new FileStreamResult(new MemoryStream(document.DocumentData), contentType) { FileDownloadName = document.Name };
+
         }
     }
 }
