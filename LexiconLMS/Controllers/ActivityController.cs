@@ -122,23 +122,16 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            var activity = await _context.Activities.FindAsync(id);
-
+            var activity = await _context.Activities.Include(a => a.Module).FirstOrDefaultAsync(a => a.Id == id);
 
             if (activity == null)
             {
                 return NotFound();
             }
 
-            var module = await _context.Activities.FindAsync(activity.ModuleId);
-            if (module == null)
-            {
-                return NotFound();
-            }
-
             var viewModel = _mapper.Map<ActivityViewModel>(activity);
-            viewModel.ParentStartDate = module.StartDate;
-            viewModel.ParentEndDate = module.EndDate;
+            viewModel.ParentStartDate = activity.Module.StartDate;
+            viewModel.ParentEndDate = activity.Module.EndDate;
 
             ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type", activity.ActivityTypeId);
             return View(viewModel);
@@ -191,8 +184,5 @@ namespace LexiconLMS.Controllers
 
             return NotFound();
         }
-
-
-
     }
 }
