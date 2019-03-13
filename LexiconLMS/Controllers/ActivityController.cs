@@ -149,7 +149,7 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            var viewModel = _mapper.Map<ActivityViewModel>(activity);
+            var viewModel = _mapper.Map<ActivityAddViewModel>(activity);
             viewModel.ParentStartDate = activity.Module.StartDate;
             viewModel.ParentEndDate = activity.Module.EndDate;
 
