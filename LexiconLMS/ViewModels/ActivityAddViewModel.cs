@@ -4,7 +4,7 @@ using LexiconLMS.Models;
 
 namespace LexiconLMS.ViewModels
 {
-    public class ActivityViewModel: IDateInterval
+    public class ActivityAddViewModel: IDateInterval
     {
 
         public int Id { get; set; }
@@ -12,8 +12,7 @@ namespace LexiconLMS.ViewModels
         [Required]
         public int ModuleId { get; set; }
 
-        
-        [Display(Name ="Module name")]
+        [Display(Name ="Activity name")]
         public string ModuleName { get; set; }
 
         //[Required]

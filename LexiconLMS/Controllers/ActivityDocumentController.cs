@@ -66,7 +66,7 @@ namespace LexiconLMS.Controllers
                 _context.SaveChanges();
 
                 //Can't get it to accept nameof(Details) for some reason
-                return RedirectToAction("Details", nameof(Activityy), new { id = vm.EnitityId });
+                return RedirectToAction("Details", "Activity", new { id = vm.EnitityId });
             }
             else
             {

@@ -1,13 +1,15 @@
-﻿using LexiconLMS.Models;
+﻿using AutoMapper;
+using LexiconLMS.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace LexiconLMS.ViewModels
 {
-    public class ModuleViewModel : IDateInterval
+    public class ModuleDetailsViewModel
     {
         public int Id { get; set; }
 
@@ -35,7 +37,9 @@ namespace LexiconLMS.ViewModels
         [EndDateLaterThanStartDate]
         public DateTime EndDate { get; set; }
 
+        public ICollection<ActivityAddViewModel> Activities { get; set; }
 
-        public ICollection<ActivityViewModel> Activities{ get; set; }
+        [IgnoreMap]
+        public ICollection<DocumentListViewModel> Documents { get; set; }
     }
 }

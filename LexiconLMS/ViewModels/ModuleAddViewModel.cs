@@ -7,32 +7,34 @@ using System.Threading.Tasks;
 
 namespace LexiconLMS.ViewModels
 {
-    public class CourseDetailsViewModel
+    public class ModuleAddViewModel : IDateInterval
     {
         public int Id { get; set; }
 
-        [Display(Name = "Course name")]
+        [Required]
+        public int CourseId { get; set; }
+
+        [Display(Name = "Course Name")]
+        public string CourseName { get; set; }
+
+        [Required]
+        [Display(Name = "Module name")]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
         public string Description { get; set; }
 
+        [Required]
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
+        [Required]
         [Display(Name = "End date")]
         [DataType(DataType.Date)]
+        [EndDateLaterThanStartDate]
         public DateTime EndDate { get; set; }
 
-        [Display(Name = "Teacher email")]
-        public string TeacherEmail { get; set; }
-
-        [Display(Name = "Students")]
-        public IEnumerable<User> Students { get; set; }
-
-        public List<ModuleAddViewModel> Modules { get; set; }
-
-        public List<DocumentListViewModel> Documents { get; set; }
+        public ICollection<ActivityAddViewModel> Activities{ get; set; }
     }
 }

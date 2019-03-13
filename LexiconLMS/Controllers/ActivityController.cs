@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Humanizer;
 using LexiconLMS.Data;
 using LexiconLMS.Models;
 using LexiconLMS.ViewModels;
@@ -51,7 +52,7 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            var model = new ActivityViewModel();
+            var model = new ActivityAddViewModel();
 
             model.ModuleId = module.Id;
             model.ModuleName =module.Name;
@@ -72,7 +73,7 @@ namespace LexiconLMS.Controllers
         // POST: Activity/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Description,StartDate,EndDate,ModuleId,ModuleName,ActivityTypeId")] ActivityViewModel viewModel)
+        public async Task<IActionResult> Create([Bind("Description,StartDate,EndDate,ModuleId,ModuleName,ActivityTypeId")] ActivityAddViewModel viewModel)
         {
 
             if (ModelState.IsValid)
@@ -84,7 +85,7 @@ namespace LexiconLMS.Controllers
                 await _context.Activities.AddAsync(activity);
                 await _context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
-                return RedirectToAction("Details", "module", new { id = activity.Module.Id });
+                return RedirectToAction("Details", "Activity", new { id = activity.Id });
             }
          
             ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type");
@@ -108,8 +109,27 @@ namespace LexiconLMS.Controllers
             {
                 return NotFound();
             }
+            var model = new ActivityDetailsViewModel()
+            {
+                Id = activity.Id,
+                ModuleName = activity.Module.Name,
+                ModuleId = activity.ModuleId,
+                Description = activity.Description,
+                StartDate = activity.StartDate,
+                EndDate = activity.EndDate,
+                ActivityType = activity.ActivityType
+            };
 
-            return View(activity);
+            model.Documents = new List<DocumentListViewModel>();
+            var documents = _context.ActivityDocument.Where(d => d.ActivityId == id).ToList();
+            foreach (var doc in documents)
+            {
+                var newDoc = _mapper.Map<DocumentListViewModel>(doc);
+                newDoc.Filezise = (doc.DocumentData.Length).Bytes().Humanize("#.#");
+                model.Documents.Add(newDoc);
+            }
+
+            return View(model);
         }
 
 
@@ -128,7 +148,7 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            var viewModel = _mapper.Map<ActivityViewModel>(activity);
+            var viewModel = _mapper.Map<ActivityAddViewModel>(activity);
             ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type", activity.ActivityTypeId);
             return View(viewModel);
         }
@@ -136,7 +156,7 @@ namespace LexiconLMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Description,StartDate,EndDate,ModuleId,ModuleName,ActivityTypeId")] ActivityViewModel AVM)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Description,StartDate,EndDate,ModuleId,ModuleName,ActivityTypeId")] ActivityAddViewModel AVM)
         {
 
             if (ModelState.IsValid)

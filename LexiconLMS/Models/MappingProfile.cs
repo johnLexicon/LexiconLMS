@@ -11,15 +11,17 @@ namespace LexiconLMS.Models
     {
         public MappingProfile()
         {
-            CreateMap<Module, ModuleViewModel>();
-            CreateMap<ModuleViewModel, Module>();
-            CreateMap<AddCourseViewModel, Course>();
+            CreateMap<Module, ModuleAddViewModel>();
+            CreateMap<ModuleAddViewModel, Module>();
+            CreateMap<ModuleDetailsViewModel, Module>().ForSourceMember(a => a.Documents, opt => opt.DoNotValidate());
+            CreateMap<CourseAddViewModel, Course>();
             CreateMap<User, CourseDetailsViewModel>()
                 .ForMember(dest => dest.TeacherEmail, from => from.MapFrom(src => src.Email));
             CreateMap<Course, CourseDetailsViewModel > ().ForMember(a => a.Modules, opt => opt.Ignore());
 
-            CreateMap<ActivityViewModel, Activityy>();
-            CreateMap<Activityy, ActivityViewModel>();
+            CreateMap<ActivityAddViewModel, Activityy>();
+            CreateMap<ActivityDetailsViewModel, Activityy>();
+            CreateMap<Activityy, ActivityAddViewModel>();
             CreateMap<GenericDocument, DocumentListViewModel>();
 
             CreateMap<Bogus.Person, User>()

@@ -71,7 +71,7 @@ namespace LexiconLMS.Controllers
             }
             else
             {
-                return View(("_CreateDocumentPartial", vm);
+                return View("_CreateDocumentPartial", vm);
             }
         }
 

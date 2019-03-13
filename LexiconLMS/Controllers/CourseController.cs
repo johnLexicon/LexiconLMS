@@ -75,7 +75,7 @@ namespace LexiconLMS.Controllers
             var students = await _userManager.GetUsersInRoleAsync("Student");
 
             var startDate = DateTime.Now;
-            AddCourseViewModel viewModel = new AddCourseViewModel
+            CourseAddViewModel viewModel = new CourseAddViewModel
             {
                 Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList(),
                 StartDate = startDate,
@@ -86,7 +86,7 @@ namespace LexiconLMS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AddCourseViewModel viewModel)
+        public async Task<IActionResult> Create(CourseAddViewModel viewModel)
         {
             
             if (ModelState.IsValid)
@@ -151,9 +151,9 @@ namespace LexiconLMS.Controllers
             viewModel.Students = course.Users.Except(theTeacher);
 
 
-            viewModel.Modules = new List<ModuleViewModel>();
+            viewModel.Modules = new List<ModuleAddViewModel>();
             var modules = _context.Modules.Where(a => a.CourseId == id).ToList();
-            modules.ForEach(a => viewModel.Modules.Add(_mapper.Map<ModuleViewModel>(a)));
+            modules.ForEach(a => viewModel.Modules.Add(_mapper.Map<ModuleAddViewModel>(a)));
 
             return View(viewModel);
         }
@@ -169,7 +169,7 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            var viewModel = new AddCourseViewModel()
+            var viewModel = new CourseAddViewModel()
             {
                 Id = course.Id,
                 Name = course.Name,
@@ -195,7 +195,7 @@ namespace LexiconLMS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(AddCourseViewModel viewModel)
+        public async Task<IActionResult> Edit(CourseAddViewModel viewModel)
         {
 
             if (ModelState.IsValid)

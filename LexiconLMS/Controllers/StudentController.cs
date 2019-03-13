@@ -62,13 +62,13 @@ namespace LexiconLMS.Controllers
             {
                 model.Name = "Not in any course!";
             }
-            model.Modules = new List<ModuleViewModel>();
-            modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleViewModel>(m)));
+            model.Modules = new List<ModuleAddViewModel>();
+            modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleAddViewModel>(m)));
             model.Students = StudentsToRows(studentsInCourse);
 
             //
-            model.activities = new List<ActivityViewModel>();
-            activities.ForEach(a => model.activities.Add(_mapper.Map<ActivityViewModel>(a)));
+            model.activities = new List<ActivityAddViewModel>();
+            activities.ForEach(a => model.activities.Add(_mapper.Map<ActivityAddViewModel>(a)));
 
             return View(model);
         }

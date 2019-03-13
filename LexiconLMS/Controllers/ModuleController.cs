@@ -10,6 +10,7 @@ using LexiconLMS.Models;
 using Microsoft.AspNetCore.Authorization;
 using LexiconLMS.ViewModels;
 using AutoMapper;
+using Humanizer;
 
 namespace LexiconLMS.Controllers
 {
@@ -49,15 +50,35 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            var model = _mapper.Map<ModuleViewModel>(@module);
+            //var model = _mapper.Map<ModuleDetailsViewModel>(@module);
+
+            var model = new ModuleDetailsViewModel()
+            {
+                CourseId = course.Id,
+                CourseName = course.Name,
+                Id = module.Id,
+                Name = module.Name,
+                Description = module.Description,
+                StartDate = module.StartDate,
+                EndDate = module.EndDate,
+            };
             model.CourseId = course.Id;
             model.CourseName = course.Name;
 
             
 
-            model.Activities = new List<ActivityViewModel>();
+            model.Activities = new List<ActivityAddViewModel>();
             var activities = _context.Activities.Include(a=>a.Module).Include(a=>a.ActivityType).Where(a => a.ModuleId == id).ToList();
-            activities.ForEach(a => model.Activities.Add(_mapper.Map<ActivityViewModel>(a)));
+            activities.ForEach(a => model.Activities.Add(_mapper.Map<ActivityAddViewModel>(a)));
+
+            model.Documents = new List<DocumentListViewModel>();
+            var documents = _context.ModuleDocument.Where(d => d.ModuleId == id).ToList();
+            foreach (var doc in documents)
+            {
+                var newDoc = _mapper.Map<DocumentListViewModel>(doc);
+                newDoc.Filezise = (doc.DocumentData.Length).Bytes().Humanize("#.#");
+                model.Documents.Add(newDoc);
+            }
 
             return View(model);
         }
@@ -76,7 +97,7 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            var model = _mapper.Map<ModuleViewModel>(new Module());
+            var model = _mapper.Map<ModuleAddViewModel>(new Module());
             model.CourseId = course.Id;
             model.CourseName = course.Name;
             var dateTimeNow = DateTime.Now;
@@ -90,7 +111,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,StartDate,EndDate,DocId,CourseId")] ModuleViewModel @module)
+        public async Task<IActionResult> Create([Bind("Name,Description,StartDate,EndDate,DocId,CourseId")] ModuleAddViewModel @module)
         {
             if (ModelState.IsValid)
             {
@@ -143,7 +164,7 @@ namespace LexiconLMS.Controllers
                 var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == module.CourseId);
                 if (!(course is null))
                 {
-                    var model = _mapper.Map<Module, ModuleViewModel>(module);
+                    var model = _mapper.Map<Module, ModuleAddViewModel>(module);
                     model.CourseId = course.Id;
                     model.CourseName = course.Name;
                     return View(model);
@@ -159,7 +180,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id, Name, Description, StartDate, EndDate, CourseId")] ModuleViewModel @module)
+        public async Task<IActionResult> Edit([Bind("Id, Name, Description, StartDate, EndDate, CourseId")] ModuleAddViewModel @module)
         {
             if (ModelState.IsValid)
             {
