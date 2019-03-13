@@ -53,7 +53,7 @@ namespace LexiconLMS.Controllers
             model.CourseId = course.Id;
             model.CourseName = course.Name;
 
-            
+
 
             model.Activities = new List<ActivityViewModel>();
             var activities = _context.Activities.Include(a=>a.Module).Include(a=>a.ActivityType).Where(a => a.ModuleId == id).ToList();
@@ -79,9 +79,13 @@ namespace LexiconLMS.Controllers
             var model = _mapper.Map<ModuleViewModel>(new Module());
             model.CourseId = course.Id;
             model.CourseName = course.Name;
+            model.ParentStartDate = course.StartDate;
+            model.ParentEndDate = course.EndDate;
+
             var dateTimeNow = DateTime.Now;
             model.StartDate = dateTimeNow;
             model.EndDate = dateTimeNow.AddDays(7);
+
             return View(model);
         }
 
@@ -90,7 +94,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,StartDate,EndDate,DocId,CourseId")] ModuleViewModel @module)
+        public async Task<IActionResult> Create([Bind("Name, Description, StartDate, EndDate, DocId, CourseId, ParentStartDate, ParentEndDate")] ModuleViewModel @module)
         {
             if (ModelState.IsValid)
             {
@@ -146,6 +150,8 @@ namespace LexiconLMS.Controllers
                     var model = _mapper.Map<Module, ModuleViewModel>(module);
                     model.CourseId = course.Id;
                     model.CourseName = course.Name;
+                    model.ParentStartDate = course.StartDate;
+                    model.ParentEndDate = course.EndDate;
                     return View(model);
                 }
             }
@@ -159,7 +165,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id, Name, Description, StartDate, EndDate, CourseId")] ModuleViewModel @module)
+        public async Task<IActionResult> Edit([Bind("Id, Name, Description, StartDate, EndDate, CourseId, ParentStartDate, ParentEndDate")] ModuleViewModel @module)
         {
             if (ModelState.IsValid)
             {
@@ -176,7 +182,7 @@ namespace LexiconLMS.Controllers
                 return RedirectToAction(nameof(Details), new { id = moduleEntity.Id });
             }
 
-            return NotFound();
+            return View(@module);
         }
     }
 }
