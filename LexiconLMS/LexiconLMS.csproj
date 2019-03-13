@@ -26,6 +26,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Controllers\ActivityStudentController.cs" />
+    <Compile Remove="Migrations\20190313104921_doc4.cs" />
+    <Compile Remove="Migrations\20190313104921_doc4.Designer.cs" />
     <Compile Remove="Views\Student\Details.cs" />
   </ItemGroup>
   <ItemGroup>

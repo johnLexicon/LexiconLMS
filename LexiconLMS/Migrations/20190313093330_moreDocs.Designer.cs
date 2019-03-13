@@ -4,47 +4,22 @@ using LexiconLMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LexiconLMS.Migrations
 {
     [DbContext(typeof(LexiconLMSContext))]
-    partial class LexiconLMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190313093330_moreDocs")]
+    partial class moreDocs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("LexiconLMS.Models.ActivityDocument", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ActivityId");
-
-                    b.Property<int?>("ActivityyId");
-
-                    b.Property<string>("Description");
-
-                    b.Property<byte[]>("DocumentData");
-
-                    b.Property<string>("Name");
-
-                    b.Property<DateTime>("UploadTime");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ActivityyId");
-
-                    b.ToTable("ActivityDocument");
-                });
 
             modelBuilder.Entity("LexiconLMS.Models.ActivityType", b =>
                 {
@@ -461,31 +436,6 @@ namespace LexiconLMS.Migrations
                         });
                 });
 
-            modelBuilder.Entity("LexiconLMS.Models.ModuleDocument", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description");
-
-                    b.Property<byte[]>("DocumentData");
-
-                    b.Property<int>("ModuleId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<DateTime>("UploadTime");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ModuleId");
-
-                    b.ToTable("ModuleDocument");
-                });
-
             modelBuilder.Entity("LexiconLMS.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -653,13 +603,6 @@ namespace LexiconLMS.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("LexiconLMS.Models.ActivityDocument", b =>
-                {
-                    b.HasOne("LexiconLMS.Models.Activityy", "Activityy")
-                        .WithMany()
-                        .HasForeignKey("ActivityyId");
-                });
-
             modelBuilder.Entity("LexiconLMS.Models.Activityy", b =>
                 {
                     b.HasOne("LexiconLMS.Models.ActivityType", "ActivityType")
@@ -686,14 +629,6 @@ namespace LexiconLMS.Migrations
                     b.HasOne("LexiconLMS.Models.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("LexiconLMS.Models.ModuleDocument", b =>
-                {
-                    b.HasOne("LexiconLMS.Models.Module", "Module")
-                        .WithMany()
-                        .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
