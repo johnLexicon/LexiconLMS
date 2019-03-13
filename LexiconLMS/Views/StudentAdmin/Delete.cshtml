@@ -4,7 +4,7 @@
     ViewData["Title"] = "Confirm Delete account";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 style="color:#d32f2f">@ViewData["Title"]</h1>
 
 <hr />
 <div>
@@ -29,8 +29,8 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         @if (Model.Email != User.Identity.Name) {
-        <input type="submit" value="Delete" class="btn btn-danger" /> } |
+        <input type="submit" value="Delete" class="btn btn-red" /> } 
                                                                          
-              <a asp-action="Index">Back to List</a>
+              <a asp-action="Index" class="btn btn-green">Back to List</a>
     </form>
 </div>

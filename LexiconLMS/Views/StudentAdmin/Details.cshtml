@@ -1,14 +1,14 @@
 ﻿@model LexiconLMS.ViewModels.UserAdminViewModel
 
 @{
-    ViewData["Title"] = "Student account details";
+    ViewData["Title"] = "Student Account Details";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 style="color:  #6e3694">@ViewData["Title"]</h1>
 
 <hr />
 <div>
-    <h4>Details</h4>
+    @*<h4 >Details</h4>*@
     <hr />
     <dl class="row">
         <dt class="col-sm-3">
@@ -31,6 +31,6 @@
         <input type="submit" value="Remove account" class="btn btn-red" />
     </a>
     }
-    <a class="btn btn-purple" asp-action="Edit" role="button" asp-route-id="@Model.Id">Edit details</a>
+    <a class="btn btn-green" asp-action="Edit" role="button" asp-route-id="@Model.Id">Edit details</a>
 </div>
 

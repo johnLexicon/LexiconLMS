@@ -29,8 +29,8 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         @if (Model.Email != User.Identity.Name) {
-        <input type="submit" value="Delete" class="btn btn-danger" /> } |
+        <input type="submit" value="Delete" class="btn btn-red" /> } |
                                                                          
-              <a asp-action="Index">Back to List</a>
+              <a asp-action="Index" class="btn btn-purple">Back to List</a>
     </form>
 </div>

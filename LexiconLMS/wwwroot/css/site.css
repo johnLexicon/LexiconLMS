@@ -95,21 +95,70 @@ body {
 
 .btn-purple {
     background-color: #6e3694;
-    color:white;
-    margin-top:10px;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
+
+    .btn-purple:hover {
+        background-color: #9162e4;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 
 .btn-green {
     background-color: #41ad49;
     color: white;
     margin-top:10px;
+    margin-bottom:10px;
 }
+
+.btn-border-green {
+    border-color: rgb(47, 212, 132);
+    color: #6e3694;
+}
+
+.btn-border-green:hover {
+    background-color: rgb(47, 212, 132);
+    color:white;
+}
+    .btn-green:hover {
+        background-color: #6abf69;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 
 .btn-red {
     background-color: #d32f2f;
     color: white;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
+
+    .btn-red:hover {
+        background-color: #f05545;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+.btn-orange {
+    /*background-color: #f9a825;*/
+    background-color: #f57920;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .btn-orange:hover {
+        /*background-color: #fbc02d;*/
+        background-color: #ff9800;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 .tablestyle {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -136,3 +185,7 @@ body {
         background-color: #4CAF50;
         color: white;
     }
+
+.jumbotron {
+    background-color: transparent !important;
+}
