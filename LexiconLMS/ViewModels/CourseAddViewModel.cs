@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LexiconLMS.ViewModels
 {
-    public class AddCourseViewModel : IDateInterval
+    public class CourseAddViewModel : IDateInterval
     {
         public int Id { get; set; }
 
@@ -39,12 +39,5 @@ namespace LexiconLMS.ViewModels
         public IEnumerable<SelectListItem> FormatedTeachers
         { get => Teachers.Select(t => new SelectListItem { Value = t.Item1, Text = t.Item2 }); }
 
-        ////Students
-        //public IEnumerable<string> StudentIds { get; set; }
-
-        //public List<Tuple<string, string>> Students { get; set; }
-        //[Display(Name = "Students")]
-        //public IEnumerable<SelectListItem> FormatedStudents
-        //{ get => Students.Select(t => new SelectListItem { Value = t.Item1, Text = t.Item2 }); }
     }
 }

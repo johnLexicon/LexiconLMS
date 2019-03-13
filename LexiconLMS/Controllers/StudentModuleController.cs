@@ -48,15 +48,15 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            var model = _mapper.Map<ModuleViewModel>(@module);
+            var model = _mapper.Map<ModuleAddViewModel>(@module);
             model.CourseId = course.Id;
             model.CourseName = course.Name;
 
 
 
-            model.Activities = new List<ActivityViewModel>();
+            model.Activities = new List<ActivityAddViewModel>();
             var activities = _context.Activities.Include(a => a.Module).Include(a => a.ActivityType).Where(a => a.ModuleId == id).ToList();
-            activities.ForEach(a => model.Activities.Add(_mapper.Map<ActivityViewModel>(a)));
+            activities.ForEach(a => model.Activities.Add(_mapper.Map<ActivityAddViewModel>(a)));
 
             return View(model);
         }
