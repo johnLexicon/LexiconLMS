@@ -24,6 +24,12 @@ namespace LexiconLMS.Data
 
         public DbSet<ActivityType> ActivityType { get; set; }
 
+        public DbSet<CourseDocument> CourseDocument { get; set; }
+
+        public DbSet<ModuleDocument> ModuleDocument { get; set; }
+
+        public DbSet<ActivityDocument> ActivityDocument { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -48,6 +54,12 @@ namespace LexiconLMS.Data
             builder.Entity<Activityy>();
             builder.Entity<ActivityType>();
 
+            builder.Entity<CourseDocument>();
+            
+            builder.Entity<ModuleDocument>();
+            
+            builder.Entity<ActivityDocument>();
+            
             /*** Seed Data for Activity Types ***/
 
             builder.Entity<ActivityType>()
@@ -63,6 +75,6 @@ namespace LexiconLMS.Data
 
         }     
 
-        public DbSet<LexiconLMS.Models.CourseDocument> CourseDocument { get; set; }
+        //public DbSet<LexiconLMS.Models.GenericDocument> GenericDocument { get; set; }
     }
 }
