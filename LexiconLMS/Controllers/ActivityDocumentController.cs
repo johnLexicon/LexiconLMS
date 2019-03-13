@@ -92,7 +92,7 @@ namespace LexiconLMS.Controllers
 
                 if (!(module is null))
                 {
-                    return RedirectToAction("Details", "Activityy", new { id = module.Id });
+                    return RedirectToAction("Details", "Activity", new { id = module.Id });
                 }
             }
 
