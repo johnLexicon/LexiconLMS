@@ -209,10 +209,14 @@ namespace LexiconLMS.Controllers
                 course.Name = viewModel.Name;
                 course.Description = viewModel.Description;
 
-                List<User> participants = new List<User>();
+                var participants = course.Users;
+
+                //List<User> participants = new List<User>();
                 if (!(teacher is null))
                 {
-                    participants.Add(teacher);
+                    var teachers = _userManager.GetUsersInRoleAsync("Teacher");
+                    teachers.Wait();
+                    participants = participants.Except(teachers.Result).Append(teacher).ToList();
                 }
                 course.Users = participants;
 
