@@ -4,8 +4,16 @@ using LexiconLMS.Models;
 
 namespace LexiconLMS.ViewModels
 {
-    public class ActivityViewModel: IDateInterval
+    public class ActivityViewModel: IDateInterval, IParentDateInterval
     {
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime ParentStartDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime ParentEndDate { get; set; }
 
         public int Id { get; set; }
 
@@ -25,12 +33,14 @@ namespace LexiconLMS.ViewModels
         [Required]
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]
+        [StartDateNotEarlierThanParentStartDate(ErrorMessage = "Activity Start Date {0} must be later or equal to Module Start Date {1}")]
         public DateTime StartDate { get; set; }
 
         [Required]
         [Display(Name = "End date")]
         [DataType(DataType.Date)]
         [EndDateLaterThanStartDate]
+        [EndDateNotLaterThanParentEndDate(ErrorMessage = "Activity End Date {0} must be earlier or equal to Module End Date {1}")]
         public DateTime EndDate { get; set; }
 
         //[Required]
