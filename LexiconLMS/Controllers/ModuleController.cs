@@ -176,6 +176,17 @@ namespace LexiconLMS.Controllers
                 moduleEntity.EndDate = @module.EndDate;
                 moduleEntity.Description = @module.Description;
 
+                var activitiesOutSideStartEndDate = await GetActivitiesOutSideCourseStartEndDates(moduleEntity);
+                if (activitiesOutSideStartEndDate.Count() > 0)
+                {
+                    var errorCount = 0;
+                    foreach (var activity in activitiesOutSideStartEndDate)
+                    {
+                        ModelState.AddModelError($"activity_start_end_error_{errorCount++}", $"Activity: {activity.Description} {activity.StartDate.ToString(Common.DateFormat)} - {activity.EndDate.ToString(Common.DateFormat)} is outside module Start/End dates");
+                    }
+                    return View(@module);
+                }
+
                 _context.Update(moduleEntity);
                 await _context.SaveChangesAsync();
 
@@ -183,6 +194,21 @@ namespace LexiconLMS.Controllers
             }
 
             return View(@module);
+        }
+
+
+        private async Task<List<Activityy>> GetActivitiesOutSideCourseStartEndDates(Module @module)
+        {
+            var res = new List<Activityy>();
+            var activities = await _context.Activities.Where(a => a.ModuleId == @module.Id).ToListAsync();
+            foreach (var activity in activities)
+            {
+                if (@module.StartDate.CompareTo(activity.StartDate) > 0 || @module.EndDate.CompareTo(activity.EndDate) < 0)
+                {
+                    res.Add(activity);
+                }
+            }
+            return res;
         }
     }
 }
