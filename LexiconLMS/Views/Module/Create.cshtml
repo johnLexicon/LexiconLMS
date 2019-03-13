@@ -34,6 +34,8 @@
             </div>
 
             <input type="hidden" asp-for="CourseId" class="form-control" />
+            <input type="hidden" asp-for="ParentStartDate" class="form-control" />
+            <input type="hidden" asp-for="ParentEndDate" class="form-control" />
 
             <div class="form-group">
                 <a class="btn btn-info" asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>

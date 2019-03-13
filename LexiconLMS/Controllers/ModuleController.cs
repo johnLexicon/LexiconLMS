@@ -65,7 +65,7 @@ namespace LexiconLMS.Controllers
             model.CourseId = course.Id;
             model.CourseName = course.Name;
 
-            
+
 
             model.Activities = new List<ActivityAddViewModel>();
             var activities = _context.Activities.Include(a=>a.Module).Include(a=>a.ActivityType).Where(a => a.ModuleId == id).ToList();
@@ -100,9 +100,13 @@ namespace LexiconLMS.Controllers
             var model = _mapper.Map<ModuleAddViewModel>(new Module());
             model.CourseId = course.Id;
             model.CourseName = course.Name;
+            model.ParentStartDate = course.StartDate;
+            model.ParentEndDate = course.EndDate;
+
             var dateTimeNow = DateTime.Now;
             model.StartDate = dateTimeNow;
             model.EndDate = dateTimeNow.AddDays(7);
+
             return View(model);
         }
 
@@ -111,7 +115,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,StartDate,EndDate,DocId,CourseId")] ModuleAddViewModel @module)
+        public async Task<IActionResult> Create([Bind("Name, Description, StartDate, EndDate, DocId, CourseId, ParentStartDate, ParentEndDate")] ModuleAddViewModel @module)
         {
             if (ModelState.IsValid)
             {
@@ -167,6 +171,8 @@ namespace LexiconLMS.Controllers
                     var model = _mapper.Map<Module, ModuleAddViewModel>(module);
                     model.CourseId = course.Id;
                     model.CourseName = course.Name;
+                    model.ParentStartDate = course.StartDate;
+                    model.ParentEndDate = course.EndDate;
                     return View(model);
                 }
             }
@@ -180,7 +186,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id, Name, Description, StartDate, EndDate, CourseId")] ModuleAddViewModel @module)
+        public async Task<IActionResult> Edit([Bind("Id, Name, Description, StartDate, EndDate, CourseId, ParentStartDate, ParentEndDate")] ModuleAddViewModel @module)
         {
             if (ModelState.IsValid)
             {
@@ -191,13 +197,39 @@ namespace LexiconLMS.Controllers
                 moduleEntity.EndDate = @module.EndDate;
                 moduleEntity.Description = @module.Description;
 
+                var activitiesOutSideStartEndDate = await GetActivitiesOutSideCourseStartEndDates(moduleEntity);
+                if (activitiesOutSideStartEndDate.Count() > 0)
+                {
+                    var errorCount = 0;
+                    foreach (var activity in activitiesOutSideStartEndDate)
+                    {
+                        ModelState.AddModelError($"activity_start_end_error_{errorCount++}", $"Activity: {activity.Description} {activity.StartDate.ToString(Common.DateFormat)} - {activity.EndDate.ToString(Common.DateFormat)} is outside module Start/End dates");
+                    }
+                    return View(@module);
+                }
+
                 _context.Update(moduleEntity);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Details), new { id = moduleEntity.Id });
             }
 
-            return NotFound();
+            return View(@module);
+        }
+
+
+        private async Task<List<Activityy>> GetActivitiesOutSideCourseStartEndDates(Module @module)
+        {
+            var res = new List<Activityy>();
+            var activities = await _context.Activities.Where(a => a.ModuleId == @module.Id).ToListAsync();
+            foreach (var activity in activities)
+            {
+                if (@module.StartDate.CompareTo(activity.StartDate) > 0 || @module.EndDate.CompareTo(activity.EndDate) < 0)
+                {
+                    res.Add(activity);
+                }
+            }
+            return res;
         }
     }
 }

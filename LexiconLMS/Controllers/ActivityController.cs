@@ -59,7 +59,9 @@ namespace LexiconLMS.Controllers
             model.Module = module;
             model.Course = module.Course;
 
-          
+            model.ParentStartDate = module.StartDate;
+            model.ParentEndDate = module.EndDate;
+
             var startTimeActivity = module.StartDate;
             model.StartDate = startTimeActivity;
            
@@ -73,7 +75,7 @@ namespace LexiconLMS.Controllers
         // POST: Activity/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Description,StartDate,EndDate,ModuleId,ModuleName,ActivityTypeId")] ActivityAddViewModel viewModel)
+        public async Task<IActionResult> Create([Bind("Description, StartDate, EndDate, ModuleId, ModuleName, ActivityTypeId, ParentStartDate, ParentEndDate")] ActivityAddViewModel viewModel)
         {
 
             if (ModelState.IsValid)
@@ -85,7 +87,7 @@ namespace LexiconLMS.Controllers
                 await _context.Activities.AddAsync(activity);
                 await _context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
-                return RedirectToAction("Details", "Activity", new { id = activity.Id });
+                return RedirectToAction("Details", "module", new { id = activity.Module.Id });
             }
          
             ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type");
@@ -148,7 +150,16 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            var viewModel = _mapper.Map<ActivityAddViewModel>(activity);
+            var module = await _context.Activities.FindAsync(activity.ModuleId);
+            if (module == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = _mapper.Map<ActivityViewModel>(activity);
+            viewModel.ParentStartDate = module.StartDate;
+            viewModel.ParentEndDate = module.EndDate;
+
             ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type", activity.ActivityTypeId);
             return View(viewModel);
         }
@@ -156,7 +167,7 @@ namespace LexiconLMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Description,StartDate,EndDate,ModuleId,ModuleName,ActivityTypeId")] ActivityAddViewModel AVM)
+        public async Task<IActionResult> Edit(int id, [Bind("Id, Description, StartDate, EndDate, ModuleId, ModuleName, ActivityTypeId, ParentStartDate, ParentEndDate")] ActivityAddViewModel AVM)
         {
 
             if (ModelState.IsValid)
