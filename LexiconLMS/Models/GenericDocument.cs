@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LexiconLMS.Models
 {
-    public class GenericDocument
+    public abstract class GenericDocument
     {
         public int Id { get; set; }
         public string Name { get; set; }

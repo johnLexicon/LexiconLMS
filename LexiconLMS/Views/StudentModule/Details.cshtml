@@ -1,4 +1,4 @@
-﻿@model LexiconLMS.ViewModels.ModuleViewModel
+﻿@model LexiconLMS.ViewModels.ModuleAddViewModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -35,7 +35,7 @@
 </div>
 
 <hr />
-<table class="table table-hover">
+<table class="table tablestyle">
     <thead>
         <tr class="table-info">
             <th>@Html.DisplayNameFor(a => a.Activities.FirstOrDefault().ActivityType.Type)</th>
@@ -61,6 +61,6 @@
 <hr />
 
 <div>
-    <a asp-controller="Student" asp-action="Index" class="btn btn-info">Back to Home</a>
-    <a asp-action=" " asp-controller=" " asp-route-id="@Model.Id" class="btn btn-primary" onclick="return false;">Documents</a>
+    <a asp-controller="Student" asp-action="Index" class="btn btn-orange">Back to Home</a>
+    <a asp-action=" " asp-controller=" " asp-route-id="@Model.Id" class="btn btn-purple" onclick="return false;">Documents</a>
 </div>

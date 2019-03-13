@@ -1,20 +1,20 @@
-﻿@model LexiconLMS.Models.Activityy
+﻿@model LexiconLMS.ViewModels.ActivityDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Activity Details</h1>
+<h1 style="color:#f57920;">Activity Details</h1>
 
 <div>
     <hr />
     <dl class="row">
         @*<dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>*@
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Id)
+            </dd>*@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Module)
         </dt>
@@ -48,11 +48,29 @@
 
     </dl>
 </div>
+
+<hr />
+<div>
+    <a asp-action="Create" asp-controller="ActivityDocument" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-file-upload"></i> Add Document</a>
+</div>
+<table class="table table-light" data-toggle="table">
+    <tbody>
+        @foreach (var document in Model.Documents)
+        {
+            <tr>
+                <td><i class="fas fa-file-download"></i> @Html.ActionLink(document.Name, "Display", "ActivityDocument", new { id = document.Id }) (@document.Filezise)</td>
+                <td><i class="fas fa-info-circle"></i> @document.Description</td>
+                <td><i class="fas fa-clock"></i> @Html.DisplayFor(d => document.UploadTime)</td>
+                <td><a href="@Url.Action("Delete", "ActivityDocument", new { id = document.Id })"><i class="fa fa-backspace" aria-hidden="true"></i></a></td>
+            </tr>
+        }
+    </tbody>
+</table>
 <div>
 
     <div>
-        <a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId" class="btn btn-info">Back to Module</a>
+        <a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId" class="btn btn-green">Back to Module</a>
 
         @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
-        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+        <a asp-action="Index" class="btn btn-purple">All Activities</a>
     </div>

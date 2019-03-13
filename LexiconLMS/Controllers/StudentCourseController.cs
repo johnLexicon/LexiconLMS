@@ -56,19 +56,19 @@ namespace LexiconLMS.Controllers
             viewModel.TeacherEmail = theTeacher.FirstOrDefault().Email;
 
             viewModel.Documents = new List<DocumentListViewModel>();
-            var documents = _context.CourseDocument.Where(d => d.CourseId == id).ToList();
-            foreach (var doc in documents)
-            {
-                var newDoc = _mapper.Map<DocumentListViewModel>(doc);
-                newDoc.Filezise = (doc.DocumentData.Length).Bytes().Humanize("#.#");
-                viewModel.Documents.Add(newDoc);
-            }
+            //var documents = _context.CourseDocument.Where(d => d.CourseId == id).ToList();
+            //foreach (var doc in documents)
+            //{
+            //    var newDoc = _mapper.Map<DocumentListViewModel>(doc);
+            //    newDoc.Filezise = (doc.DocumentData.Length).Bytes().Humanize("#.#");
+            //    viewModel.Documents.Add(newDoc);
+            //}
 
-            viewModel.Students = course.Users.Except(theTeacher);
+            //viewModel.Students = course.Users.Except(theTeacher);
 
-            viewModel.Modules = new List<ModuleViewModel>();
-            var modules = _context.Modules.Where(a => a.CourseId == id).ToList();
-            modules.ForEach(a => viewModel.Modules.Add(_mapper.Map<ModuleViewModel>(a)));
+            //viewModel.Modules = new List<ModuleViewModel>();
+            //var modules = _context.Modules.Where(a => a.CourseId == id).ToList();
+            //modules.ForEach(a => viewModel.Modules.Add(_mapper.Map<ModuleViewModel>(a)));
 
             return View(viewModel);
         }

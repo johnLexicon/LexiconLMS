@@ -31,7 +31,7 @@ namespace LexiconLMS.ViewModels
         [Display(Name = "Students")]
         public IEnumerable<User> Students { get; set; }
 
-        public List<ModuleViewModel> Modules { get; set; }
+        public List<ModuleAddViewModel> Modules { get; set; }
 
         public List<DocumentListViewModel> Documents { get; set; }
     }

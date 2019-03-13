@@ -1,4 +1,4 @@
-﻿@model LexiconLMS.ViewModels.ActivityViewModel
+﻿@model LexiconLMS.ViewModels.ActivityAddViewModel
 @{
     ViewData["Title"] = "Create Activity";
 }
@@ -33,8 +33,7 @@
 
             <div class="form-group">
                 <label asp-for="ActivityTypeId" class="control-label"></label>
-                <select asp-for="ActivityTypeId" class="form-control" asp-items="ViewBag.ActivityTypeId">     
-                </select>
+                <select asp-for="ActivityTypeId" class="form-control" asp-items="ViewBag.ActivityTypeId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
@@ -54,18 +53,22 @@
                 </div>
 
             </div>
+
             <input type="hidden" asp-for="ModuleId" class="form-control" />
             <input type="hidden" asp-for="ModuleName" class="form-control" />
+            <input type="hidden" asp-for="ParentStartDate" class="form-control" />
+            <input type="hidden" asp-for="ParentEndDate" class="form-control" />
+
             <div class="form-group">
                 @*//Comment For Demo*@
                 @*<a asp-controller="Documents" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-primary">Add Activity Documents</a>*@
-               
+
             </div>
             <div>
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-green" />
                 @*<a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId" class="btn btn-info">Back to Module</a>*@
-                <a asp-action="Details" asp-controller="Module" class="btn btn-danger"  asp-route-id="@Model.ModuleId" >Cancel</a>
-                
+                <a asp-action="Details" asp-controller="Module" class="btn btn-red" asp-route-id="@Model.ModuleId">Cancel</a>
+
             </div>
         </form>
     </div>

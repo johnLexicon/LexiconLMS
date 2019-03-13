@@ -3,13 +3,13 @@
     ViewData["Title"] = "Teacher page";
 }
 
-<h1>Teacher's Page</h1>
-<h4>Ongoing Courses</h4>
+<h1 >Teacher's Page</h1>
+<h4 style="color:#f57920" >Ongoing Courses</h4>
 <ul class="list-group">
     @foreach (var item in Model.Courses)
     {
         <li class="list-group-item licolor">
-            <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+            <h5> <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">@item.Name</a></h5>
         </li>
     }
 </ul>
