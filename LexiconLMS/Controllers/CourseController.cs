@@ -216,6 +216,18 @@ namespace LexiconLMS.Controllers
                 }
                 course.Users = participants;
 
+
+                var modulesOutSideStartEndDate = await GetModulesOutSideCourseStartEndDates(course);
+                if(modulesOutSideStartEndDate.Count() > 0)
+                {
+                    var errorCount = 0;
+                    foreach (var module in modulesOutSideStartEndDate)
+                    {
+                        ModelState.AddModelError($"module_start_end_error_{errorCount++}", $"Module: {module.Name} {module.StartDate.ToString(Common.DateFormat)} - {module.EndDate.ToString(Common.DateFormat)} is outside course Start/End dates" );
+                    }
+                    return View(viewModel);
+                }
+
                 _context.SaveChanges();
 
                 return RedirectToAction(nameof(Details), new { course.Id });
@@ -227,6 +239,20 @@ namespace LexiconLMS.Controllers
             }
 
             return View(viewModel);
+        }
+
+        private async Task<List<Module>> GetModulesOutSideCourseStartEndDates(Course course)
+        {
+            var res = new List<Module>();
+            var modules = await _context.Modules.Where(a => a.CourseId == course.Id).Include("Activities").ToListAsync();
+            foreach(var module in modules)
+            {
+                if(module.StartDate.CompareTo(course.StartDate) < 0 || module.EndDate.CompareTo(course.EndDate) > 0)
+                {
+                    res.Add(module);
+                }
+            }
+            return res;
         }
 
         public async Task<IActionResult> Delete(int id)

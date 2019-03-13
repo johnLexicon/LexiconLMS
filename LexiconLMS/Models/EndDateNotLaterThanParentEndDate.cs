@@ -21,8 +21,7 @@ namespace LexiconLMS.Models
             {
                 if (parent.ParentEndDate.CompareTo(child.EndDate) < 0)
                 {
-                    var dateTimeFormat = "yyyy-MM-dd";
-                    return new ValidationResult(string.Format(ErrorMessage, child.EndDate.ToString(dateTimeFormat), parent.ParentEndDate.ToString(dateTimeFormat)));
+                    return new ValidationResult(string.Format(ErrorMessage, child.EndDate.ToString(Common.DateFormat), parent.ParentEndDate.ToString(Common.DateFormat)));
                 }                
             }
             return ValidationResult.Success;
