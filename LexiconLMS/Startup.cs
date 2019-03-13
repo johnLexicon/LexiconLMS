@@ -47,7 +47,7 @@ namespace LexiconLMS
             ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<LexiconLMSContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LexiconLMSContext"))
+                options.UseSqlServer(Configuration.GetConnectionString("Docker"))
             );
 
             services.AddIdentity<User, IdentityRole>(options =>
