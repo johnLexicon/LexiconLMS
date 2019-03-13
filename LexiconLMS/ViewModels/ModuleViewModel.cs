@@ -7,8 +7,20 @@ using System.Threading.Tasks;
 
 namespace LexiconLMS.ViewModels
 {
-    public class ModuleViewModel : IDateInterval
+    public class ModuleViewModel : IDateInterval, IParentDateInterval
     {
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime ParentStartDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime ParentEndDate { get; set; }
+
+
+
+
         public int Id { get; set; }
 
         [Required]
@@ -27,15 +39,18 @@ namespace LexiconLMS.ViewModels
         [Required]
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]
+        [StartDateNotEarlierThanParentStartDate(ErrorMessage = "Module Start Date {0} must be later or equal to Course Start Date {1}")]
         public DateTime StartDate { get; set; }
 
         [Required]
         [Display(Name = "End date")]
         [DataType(DataType.Date)]
         [EndDateLaterThanStartDate]
+        [EndDateNotLaterThanParentEndDate(ErrorMessage = "Module End Date {0} must be earlier or equal to Course End Date {1}")]
         public DateTime EndDate { get; set; }
 
-
         public ICollection<ActivityViewModel> Activities{ get; set; }
+
+       
     }
 }
