@@ -16,43 +16,42 @@ using Microsoft.AspNetCore.StaticFiles;
 namespace LexiconLMS.Controllers
 {
     [Authorize(Roles ="Teacher")]
-    public class CourseDocumentController : Controller
+    public class ActivityDocumentController : Controller
     {
         private readonly LexiconLMSContext _context;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
 
-        public CourseDocumentController(LexiconLMSContext context, IMapper mapper, UserManager<User> userManager)
+        public ActivityDocumentController(LexiconLMSContext context, IMapper mapper, UserManager<User> userManager)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
         }
 
-        // GET: CourseDocument/Create
+        // GET: ActivityDocument/Create
         public ActionResult Create(int id)
         {
             var vm = new CreateDocumentViewModel()
             {
                 EnitityId = id
             };
-
             return View("_CreateDocumentPartial", vm);
         }
 
-        // POST: CourseDocument/Create
+        // POST: ActivityDocument/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateDocumentViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                var newDocument = new CourseDocument()
+                var newDocument = new ActivityDocument()
                 {
                     Description = vm.Description,
                     Name = vm.file.FileName,
                     UploadTime = DateTime.Now,
-                    CourseId = vm.EnitityId,
+                    ActivityId = vm.EnitityId,
                 };
 
                 newDocument.UserId = _userManager.GetUserId(User);
@@ -63,15 +62,15 @@ namespace LexiconLMS.Controllers
                     newDocument.DocumentData = memoryStream.ToArray();
                 }
 
-                _context.CourseDocument.Add(newDocument);
+                _context.ActivityDocument.Add(newDocument);
                 _context.SaveChanges();
 
                 //Can't get it to accept nameof(Details) for some reason
-                return RedirectToAction("Details", nameof(Course), new { id = vm.EnitityId });
+                return RedirectToAction("Details", nameof(Activityy), new { id = vm.EnitityId });
             }
             else
             {
-                return View(("_CreateDocumentPartial", vm);
+                return View("_CreateDocumentPartial", vm);
             }
         }
 
@@ -83,17 +82,17 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            var document = _context.CourseDocument.FirstOrDefault(a => a.Id == id);
+            var document = _context.ActivityDocument.FirstOrDefault(a => a.Id == id);
             if (!(document is null))
             {
                 _context.Remove(document);
                 _context.SaveChanges();
 
-                var course = _context.Courses.FirstOrDefault(a => a.Id == document.CourseId);
+                var module = _context.Activities.FirstOrDefault(a => a.Id == document.ActivityId);
 
-                if (!(course is null))
+                if (!(module is null))
                 {
-                    return RedirectToAction("Details", "Course", new { id = course.Id });
+                    return RedirectToAction("Details", "Activityy", new { id = module.Id });
                 }
             }
 
@@ -103,7 +102,7 @@ namespace LexiconLMS.Controllers
         [Authorize(Roles ="Teacher, Student")]
         public ActionResult Display(int id)
         {
-            var document = _context.CourseDocument.FirstOrDefault(d => d.Id == id);
+            var document = _context.ActivityDocument.FirstOrDefault(d => d.Id == id);
 
             if (document is null)
             {
@@ -122,6 +121,7 @@ namespace LexiconLMS.Controllers
                 contentType = "application/force-download"; //Hackish, maybe not nessecary 
                 return new FileStreamResult(new MemoryStream(document.DocumentData), contentType) { FileDownloadName = document.Name };
             }
+
         }
     }
 }

@@ -141,7 +141,7 @@ namespace LexiconLMS.Controllers
 
             viewModel.Documents = new List<DocumentListViewModel>();
             var documents = _context.CourseDocument.Where(d => d.CourseId == id).ToList();
-            foreach(var doc in documents)
+            foreach (var doc in documents)
             {
                 var newDoc = _mapper.Map<DocumentListViewModel>(doc);
                 newDoc.Filezise = (doc.DocumentData.Length).Bytes().Humanize("#.#");
@@ -149,7 +149,7 @@ namespace LexiconLMS.Controllers
             }
 
             viewModel.Students = course.Users.Except(theTeacher);
-            
+
 
             viewModel.Modules = new List<ModuleViewModel>();
             var modules = _context.Modules.Where(a => a.CourseId == id).ToList();

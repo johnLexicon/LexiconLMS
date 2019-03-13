@@ -7,7 +7,8 @@ namespace LexiconLMS.Models
 {
     public class UserDocument : GenericDocument
     {
-        public string UserId { get; set; }
-        public User User { get; set; }
+        public string AssigneeUserId { get; set; }
+        public User AssigneeUser { get; set; }
+        public new string UserId { get; set; }
     }
 }
