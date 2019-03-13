@@ -4,9 +4,11 @@
     ViewData["Title"] = "Create Module";
 }
 
-<h1>@Html.DisplayNameFor(a => a.CourseName): @Html.DisplayFor(a => a.CourseName)</h1>
+<h5>@Html.DisplayNameFor(a => a.CourseName):</h5>
+<h3> @Html.DisplayFor(a => a.CourseName)</h3>
+
 <hr/>
-<h4 style="color:#f57920; ">Create Module</h4>
+<h4>Create Module</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -40,7 +42,7 @@
             <div class="form-group">
                 <a class="btn btn-purple" asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
                 <input type="submit" value="Create" class="btn btn-green" />
-                <a asp-action="Details" asp-controller="Course" class="btn btn-red" asp-route-id="@Model.CourseId">Cancel</a>
+                <a asp-action="Details" asp-controller="Course" class="btn btn-grey" asp-route-id="@Model.CourseId">Cancel</a>
 
             </div>
         </form>

@@ -14,13 +14,13 @@
 </style>
 
 <h1>Student, Welcome to the Course</h1>
-<div class="jumbotron " style="background-color: #311b92 !important;">
+<div class="jumbotron " style="background-color: #e9ecef !important;">
     <div class="media">
         <div class="media-body">
             <img src="~/images/logo-lexicon_2x.gif" class="img-course" alt="logo lexicon">
-            <h3 class="display-5 text-white">@Html.DisplayFor(a => a.Name)</h3>
+            <h3 class="display-5">@Html.DisplayFor(a => a.Name)</h3>
 
-            <a class="btn btn-orange stretched-link  mb-5" data-toggle="modal" data-target="#courseModal" href="@Url.Action("Details", "StudentCourse", new { id = Model.Id })">Details</a>
+            <a class="btn btn-green stretched-link  mb-5" data-toggle="modal" data-target="#courseModal" href="@Url.Action("Details", "StudentCourse", new { id = Model.Id })">Details</a>
 
             <!-- Modal -->
             <div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="courseModalLabel" aria-hidden="true">
@@ -62,7 +62,7 @@
 
     <div class="row">
         <div class="col-md-4">
-            <div class="shadow p-3 mb-1 rounded"  style="background-color:#bce6c6">
+            <div class="shadow p-3 mb-1 rounded"  style="background-color:#c0c4c7">
                 <h5 class="display-5">Modules:</h5>
                 @foreach (var module in Model.Modules)
                 {
@@ -157,7 +157,7 @@
         </div>
 
         <div class="col-md-4">
-            <div class="shadow p-3 mb-1 rounded"  style="background-color:#bce6c6">
+            <div class="shadow p-3 mb-1 rounded"  style="background-color:#c0c4c7">
                 <h5 class="display-5">Due Assignemnts:</h5>
                 <div class="shadow p-3 mb-2 bg-light rounded">
                     
@@ -166,7 +166,7 @@
         </div>
 
         <div class="col-md-4">
-            <div class="shadow p-3 mb-1  rounded"  style="background-color:#bce6c6">
+            <div class="shadow p-3 mb-1  rounded"  style="background-color:#c0c4c7">
                 <h5 class="display-5">Documents:</h5>
                 <div class="shadow p-3 mb-2 bg-light rounded">
                     
@@ -177,7 +177,7 @@
 
     <div class="row">
         <div class="col-md-12" style="padding: 5px;">
-            <div class="shadow p-3 mb-1  rounded"  style="background-color:#bce6c6">
+            <div class="shadow p-3 mb-1  rounded"  style="background-color:#c0c4c7">
                 <h5 class="display-5">Students:</h5>
                 <div class="shadow p-3 mb-2 bg-light rounded course-avatars">
                     @for (var i = 0; i < Model.Students.Count; i++)
@@ -187,10 +187,11 @@
                             {
                                 <div class="col-sm-4">
                                     <div class="card">
-                                        <img src="~/images/Avatar.jpg" alt="avatar" />
+                                        @*<img src="~/images/Avatar.jpg" alt="avatar" />*@
+                                        <img src="~/images/profileicon.jpeg" alt="avatar" />
                                         <div class="card-body">
                                             <h5 class="card-title">@Model.Students[i][j].FullName</h5>
-                                            <p style="font-size:0.7em">@Model.Students[i][j].Email</p>
+                                            <a  href="#"style="font-size:0.7em">@Model.Students[i][j].Email</a>
                                         </div>
                                     </div>
                                 </div>

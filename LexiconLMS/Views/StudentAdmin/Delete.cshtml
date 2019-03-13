@@ -1,10 +1,10 @@
 ﻿@model LexiconLMS.ViewModels.UserAdminViewModel
 
 @{
-    ViewData["Title"] = "Confirm Delete account";
+    ViewData["Title"] = "Confirm Delete Account";
 }
 
-<h1 style="color:#d32f2f">@ViewData["Title"]</h1>
+<h1>@ViewData["Title"]</h1>
 
 <hr />
 <div>
@@ -29,8 +29,8 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         @if (Model.Email != User.Identity.Name) {
-        <input type="submit" value="Delete" class="btn btn-red" /> } 
+        <input type="submit" value="Delete" class="btn btn-grey" /> } 
                                                                          
-              <a asp-action="Index" class="btn btn-green">Back to List</a>
+              <a asp-action="Index" class="btn btn-purple">Back to List</a>
     </form>
 </div>

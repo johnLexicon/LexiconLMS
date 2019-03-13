@@ -4,7 +4,7 @@
     ViewData["Title"] = "Add Course";
 }
 
-<h4>Courses</h4>
+<h1>Courses</h1>
 <hr />
 <a asp-action="Create" class="btn btn-green"> Create course </a>
 <table class="table tablestyle" >
@@ -60,7 +60,7 @@
                 
                     @*<a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle fa-lg"></i> Info</a>*@
                 <td>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-red"><i class="fa fa-trash"></i> Remove</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-grey"><i class="fa fa-trash"></i> Remove</a>
                 </td>
 
         </tr>

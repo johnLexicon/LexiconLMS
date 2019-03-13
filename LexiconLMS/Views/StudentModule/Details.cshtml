@@ -2,9 +2,8 @@
 @{
     ViewData["Title"] = "Details";
 }
-<h1>Details</h1>
+<h1>Module Details</h1>
 <div>
-    <h4>Module</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -48,7 +47,7 @@
     <tbody>
         @foreach (var activity in Model.Activities)
         {
-            <tr style="background:#7172af30">
+            <tr>
                 <td>@Html.ActionLink(activity.ActivityType.Type, "Details", "StudentActivity", new { id = @activity.Id })</td>
                 <td>@activity.StartDate</td>
                 <td>@activity.EndDate</td>

@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<LexiconLMS.Models.User>
 
 @{
-    ViewData["Title"] = "Teacher accounts";
+    ViewData["Title"] = "Teacher Accounts";
 }
 
 <h1>@ViewData["Title"]</h1>
-
+<hr />
 
 <table class="table tablestyle">
     <thead>
@@ -29,12 +29,12 @@
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-purple">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-orange">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-red">Delete</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-green">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-grey">Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 <hr />
-<a asp-action="Create" class="btn btn-border-green">Create Teacher Account</a>
+<a asp-action="Create" class="btn btn-green">Create Teacher Account</a>
