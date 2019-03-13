@@ -5,8 +5,8 @@
 }
 
 <h1>@Html.DisplayNameFor(a => a.CourseName): @Html.DisplayFor(a => a.CourseName)</h1>
-
-<h4>ModuleViewModel</h4>
+<hr />
+<h4 style="color:#f57920;">Edit Module</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -40,15 +40,18 @@
             <input type="hidden" asp-for="ParentEndDate" class="form-control" />
 
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+                <input type="submit" value="Save" class="btn btn-green" />
+                <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId" class="btn btn-purple">Back to Course</a>
+
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
-</div>
+@*<div>
+    <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId" class="btn btn-purple">Back to Course</a>
+</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

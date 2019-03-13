@@ -51,8 +51,7 @@
         <tr class="table-info">
             <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().FullName)</th>
             <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().Email)</th>
-            @*<th></th>*@
-            <th></th>
+           
         </tr>
     </thead>
     <tbody>
@@ -78,8 +77,8 @@
             <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().Name)</th>
             <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().StartDate)</th>
             <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().EndDate)</th>
-            <th></th>
-            <th></th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -99,7 +98,7 @@
 <div>
     <a asp-action="Create" asp-controller="CourseDocument" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-file-upload"></i> Add Document</a>
 </div>
-<table class="table table-light" data-toggle="table">
+<table class="table tablestyle" data-toggle="table">
     <tbody>
         @foreach (var document in Model.Documents)
         {
@@ -114,7 +113,7 @@
 </table>
 
 <div>
-    <a asp-action="Create" class="btn btn-purple">Back to create course page</a>
+    <a asp-action="Create" class="btn btn-orange">Back to create course page</a>
 </div>
 
 

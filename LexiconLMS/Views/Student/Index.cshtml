@@ -14,7 +14,7 @@
 </style>
 
 <h1>Student, Welcome to the Course</h1>
-<div class="jumbotron " style="background-color: #8c6278 !important;">
+<div class="jumbotron " style="background-color: #311b92 !important;">
     <div class="media">
         <div class="media-body">
             <img src="~/images/logo-lexicon_2x.gif" class="img-course" alt="logo lexicon">
@@ -62,8 +62,8 @@
 
     <div class="row">
         <div class="col-md-4">
-            <div class="shadow p-3 mb-1 bg-secondary rounded">
-                <h5 class="display-5 text-white">Modules:</h5>
+            <div class="shadow p-3 mb-1 rounded"  style="background-color:#c5e1a5">
+                <h5 class="display-5">Modules:</h5>
                 @foreach (var module in Model.Modules)
                 {
                     <div class="shadow p-3 mb-2 bg-light rounded">
@@ -157,8 +157,8 @@
         </div>
 
         <div class="col-md-4">
-            <div class="shadow p-3 mb-1 bg-secondary rounded">
-                <h5 class="display-5 text-white">Due Assignemnts:</h5>
+            <div class="shadow p-3 mb-1 rounded"  style="background-color:#c5e1a5">
+                <h5 class="display-5">Due Assignemnts:</h5>
                 <div class="shadow p-3 mb-2 bg-light rounded">
                     
                 </div>
@@ -166,8 +166,8 @@
         </div>
 
         <div class="col-md-4">
-            <div class="shadow p-3 mb-1 bg-secondary rounded">
-                <h5 class="display-5 text-white">Documents:</h5>
+            <div class="shadow p-3 mb-1  rounded"  style="background-color:#c5e1a5">
+                <h5 class="display-5">Documents:</h5>
                 <div class="shadow p-3 mb-2 bg-light rounded">
                     
                 </div>
@@ -177,7 +177,7 @@
 
     <div class="row">
         <div class="col-md-12" style="padding: 5px;">
-            <div class="shadow p-3 mb-1 bg-secondary rounded">
+            <div class="shadow p-3 mb-1  rounded"  style="background-color:#c5e1a5">
                 <h5 class="display-5">Students:</h5>
                 <div class="shadow p-3 mb-2 bg-light rounded course-avatars">
                     @for (var i = 0; i < Model.Students.Count; i++)

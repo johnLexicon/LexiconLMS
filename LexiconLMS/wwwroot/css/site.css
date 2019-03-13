@@ -168,14 +168,17 @@ body {
     .tablestyle td, .tablestyle th {
         border: 1px solid #ddd;
         padding: 8px;
+        
     }
 
     .tablestyle tr:nth-child(even) {
         background-color: #f2f2f2;
+        
     }
 
     .tablestyle tr:hover {
         background-color: #ddd;
+      
     }
 
     .tablestyle th {
@@ -184,6 +187,7 @@ body {
         text-align: left;
         background-color: #4CAF50;
         color: white;
+
     }
 
 .jumbotron {

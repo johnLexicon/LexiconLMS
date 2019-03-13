@@ -9,7 +9,7 @@
     @foreach (var item in Model.Courses)
     {
         <li class="list-group-item licolor">
-            <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+            <h5> <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">@item.Name</a></h5>
         </li>
     }
 </ul>
