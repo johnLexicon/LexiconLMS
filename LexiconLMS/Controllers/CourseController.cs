@@ -238,8 +238,12 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
+            var students = await _userManager.GetUsersInRoleAsync("Student");
+            var studentsInCourse = students.Where(s => s.CourseId == courseToDelete.Id);
+
             _context.Remove(courseToDelete);
-            
+            _context.RemoveRange(studentsInCourse);
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
