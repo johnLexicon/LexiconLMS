@@ -36,6 +36,7 @@ namespace LexiconLMS.Controllers
             {
                 EnitityId = id
             };
+            ViewData["Title"] = "Add Activity Document";
             return View("_CreateDocumentPartial", vm);
         }
 
