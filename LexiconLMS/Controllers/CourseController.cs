@@ -152,7 +152,11 @@ namespace LexiconLMS.Controllers
 
 
             viewModel.Modules = new List<ModuleAddViewModel>();
-            var modules = _context.Modules.Where(a => a.CourseId == id).ToList();
+            var modules = _context.Modules
+                .Where(a => a.CourseId == id)
+                .OrderBy(b => b.StartDate)
+                .ThenBy(c => c.EndDate).ToList();
+
             modules.ForEach(a => viewModel.Modules.Add(_mapper.Map<ModuleAddViewModel>(a)));
 
             return View(viewModel);

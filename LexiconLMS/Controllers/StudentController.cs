@@ -33,22 +33,41 @@ namespace LexiconLMS.Controllers
 
             var course = await _context.Courses.FindAsync(user.CourseId);
 
-            var modules = _context.Modules.Include(a=>a.Activities).Where(a => a.CourseId == user.CourseId).OrderBy(b => b.EndDate).ToList();
+            var modules = _context.Modules
+                .Include(a => a.Activities)
+                .Where(a => a.CourseId == course.Id)
+                .OrderBy(b => b.StartDate)
+                .ThenBy(c => c.EndDate).ToList();
 
-            var students = await _userManager.GetUsersInRoleAsync("Student");
-            var studentsInCourse = students.Where(p => p.CourseId == user.CourseId).ToList();
 
-            var activities = new List<Activityy>();
-            //showing Activities
-
-            foreach(var m in modules)
+            foreach (var m in modules)
             {
-                 activities = _context.Activities.Include(a=>a.Module).Include(a=>a.ActivityType).Where(a => a.ModuleId ==m.Id).ToList();
+                var orderedActivities = m.Activities.OrderBy(a => a.StartDate).ThenBy(b => b.EndDate).ToList();
+                m.Activities = orderedActivities;
+                foreach (var activity in m.Activities)
+                {
+                    var act = _context.Activities.Include(b => b.ActivityType).FirstOrDefault(aa => aa.Id == activity.Id);
+                    activity.ActivityType = act.ActivityType;
+                }
             }
-         
 
-            //
+            var model = await SetModelCourseData(course);
+            model = SetModelModulesData(model, modules);
+            model = await SetModelStudentsRows(model, user.CourseId);
+            return View(model);
+        }
+
+        private StudentCourseViewModel SetModelModulesData(StudentCourseViewModel model, List<Module> modules)
+        {           
+            model.Modules = new List<ModuleAddViewModel>();
+            modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleAddViewModel>(m)));
+            return model;
+        }
+
+        private async Task<StudentCourseViewModel> SetModelCourseData(Course course)
+        {
             var model = new StudentCourseViewModel();
+            
             if (!(course is null))
             {
                 model.Name = course.Name;
@@ -62,19 +81,14 @@ namespace LexiconLMS.Controllers
             {
                 model.Name = "Not in any course!";
             }
-            model.Modules = new List<ModuleAddViewModel>();
-            modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleAddViewModel>(m)));
-            model.Students = StudentsToRows(studentsInCourse);
-
-            //
-            model.activities = new List<ActivityAddViewModel>();
-            activities.ForEach(a => model.activities.Add(_mapper.Map<ActivityAddViewModel>(a)));
-
-            return View(model);
+            return model;
         }
 
-        private static List<List<User>> StudentsToRows(List<User> students)
+        private async Task<StudentCourseViewModel> SetModelStudentsRows(StudentCourseViewModel model, int? courseId)
         {
+            var students = await _userManager.GetUsersInRoleAsync("Student");
+            var studentsInCourse = students.Where(p => p.CourseId == courseId).ToList();
+
             var studentsList = new List<List<User>>();
 
             const int studentsPerRow = 3;
@@ -89,8 +103,9 @@ namespace LexiconLMS.Controllers
                 }
                 row.Add(usr);
             }
+            model.Students = studentsList;
 
-            return studentsList;
+            return model;
         }
     }
 }
