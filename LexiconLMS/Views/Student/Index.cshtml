@@ -70,7 +70,7 @@
 
                         @Html.ActionLink(module.Name, string.Empty, string.Empty, new { },  new { data_toggle="modal", data_target= "#moduleModal-" + module.Id })
 
-                        <i class="float-lg-right fa fa-chevron-circle-down" aria-hidden="true"></i>
+                        <i class="float-lg-right fa fa-chevron-circle-up" aria-hidden="true"></i>
                         <p>
                             @Html.DisplayFor(a => module.StartDate)  -  @Html.DisplayFor(a => module.EndDate)
                         </p>
@@ -211,7 +211,7 @@
     <script>
         $(document).ready(function () {
 
-            $(".fa-chevron-circle-down").click(function () {
+            $(".fa-chevron-circle-up").click(function () {
                 $(this).siblings(".activities").fadeToggle(1000, 'linear');
 
                 if ($(this).hasClass("fa-chevron-circle-down")) {
