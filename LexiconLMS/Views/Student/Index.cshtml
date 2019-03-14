@@ -145,6 +145,10 @@
                                                     <strong>@Html.DisplayNameFor(a => activity.EndDate) :</strong>
                                                     @Html.DisplayFor(a => activity.EndDate)
                                                 </p>
+                                                @if (activity.ActivityType.Type == "Exercise")
+                                                {<p>
+                                                    <a asp-action="CreateStudent" asp-controller="ActivityDocument" asp-route-id="@activity.Id" class="btn btn-sm btn-green"><i class="fas fa-file-upload"></i> Upload Assignment</a>
+                                                </p>}
                                             </div>
                                         </div>
                                     </div>

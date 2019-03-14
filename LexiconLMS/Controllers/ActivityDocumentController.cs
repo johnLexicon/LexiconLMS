@@ -31,6 +31,7 @@ namespace LexiconLMS.Controllers
 
 
         // GET: ActivityDocument/Create
+        [Authorize(Roles ="Teacher")]
         public ActionResult Create(int id)
         {
             var vm = new CreateDocumentViewModel()
@@ -67,7 +68,14 @@ namespace LexiconLMS.Controllers
                 _context.SaveChanges();
 
                 //Can't get it to accept nameof(Details) for some reason
-                return RedirectToAction("Details", "Activity", new { id = vm.EnitityId });
+
+                if (User.IsInRole("Teacher"))
+                {
+                    return RedirectToAction("Details", "Activity", new { id = vm.EnitityId });
+                } else
+                {
+                    return RedirectToAction("Index", "Student");
+                }
             }
             else
             {
@@ -86,44 +94,6 @@ namespace LexiconLMS.Controllers
 
             //TODO: add relevant page title
             return View("_CreateDocumentPartial", vm);
-        }
-
-        // POST: ActivityDocument/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Route("/Assignment/Create/{id}")]
-        public ActionResult CreateStudent(CreateDocumentViewModel vm)
-        {
-            if (ModelState.IsValid)
-            {
-                var newDocument = new ActivityDocument()
-                {
-                    Description = vm.Description,
-                    Name = vm.file.FileName,
-                    UploadTime = DateTime.Now,
-                    ActivityId = vm.EnitityId,
-                };
-
-                newDocument.UserId = _userManager.GetUserId(User);
-
-                using (var memoryStream = new MemoryStream())
-                {
-                    vm.file.CopyTo(memoryStream);
-                    newDocument.DocumentData = memoryStream.ToArray();
-                }
-
-                _context.ActivityDocument.Add(newDocument);
-                _context.SaveChanges();
-
-                //Can't get it to accept nameof(Details) for some reason
-
-                return RedirectToAction("Index", "Student");
-                return RedirectToAction("Details", "Activity", new { id = vm.EnitityId });
-            }
-            else
-            {
-                return View("_CreateDocumentPartial", vm);
-            }
         }
 
         [Authorize(Roles="Teacher")]
