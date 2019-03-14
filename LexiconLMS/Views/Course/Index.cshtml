@@ -6,7 +6,7 @@
 
 <h1>Courses</h1>
 <hr />
-<a asp-action="Create" class="btn btn-green"> Create course </a>
+<a asp-action="Create" class="btn btn-green"> Create Course </a>
 <table class="table tablestyle" >
     <thead>
         <tr>
@@ -28,8 +28,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.NumberOfStudents)
             </th>
-            <th>Edit</th>
-            <th>Remove</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -40,7 +40,7 @@
                    <h5><a asp-action="Details" asp-route-id="@item.Id">@item.Name</a></h5> 
                 </td>
                 <td>
-                    <i class="fa fa-clock-o"></i>@Html.DisplayFor(modelItem => item.StartDate)
+                    <i class="fa fa-clock"></i>@Html.DisplayFor(modelItem => item.StartDate)
                 </td>
                 @*<span class="CourseData">
                     @Html.DisplayFor(modelItem => item.EndDate)
@@ -55,12 +55,12 @@
                     <i class="fa fa-users"></i> @Html.DisplayFor(model => item.NumberOfStudents) students in class
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-purple"><i class="fa fa-edit"></i>Edit Details</a>
+                   <div class="btn btn-purple btn-sm" ><a asp-action="Edit" asp-route-id="@item.Id" class="text-white"><i class="fa fa-edit"></i>Edit</a></div> 
                 </td>
                 
                     @*<a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle fa-lg"></i> Info</a>*@
                 <td>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-grey"><i class="fa fa-trash"></i> Remove</a>
+                    <div class="btn btn-grey btn-sm"> <a asp-action="Delete" asp-route-id="@item.Id" class="text-white"><i class="fa fa-trash"></i> Remove</a></div>
                 </td>
 
         </tr>

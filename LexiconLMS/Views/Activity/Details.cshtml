@@ -61,7 +61,7 @@
                 <td><i class="fas fa-file-download"></i> @Html.ActionLink(document.Name, "Display", "ActivityDocument", new { id = document.Id }) (@document.Filezise)</td>
                 <td><i class="fas fa-info-circle"></i> @document.Description</td>
                 <td><i class="fas fa-clock"></i> @Html.DisplayFor(d => document.UploadTime)</td>
-                <td><a href="@Url.Action("Delete", "ActivityDocument", new { id = document.Id })"><i class="fa fa-backspace" aria-hidden="true"></i></a></td>
+                <td><a href="@Url.Action("Delete", "ActivityDocument", new { id = document.Id })"><i class="fa fa-trash" aria-hidden="true"></i>Remove</a></td>
             </tr>
         }
     </tbody>

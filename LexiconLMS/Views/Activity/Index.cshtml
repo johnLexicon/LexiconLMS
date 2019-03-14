@@ -9,9 +9,9 @@
 @*<p>
         <a asp-action="Create">Create New</a>
     </p>*@
-<table class="table tablestyle" style="margin-top: 15px">
+<table class="table tablestyle">
     <thead>
-        <tr class="newcolor">
+        <tr>
           
             <th >
                 @Html.DisplayNameFor(model => model.ActivityType)
@@ -20,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.StartDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndDate)
+                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
@@ -32,8 +32,8 @@
                 @Html.DisplayNameFor(model => model.Module.Course)
             </th>
 
-            <th>Edit</th>
-            <th>Details</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -45,28 +45,29 @@
                     @Html.DisplayFor(modelItem => item.ActivityType.Type)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
+                    <i class="fa fa-clock" aria-hidden="true"></i> @Html.DisplayFor(modelItem => item.StartDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
+                    <i class="fa fa-clock" aria-hidden="true"></i> @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    <i class="fa  fa-info-circle"></i> @Html.DisplayFor(modelItem => item.Description)
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.Module.Name)
+                  @Html.DisplayFor(modelItem => item.Module.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Module.Course.Name)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-purple" }) 
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-green" })
-                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
 
+                <td>
+                    <div class="btn btn-purple btn-sm"><i class="fa fa-edit"></i> @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "text-white" })</div>
+                </td>
+
+                <td>
+                    <div class="btn btn-green btn-sm"><i class="fa fa-info-circle"></i> @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "text-white" })</div>
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
                 </td>
               
             </tr>
