@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.StaticFiles;
 
 namespace LexiconLMS.Controllers
 {
-    [Authorize(Roles ="Teacher")]
+    [Authorize(Roles ="Teacher, Student")]
     public class ActivityDocumentController : Controller
     {
         private readonly LexiconLMSContext _context;
@@ -28,6 +28,7 @@ namespace LexiconLMS.Controllers
             _mapper = mapper;
             _userManager = userManager;
         }
+
 
         // GET: ActivityDocument/Create
         public ActionResult Create(int id)
@@ -74,6 +75,58 @@ namespace LexiconLMS.Controllers
             }
         }
 
+        // GET: ActivityDocument/StudentCreate
+        [Route("/Assignment/Create/{id}")]
+        public ActionResult CreateStudent(int id)
+        {
+            var vm = new CreateDocumentViewModel()
+            {
+                EnitityId = id
+            };
+
+            //TODO: add relevant page title
+            return View("_CreateDocumentPartial", vm);
+        }
+
+        // POST: ActivityDocument/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("/Assignment/Create/{id}")]
+        public ActionResult CreateStudent(CreateDocumentViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var newDocument = new ActivityDocument()
+                {
+                    Description = vm.Description,
+                    Name = vm.file.FileName,
+                    UploadTime = DateTime.Now,
+                    ActivityId = vm.EnitityId,
+                };
+
+                newDocument.UserId = _userManager.GetUserId(User);
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    vm.file.CopyTo(memoryStream);
+                    newDocument.DocumentData = memoryStream.ToArray();
+                }
+
+                _context.ActivityDocument.Add(newDocument);
+                _context.SaveChanges();
+
+                //Can't get it to accept nameof(Details) for some reason
+
+                return RedirectToAction("Index", "Student");
+                return RedirectToAction("Details", "Activity", new { id = vm.EnitityId });
+            }
+            else
+            {
+                return View("_CreateDocumentPartial", vm);
+            }
+        }
+
+        [Authorize(Roles="Teacher")]
         // GET: CourseDocument/Delete
         public ActionResult Delete(int id)
         {
@@ -81,7 +134,6 @@ namespace LexiconLMS.Controllers
             {
                 return NotFound();
             }
-
             var document = _context.ActivityDocument.FirstOrDefault(a => a.Id == id);
             if (!(document is null))
             {
@@ -99,7 +151,6 @@ namespace LexiconLMS.Controllers
             return NotFound();
         }
 
-        [Authorize(Roles ="Teacher, Student")]
         public ActionResult Display(int id)
         {
             var document = _context.ActivityDocument.FirstOrDefault(d => d.Id == id);
