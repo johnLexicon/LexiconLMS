@@ -33,6 +33,6 @@ namespace LexiconLMS.ViewModels
         public List<List<User>> Students { get; set; }
 
         //Add Activities
-        public List<ActivityAddViewModel> activities { get; set; }
+        //public List<ActivityAddViewModel> activities { get; set; }
     }
 }
