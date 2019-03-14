@@ -31,9 +31,15 @@ namespace LexiconLMS.Controllers
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-            var course = await _context.Courses.FindAsync(user.CourseId);
+            var course = await _context.Courses
+                .FindAsync(user.CourseId);
 
-            var modules = _context.Modules.Include(a=>a.Activities).Where(a => a.CourseId == user.CourseId).OrderBy(b => b.EndDate).ToList();
+            var modules = _context.Modules
+                .Include(a=>a.Activities)
+                .Include(a => a.Documents)
+                .Where(a => a.CourseId == user.CourseId)
+                .OrderBy(b => b.EndDate)
+                .ToList();
 
             var students = await _userManager.GetUsersInRoleAsync("Student");
             var studentsInCourse = students.Where(p => p.CourseId == user.CourseId).ToList();
@@ -43,7 +49,12 @@ namespace LexiconLMS.Controllers
 
             foreach(var m in modules)
             {
-                 activities = _context.Activities.Include(a=>a.Module).Include(a=>a.ActivityType).Where(a => a.ModuleId ==m.Id).ToList();
+                 activities = _context.Activities
+                    .Include(a=>a.Module)
+                    .Include(a=>a.ActivityType)
+                    .Include(a=>a.Documents)
+                    .Where(a => a.ModuleId ==m.Id)
+                    .ToList();
             }
          
 
@@ -62,13 +73,13 @@ namespace LexiconLMS.Controllers
             {
                 model.Name = "Not in any course!";
             }
-            model.Modules = new List<ModuleAddViewModel>();
-            modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleAddViewModel>(m)));
+            model.Modules = new List<ModuleDetailsViewModel>();
+            modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleDetailsViewModel>(m)));
             model.Students = StudentsToRows(studentsInCourse);
 
             //
-            model.activities = new List<ActivityAddViewModel>();
-            activities.ForEach(a => model.activities.Add(_mapper.Map<ActivityAddViewModel>(a)));
+            model.activities = new List<ActivityDetailsViewModel>();
+            activities.ForEach(a => model.activities.Add(_mapper.Map<ActivityDetailsViewModel>(a)));
 
             return View(model);
         }

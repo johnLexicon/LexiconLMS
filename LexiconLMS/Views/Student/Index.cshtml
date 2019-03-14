@@ -149,6 +149,16 @@
                                                 {<p>
                                                     <a asp-action="CreateStudent" asp-controller="ActivityDocument" asp-route-id="@activity.Id" class="btn btn-sm btn-green"><i class="fas fa-file-upload"></i> Upload Assignment</a>
                                                 </p>}
+                                                @if (!(activity.Documents is null) && activity.Documents.Count > 0)
+                                                {
+                                                    foreach (var document in activity.Documents)
+                                                    {
+                                                <p>
+                                                    <a asp-action="Display" asp-controller="ActivityDocument" asp-route-id="@document.Id">@document.Name</a>
+
+                                                </p>
+                                                    }
+                                                }
                                             </div>
                                         </div>
                                     </div>

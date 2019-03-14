@@ -16,5 +16,7 @@ namespace LexiconLMS.Models
         //public User Teacher { get; set; }
 
         public IEnumerable<User> Users { get; set; }
+
+        public ICollection<CourseDocument> Documents { get; set; }
     }
 }
