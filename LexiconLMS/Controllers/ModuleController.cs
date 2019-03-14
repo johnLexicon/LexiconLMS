@@ -68,7 +68,12 @@ namespace LexiconLMS.Controllers
 
 
             model.Activities = new List<ActivityDetailsViewModel>();
-            var activities = _context.Activities.Include(a=>a.Module).Include(a=>a.ActivityType).Where(a => a.ModuleId == id).ToList();
+            var activities = _context.Activities
+                .Include(a=>a.Module)
+                .Include(a=>a.ActivityType)
+                .Where(a => a.ModuleId == id)
+                .OrderBy(d => d.StartDate)
+                .ThenBy(e => e.EndDate).ToList();
             activities.ForEach(a => model.Activities.Add(_mapper.Map<ActivityDetailsViewModel>(a)));
 
             model.Documents = new List<DocumentListViewModel>();
