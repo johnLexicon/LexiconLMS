@@ -2,9 +2,8 @@
 @{
     ViewData["Title"] = "Details";
 }
-<h1>Details</h1>
+<h1>Module Details</h1>
 <div>
-    <h4>Module</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -35,7 +34,7 @@
 </div>
 
 <hr />
-<table class="table table-hover">
+<table class="table tablestyle">
     <thead>
         <tr class="table-info">
             <th>@Html.DisplayNameFor(a => a.Activities.FirstOrDefault().ActivityType.Type)</th>
@@ -48,7 +47,7 @@
     <tbody>
         @foreach (var activity in Model.Activities)
         {
-            <tr style="background:#7172af30">
+            <tr>
                 <td>@Html.ActionLink(activity.ActivityType.Type, "Details", "StudentActivity", new { id = @activity.Id })</td>
                 <td>@activity.StartDate</td>
                 <td>@activity.EndDate</td>
@@ -61,6 +60,6 @@
 <hr />
 
 <div>
-    <a asp-controller="Student" asp-action="Index" class="btn btn-info">Back to Home</a>
-    <a asp-action=" " asp-controller=" " asp-route-id="@Model.Id" class="btn btn-primary" onclick="return false;">Documents</a>
+    <a asp-controller="Student" asp-action="Index" class="btn btn-orange">Back to Home</a>
+    <a asp-action=" " asp-controller=" " asp-route-id="@Model.Id" class="btn btn-purple" onclick="return false;">Documents</a>
 </div>

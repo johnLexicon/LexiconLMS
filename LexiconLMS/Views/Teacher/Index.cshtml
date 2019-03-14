@@ -1,22 +1,24 @@
 ﻿@model TeacherPageViewModel
 @{
-    ViewData["Title"] = "Teacher page";
+    ViewData["Title"] = "Teacher Page";
 }
 
-<h1>Teacher's Page</h1>
+<h1 >Teacher's Page</h1>
+<hr/>
+<br />
 <h4>Ongoing Courses</h4>
 <ul class="list-group">
     @foreach (var item in Model.Courses)
     {
-        <li class="list-group-item">
-            <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+        <li class="list-group-item licolor">
+            <h5> <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">@item.Name</a></h5>
         </li>
     }
 </ul>
 
 
 <div class="form-group">
-    <a asp-controller="Course" asp-action="Index" class="btn btn-primary">Other Courses</a>
-    <a asp-controller="Course" asp-action="Create" class="btn btn-info">Create Course</a>
+    <a asp-controller="Course" asp-action="Index" class="btn btn-purple">Other Courses</a>
+    <a asp-controller="Course" asp-action="Create" class="btn btn-green">Create Course</a>
 </div>
 

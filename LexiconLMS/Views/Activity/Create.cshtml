@@ -10,11 +10,11 @@
 
 
 <div class="col-sm-10">
-    <h4>Create New Activity For</h4>  
+    <h4>Create New Activity For:</h4>  
     <div class="alert-light">
-         @Html.DisplayFor(model => model.ModuleName)
-       <span>,</span>
-        @Html.DisplayFor(model => model.Course.Name)
+        <h4> @Html.DisplayFor(model => model.ModuleName)<span>,</span>@Html.DisplayFor(model => model.Course.Name)</h4> 
+
+       <h6></h6> 
        
     </div>
 </div>
@@ -65,9 +65,9 @@
 
             </div>
             <div>
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-green" />
                 @*<a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId" class="btn btn-info">Back to Module</a>*@
-                <a asp-action="Details" asp-controller="Module" class="btn btn-danger" asp-route-id="@Model.ModuleId">Cancel</a>
+                <a asp-action="Details" asp-controller="Module" class="btn btn-grey" asp-route-id="@Model.ModuleId">Cancel</a>
 
             </div>
         </form>

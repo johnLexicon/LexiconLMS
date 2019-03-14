@@ -4,8 +4,10 @@
     ViewData["Title"] = "Create Module";
 }
 
-<h1>@Html.DisplayNameFor(a => a.CourseName): @Html.DisplayFor(a => a.CourseName)</h1>
+<h5>@Html.DisplayNameFor(a => a.CourseName):</h5>
+<h3> @Html.DisplayFor(a => a.CourseName)</h3>
 
+<hr/>
 <h4>Create Module</h4>
 <hr />
 <div class="row">
@@ -38,9 +40,9 @@
             <input type="hidden" asp-for="ParentEndDate" class="form-control" />
 
             <div class="form-group">
-                <a class="btn btn-info" asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-action="Details" asp-controller="Course" class="btn btn-danger" asp-route-id="@Model.CourseId">Cancel</a>
+                <a class="btn btn-purple" asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
+                <input type="submit" value="Create" class="btn btn-green" />
+                <a asp-action="Details" asp-controller="Course" class="btn btn-grey" asp-route-id="@Model.CourseId">Cancel</a>
 
             </div>
         </form>

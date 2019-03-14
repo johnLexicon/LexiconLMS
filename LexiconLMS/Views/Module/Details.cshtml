@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Module Details</h1>
 
 <div>
-    <h4>Module</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -39,15 +38,15 @@
 
 
 <hr />
-<table class="table table-hover" data-toggle="table">
+<table class="table tablestyle" data-toggle="table">
     <thead>
         <tr class="table-info">
             <th>@Html.DisplayNameFor(a => a.Activities.FirstOrDefault().ActivityType.Type)</th>
             <th>@Html.DisplayNameFor(a => a.Activities.FirstOrDefault().StartDate)</th>
             <th>@Html.DisplayNameFor(a => a.Activities.FirstOrDefault().EndDate)</th>
             <th>@Html.DisplayNameFor(a => a.Activities.FirstOrDefault().Description)</th>
-            <th></th>
-            <th></th>
+            <th>Delete</th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
@@ -86,7 +85,7 @@
 
 
 <div>
-    <a class="btn btn-primary" asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
+    <a class="btn btn-purple" asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
 
-    <a asp-action="Create" asp-controller="Activity" asp-route-id="@Model.Id" class="btn btn-info">Create Activity</a>
+    <a asp-action="Create" asp-controller="Activity" asp-route-id="@Model.Id" class="btn btn-green">Create Activity</a>
 </div>

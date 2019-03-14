@@ -46,13 +46,15 @@ body {
   margin-bottom: 60px;
 }
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #212529;
+    color:white !important;
 }
 
 .jumbotron {
@@ -75,8 +77,17 @@ body {
     .course-avatars img {
         width: 100px;
         height: 100px;
+        border-radius:50%;
+        margin:20px auto;
+
     }
 
+.card {
+    box-shadow: 5px 5px #e4e4e4;
+}
+    .card-body{
+        text-align:center;
+    }
 .bgcolor {
     background-color: rgba(181, 189, 197, 0.5);
     
@@ -84,4 +95,134 @@ body {
 
 .hide{
     display:none;
+}
+.newcolor{
+    background-color:green;
+}
+
+.licolor:nth-child(odd) {
+    background-color: #eaeaea;
+}
+
+.btn-purple {
+    background-color: #6e3694;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .btn-purple:hover {
+        background-color: #9162e4;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+.btn-green {
+    background-color: #46bb4e;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .btn-green:hover {
+        background-color: #368c3c;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+.btn-border-green {
+    border-color: rgb(47, 212, 132);
+    color: #6e3694;
+}
+
+.btn-border-green:hover {
+    background-color: rgb(47, 212, 132);
+    color:white;
+}
+
+
+.btn-red {
+    background-color: #d32f2f;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .btn-red:hover {
+        background-color: #f05545;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+.btn-orange {
+    /*background-color: #f9a825;*/
+    background-color: #f57920;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .btn-orange:hover {
+        /*background-color: #fbc02d;*/
+        background-color: #ff9800;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+.btn-grey {
+    background-color: #a09e9e;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .btn-grey:hover {
+        background-color: #5d5d5d;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+
+.tablestyle {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    .tablestyle td, .tablestyle th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        
+    }
+
+    .tablestyle tr:nth-child(even) {
+        background-color: #f2f2f2;
+        
+    }
+
+    .tablestyle tr:hover {
+        background-color: #ddd;
+      
+    }
+
+    .tablestyle th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        /*background-color: #4CAF50;*/
+        background-color: #46bb4e;
+        color: white;
+    }
+
+.jumbotron {
+    background-color: transparent !important;
+}
+
+a:hover{
+    text-decoration:none;
 }
