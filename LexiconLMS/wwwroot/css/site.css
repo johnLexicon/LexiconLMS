@@ -62,8 +62,8 @@ body {
 }
 
 .img-course {
-    width: 150px;
-    height: 50px;
+    width: 200px;
+    height: 100px;
 }
 
 .course-avatars {
@@ -200,6 +200,7 @@ body {
         /*border-bottom: 1px solid #ddd;*/
         border:none;
         padding: 8px;
+        width:25%;
         
     }
 

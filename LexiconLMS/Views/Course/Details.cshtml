@@ -51,25 +51,31 @@
         <tr class="table-info">
             <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().FullName)</th>
             <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().Email)</th>
-              <th></th>
+            <th ></th>
+            <th></th>
+            <th></th>
+            
 
         </tr>
     </thead>
     <tbody>
         @foreach (var student in Model.Students)
         {
-            <tr>
-                <td><i class="fa fa-user"></i>@Html.ActionLink(student.FullName, "Details", "StudentAdmin", new { id = @student.Id })</td>
-                @*<td>@student.FullName</td>*@
-                <td><i class="fa fa-envelope" style="margin-right:2px"></i>@student.Email</td>
-                <td>
-                    <div class="btn btn-grey btn-sm">         
+        <tr>
+            <td><i class="fa fa-user"></i>@Html.ActionLink(student.FullName, "Details", "StudentAdmin", new { id = @student.Id })</td>
+            @*<td>@student.FullName</td>*@
+            <td><i class="fa fa-envelope" style="margin-right:2px"></i>@student.Email</td>
+            <td ></td>
+            <td></td>
+            <td>
+                <div class="btn btn-grey btn-sm">
                     <a href="@Url.Action("Delete", "StudentAdmin", new { id = student.Id })" class="text-white"><i class="fa fa-trash" aria-hidden="true"></i>Remove</a>
-                    </div>
-       
-                </td>
-                @*<td><a href="@Url.Action("Edit", "StudentAdmin", new { id = student.Id })"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a></td>*@
-            </tr>
+                </div>
+
+            </td>
+            
+            @*<td><a href="@Url.Action("Edit", "StudentAdmin", new { id = student.Id })"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a></td>*@
+        </tr>
         }
     </tbody>
 </table>
@@ -122,7 +128,13 @@
                 <td><i class="fas fa-file-download"></i> @Html.ActionLink(document.Name, "Display", "CourseDocument", new { id = document.Id }) (@document.Filezise)</td>
                 <td><i class="fas fa-info-circle"></i> @document.Description</td>
                 <td><i class="fas fa-clock"></i> @Html.DisplayFor(d => document.UploadTime)</td>
-                <td><a href="@Url.Action("Delete", "CourseDocument", new { id = document.Id })"><i class="fa fa-trash" aria-hidden="true"></i>Remove</a></td>
+                <td></td>
+                <td>
+                    <div class="btn btn-grey btn-sm">
+                        <a href="@Url.Action("Delete", "CourseDocument", new { id = document.Id })" class="text-white"><i class="fa fa-trash" aria-hidden="true"></i> Remove</a>
+                    </div>
+
+                </td>
             </tr>
         }
     </tbody>

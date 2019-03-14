@@ -59,19 +59,18 @@
             <td><i class="fa fa-clock"></i>@activity.EndDate.ToShortDateString()</td>
             <td><i class="fa fa-info-circle"></i>@activity.Description</td>
             <td>
-                <div class="btn btn-grey btn-sm">
-                    <a href="@Url.Action("Delete", "Activity", new { id =activity.Id})" class="text-white"><i class="fa fa-trash"></i>Remove</a>
-                </div>
-          
-            </td>
-
-            <td>
                 <div class="btn btn-purple btn-sm">
                     <a href="@Url.Action("Edit", "Activity", new { id = activity.Id })" class="text-white"><i class="fas fa-edit"></i>Edit</a>
                 </div>
-            
+
             </td>
-     
+            <td>
+                <div class="btn btn-grey btn-sm">
+                    <a href="@Url.Action("Delete", "Activity", new { id =activity.Id})" class="text-white"><i class="fa fa-trash"></i>Remove</a>
+                </div>
+
+            </td>
+
         </tr>
         }
     </tbody>
@@ -89,7 +88,13 @@
                 <td><i class="fas fa-file-download"></i> @Html.ActionLink(document.Name, "Display", "ModuleDocument", new { id = document.Id }) (@document.Filezise)</td>
                 <td><i class="fas fa-info-circle"></i> @document.Description</td>
                 <td><i class="fas fa-clock"></i> @Html.DisplayFor(d => document.UploadTime)</td>
-                <td><a href="@Url.Action("Delete", "ModuleDocument", new { id = document.Id })"><i class="fa fa-trash" aria-hidden="true"></i>Remove</a></td>
+                <td></td>
+                <td>
+                    <div class="btn btn-grey btn-sm">
+                        <a href="@Url.Action("Delete", "ModuleDocument", new { id = document.Id })" class="text-white"><i class="fa fa-trash" aria-hidden="true"></i>Remove</a>
+                    </div>
+
+                </td>
             </tr>
         }
     </tbody>

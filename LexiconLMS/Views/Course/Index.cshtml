@@ -29,7 +29,10 @@
                 @Html.DisplayNameFor(model => model.NumberOfStudents)
             </th>
             <th></th>
-            <th></th>
+
+
+
+
         </tr>
     </thead>
     <tbody>
@@ -54,12 +57,13 @@
                 <td>
                     <i class="fa fa-users"></i> @Html.DisplayFor(model => item.NumberOfStudents) students in class
                 </td>
+
                 <td>
                    <div class="btn btn-purple btn-sm" ><a asp-action="Edit" asp-route-id="@item.Id" class="text-white"><i class="fa fa-edit"></i>Edit</a></div> 
-                </td>
+
                 
                     @*<a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle fa-lg"></i> Info</a>*@
-                <td>
+
                     <div class="btn btn-grey btn-sm"> <a asp-action="Delete" asp-route-id="@item.Id" class="text-white"><i class="fa fa-trash"></i> Remove</a></div>
                 </td>
 

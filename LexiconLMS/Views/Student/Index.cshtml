@@ -13,14 +13,16 @@
     }
 </style>
 
-<h1>Student, Welcome to the Course</h1>
+@*<h1>Student, Welcome to the Course</h1>*@
 <div class="jumbotron " style="background-color: #e9ecef !important;">
     <div class="media">
         <div class="media-body">
-            <img src="~/images/logo-lexicon_2x.gif" class="img-course" alt="logo lexicon">
+            <img src="~/images/Courseimg.jpg" class="img-course" alt="logo lexicon">
             <h3 class="display-5">@Html.DisplayFor(a => a.Name)</h3>
+            <div class="btn btn-green">
+                <i class="fa fa-info-circle"></i><a  class="text-white" data-toggle="modal" data-target="#courseModal" href="@Url.Action("Details", "StudentCourse", new { id = Model.Id })">Details</a>
+            </div>
 
-            <a class="btn btn-green stretched-link  mb-5" data-toggle="modal" data-target="#courseModal" href="@Url.Action("Details", "StudentCourse", new { id = Model.Id })">Details</a>
 
             <!-- Modal -->
             <div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="courseModalLabel" aria-hidden="true">
