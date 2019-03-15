@@ -23,22 +23,21 @@
                 <i class="fa fa-info-circle"></i><a  class="text-white" data-toggle="modal" data-target="#courseModal" href="@Url.Action("Details", "StudentCourse", new { id = Model.Id })">Details</a>
             </div>
 
-
             <!-- Modal -->
             <div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="courseModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="courseModalLabel">Course Details</h5>
+                            <h5 class="modal-title" id="courseModalLabel">@Html.DisplayFor(a => a.Name)</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>
+                            @*<p>
                                 <strong>@Html.DisplayNameFor(a => a.Name) :</strong>
                                 @Html.DisplayFor(a => a.Name)
-                            </p>
+                            </p>*@
                             <p>
                                 <strong>@Html.DisplayNameFor(a => a.Description) :</strong>
                                 @Html.DisplayFor(a => a.Description)
@@ -55,6 +54,18 @@
                                 </strong>
                                 @Html.DisplayFor(a => a.EndDate)
                             </p>
+                            @if(!(Model.Documents is null) && Model.Documents.Count > 0)
+                            {
+                                <hr />
+                                <p>
+                                    <h6>Course Documents</h6>
+                                @foreach (var document in Model.Documents)
+                                {
+                                    <a class="btn btn-sm btn-purple" asp-controller="CourseDocument" asp-action="Display" asp-route-id="@document.Id">
+                                    <i class="fas fa-file-download"></i> @document.Name</a><br />
+                                }
+                                    </p>
+                            }
                         </div>
                     </div>
                 </div>
@@ -82,15 +93,15 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="moduleModalLabel">Module Details </h5>
+                                        <h5 class="modal-title" id="moduleModalLabel">Module:  @Html.DisplayFor(a => module.Name)  </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
                                         <p>
-                                            <strong>@Html.DisplayNameFor(a => module.Name) :</strong>
-                                            @Html.DisplayFor(a => module.Name)
+                                            <strong>Course :</strong>
+                                            @Html.DisplayFor(a => Model.Name)
                                         </p>
                                         <p>
                                             <strong>@Html.DisplayNameFor(a => module.Description) :</strong>
@@ -104,6 +115,19 @@
                                             <strong>@Html.DisplayNameFor(a => module.EndDate) :</strong>
                                             @Html.DisplayFor(a => module.EndDate)
                                         </p>
+                                        @if (!(module.Documents is null) && module.Documents.Count > 0)
+                                        {
+                                            <hr />
+                                            <p>
+                                                <h6>Module Documents</h6>
+                                                @foreach (var document in module.Documents)
+                                                {
+                                                    <a class="btn btn-sm btn-purple" asp-controller="ModuleDocument" asp-action="Display" asp-route-id="@document.Id">
+                                                        <i class="fas fa-file-download"></i> @document.Name
+                                                    </a><br />
+                                                }
+                                            </p>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -125,15 +149,19 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Activity Details </h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Activity: @Html.DisplayFor(a => activity.ActivityType.Type) </h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <p>
-                                                    <strong>@Html.DisplayNameFor(a => activity.ActivityType.Type) :</strong>
-                                                    @Html.DisplayFor(a => activity.ActivityType.Type)
+                                                    <strong>Course :</strong>
+                                                    @Html.DisplayFor(a => Model.Name)
+                                                </p>
+                                                <p>
+                                                    <strong>Module :</strong>
+                                                    @Html.DisplayFor(a => module.Name)
                                                 </p>
                                                 <p>
                                                     <strong>@Html.DisplayNameFor(a => activity.Description) :</strong>
@@ -147,6 +175,24 @@
                                                     <strong>@Html.DisplayNameFor(a => activity.EndDate) :</strong>
                                                     @Html.DisplayFor(a => activity.EndDate)
                                                 </p>
+                                                @if (activity.ActivityType.Type == "Exercise")
+                                                {<p>
+                                                        <a asp-action="CreateStudent" asp-controller="ActivityDocument" asp-route-id="@activity.Id" class="btn btn-sm btn-green"><i class="fas fa-file-upload"></i> Upload Assignment</a>
+                                                    </p>}
+
+                                                @if (!(activity.Documents is null) && activity.Documents.Count > 0)
+                                                {
+                                                    <hr />
+                                                    <p>
+                                                        <h6>Activity Documents</h6>
+                                                        @foreach (var document in activity.Documents)
+                                                        {
+                                                            <a class="btn btn-sm btn-purple" asp-controller="ActivityDocument" asp-action="Display" asp-route-id="@document.Id">
+                                                                <i class="fas fa-file-download"></i> @document.Name
+                                                            </a><br />
+                                                        }
+                                                    </p>
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -214,7 +260,7 @@
         $(document).ready(function () {
 
             $(".fa-chevron-circle-up").click(function () {
-                $(this).siblings(".activities").fadeToggle(1000, 'linear');
+                $(this).siblings(".activities").fadeToggle(100, 'linear');
 
                 if ($(this).hasClass("fa-chevron-circle-down")) {
                     $(this).removeClass("fa-chevron-circle-down");

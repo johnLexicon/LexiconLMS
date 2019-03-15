@@ -37,9 +37,10 @@ namespace LexiconLMS.ViewModels
         [EndDateLaterThanStartDate]
         public DateTime EndDate { get; set; }
 
-        public ICollection<ActivityAddViewModel> Activities { get; set; }
+        //TODO: make sure this doesn't break anything
+        public ICollection<ActivityDetailsViewModel> Activities { get; set; }
 
-        [IgnoreMap]
+
         public ICollection<DocumentListViewModel> Documents { get; set; }
     }
 }

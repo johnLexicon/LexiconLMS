@@ -15,5 +15,8 @@ namespace LexiconLMS.Models
         [DataType(DataType.Date)]
         public DateTime UploadTime { get; set; }
         public string UserId { get; set; }
+
+        //nav property
+        public User User { get; set; }
     }
 }
