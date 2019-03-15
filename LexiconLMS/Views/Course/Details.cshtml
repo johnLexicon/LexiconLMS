@@ -46,75 +46,116 @@
 <div>
     <a asp-action="Create" asp-controller="StudentAdmin" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-user-plus"></i> Add Student</a>
 </div>
-<table class="table tablestyle" data-toggle="table">
-    <thead>
-        <tr class="table-info">
-            <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().FullName)</th>
-            <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().Email)</th>
-           
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var student in Model.Students)
-        {
-            <tr class="table-active">
-                <td>@Html.ActionLink(student.FullName, "Details", "StudentAdmin", new { id = @student.Id })</td>
-                @*<td>@student.FullName</td>*@
-                <td>@student.Email</td>
-                <td><a href="@Url.Action("Delete", "StudentAdmin", new { id = student.Id })"><i class="fa fa-backspace" aria-hidden="true"></i></a></td>
-                @*<td><a href="@Url.Action("Edit", "StudentAdmin", new { id = student.Id })"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a></td>*@
-            </tr>
-        }
-    </tbody>
-</table>
 
-<div>
-    <a asp-action="Create" asp-controller="Module" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> Add Module</a>
-</div>
-<table class="table tablestyle" data-toggle="table">
-    <thead>
-        <tr class="table-info">
-            <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().Name)</th>
-            <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().StartDate)</th>
-            <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().EndDate)</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var module in Model.Modules)
-        {
-            <tr class="table-active">
-                <td>@Html.ActionLink(module.Name, "Details", "Module", new { id = @module.Id })</td>
-                <td>@module.StartDate.ToShortDateString()</td>
-                <td>@module.EndDate.ToShortDateString()</td>
-                <td><a href="@Url.Action("Edit", "Module", new { id = module.Id })"><i class="fas fa-edit" aria-hidden="true"></i></a></td>
-                <td><a href="@Url.Action("Delete", "Module", new { id = module.Id })"><i class="fa fa-backspace" aria-hidden="true"></i></a></td>
-            </tr>
-        }
-    </tbody>
-</table>
 
-<div>
-    <a asp-action="Create" asp-controller="CourseDocument" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-file-upload"></i> Add Document</a>
-</div>
-<table class="table tablestyle" data-toggle="table">
-    <tbody>
-        @foreach (var document in Model.Documents)
-        {
+<div class="scrolling">
+    <table class="table tablestyle" data-toggle="table">
+        <thead>
             <tr>
-                <td><i class="fas fa-file-download"></i> @Html.ActionLink(document.Name, "Display", "CourseDocument", new { id = document.Id }) (@document.Filezise)</td>
-                <td><i class="fas fa-info-circle"></i> @document.Description</td>
-                <td><i class="fas fa-clock"></i> @Html.DisplayFor(d => document.UploadTime)</td>
-                <td><a href="@Url.Action("Delete", "CourseDocument", new { id = document.Id })"><i class="fa fa-backspace" aria-hidden="true"></i></a></td>
-            </tr>
-        }
-    </tbody>
-</table>
+                <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().FullName)</th>
+                <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().Email)</th>
+                <th></th>
+                <th></th>
+                <th></th>
 
-<div>
-    <a asp-action="Create" class="btn btn-purple">Back to create course page</a>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model.Students)
+            {
+                <tr>
+                    <td><i class="fa fa-user"></i>@Html.ActionLink(student.FullName, "Details", "StudentAdmin", new { id = @student.Id })</td>
+                    @*<td>@student.FullName</td>*@
+                    <td colspan="2"><i class="fa fa-envelope" style="margin-right:2px"></i>@student.Email</td>
+                    @*<td ></td>*@
+                    <td></td>
+                    <td>
+                        <div class="btn btn-grey btn-sm">
+                            <a href="@Url.Action("Delete", "StudentAdmin", new { id = student.Id })" class="text-white"><i class="fa fa-trash" aria-hidden="true"></i>Remove</a>
+                        </div>
+
+                    </td>
+
+                    @*<td><a href="@Url.Action("Edit", "StudentAdmin", new { id = student.Id })"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a></td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
 </div>
+
+
+    <div>
+        <a asp-action="Create" asp-controller="Module" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-plus"></i> Add Module</a>
+    </div>
+    <table class="table tablestyle" data-toggle="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().Name)</th>
+                <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().StartDate)</th>
+                <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().EndDate)</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var module in Model.Modules)
+            {
+                <tr>
+                    <td>@Html.ActionLink(module.Name, "Details", "Module", new { id = @module.Id })</td>
+                    <td><i class="fa fa-clock"></i>@module.StartDate.ToShortDateString()</td>
+                    <td><i class="fa fa-clock"></i>@module.EndDate.ToShortDateString()</td>
+                    <td></td>
+                    <td>
+
+
+                        <div class="btn btn-grey btn-sm">
+                            <a href="@Url.Action("Delete", "Module", new { id = module.Id })" class="text-white"><i class="fa fa-trash" aria-hidden="true"></i>Remove</a>
+                        </div>
+                        <div class="btn btn-purple btn-sm editpadding">
+                            <a href="@Url.Action("Edit", "Module", new { id = module.Id })" class="text-white"><i class="fas fa-edit" aria-hidden="true"></i>Edit</a>
+                        </div>
+
+                        @*</td>
+                            <td >*@
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <a asp-action="Create" asp-controller="CourseDocument" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-file-upload"></i> Add Document</a>
+    </div>
+    <table class="table tablestyle" data-toggle="table">
+        <tbody>
+            @foreach (var document in Model.Documents)
+            {
+                <tr>
+                    <td><i class="fas fa-file-download"></i> @Html.ActionLink(document.Name, "Display", "CourseDocument", new { id = document.Id }) (@document.Filezise)</td>
+                    <td><i class="fas fa-info-circle"></i> @document.Description</td>
+                    <td><i class="fas fa-clock"></i> @Html.DisplayFor(d => document.UploadTime)</td>
+                    <td></td>
+
+                    <td>
+                        <div class="btn btn-grey btn-sm">
+                            <a href="@Url.Action("Delete", "CourseDocument", new { id = document.Id })" class="text-white"><i class="fa fa-trash" aria-hidden="true"></i> Remove</a>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <a asp-action="Create" class="btn btn-purple">Back to create course page</a>
+    </div>
 
 
 

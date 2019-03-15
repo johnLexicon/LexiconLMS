@@ -10,7 +10,7 @@
 
 
 <div class="col-sm-10">
-    <h4>Create New Activity For:</h4>  
+    <h5>Create New Activity For:</h5>  
     <div class="alert-light">
         <h4> @Html.DisplayFor(model => model.ModuleName)<span>,</span>@Html.DisplayFor(model => model.Course.Name)</h4> 
 
@@ -67,7 +67,7 @@
             <div>
                 <input type="submit" value="Save" class="btn btn-green" />
                 @*<a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId" class="btn btn-info">Back to Module</a>*@
-                <a asp-action="Details" asp-controller="Module" class="btn btn-grey" asp-route-id="@Model.ModuleId">Cancel</a>
+                <a asp-action="Details" asp-controller="Module" class="btn btn-grey" asp-route-id="@Model.ModuleId"><i class="fade fa-trash"></i>Cancel</a>
 
             </div>
         </form>

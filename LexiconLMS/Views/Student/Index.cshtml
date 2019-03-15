@@ -17,9 +17,11 @@
 <div class="jumbotron " style="background-color: #e9ecef !important;">
     <div class="media">
         <div class="media-body">
-            <img src="~/images/logo-lexicon_2x.gif" class="img-course" alt="logo lexicon">
+            <img src="~/images/Courseimg.jpg" class="img-course" alt="logo lexicon">
             <h3 class="display-5">@Html.DisplayFor(a => a.Name)</h3>
-            <a class="btn btn-green stretched-link mb-5" data-toggle="modal" data-target="#courseModal" asp-action="Details" asp-controller="StudentCourse" asp-route-id="@Model.Id"><i class="fas fa-eye"></i> Details</a>
+            <div class="btn btn-green">
+                <i class="fa fa-info-circle"></i><a  class="text-white" data-toggle="modal" data-target="#courseModal" href="@Url.Action("Details", "StudentCourse", new { id = Model.Id })">Details</a>
+            </div>
 
             <!-- Modal -->
             <div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="courseModalLabel" aria-hidden="true">
@@ -68,18 +70,20 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
     </div>
 
     <div class="row">
         <div class="col-md-4">
-            <div class="shadow p-3 mb-1 rounded"  style="background-color:#c0c4c7">
+            <div class="shadow p-3 mb-1 rounded" style="background-color:#6e3694">
                 <h5 class="display-5">Modules:</h5>
                 @foreach (var module in Model.Modules)
                 {
                     <div class="shadow p-3 mb-2 bg-light rounded">
 
-                        @Html.ActionLink(module.Name, string.Empty, string.Empty, new { },  new { data_toggle="modal", data_target= "#moduleModal-" + module.Id })
+                        @Html.ActionLink(module.Name, string.Empty, string.Empty, new { }, new { data_toggle = "modal", data_target = "#moduleModal-" + module.Id })
 
                         <i class="float-lg-right fa fa-chevron-circle-up" aria-hidden="true"></i>
                         <p>
@@ -200,30 +204,13 @@
                     </div>
                 }
             </div>
+
         </div>
 
-        <div class="col-md-4">
-            <div class="shadow p-3 mb-1 rounded"  style="background-color:#c0c4c7">
-                <h5 class="display-5">Due Assignemnts:</h5>
-                <div class="shadow p-3 mb-2 bg-light rounded">
-                    
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-4">
-            <div class="shadow p-3 mb-1  rounded"  style="background-color:#c0c4c7">
-                <h5 class="display-5">Documents:</h5>
-                <div class="shadow p-3 mb-2 bg-light rounded">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12" style="padding: 5px;">
-            <div class="shadow p-3 mb-1  rounded"  style="background-color:#c0c4c7">
+        <div class="col-md-8" style="padding: 5px;">
+            <div class="shadow p-3 mb-1  rounded" style="background-color:#6e3694">
                 <h5 class="display-5">Students:</h5>
                 <div class="shadow p-3 mb-2 bg-light rounded course-avatars">
                     @for (var i = 0; i < Model.Students.Count; i++)
@@ -231,13 +218,13 @@
                         <div class="row">
                             @for (var j = 0; j < Model.Students[i].Count; j++)
                             {
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="card">
                                         @*<img src="~/images/Avatar.jpg" alt="avatar" />*@
                                         <img src="~/images/profileicon.jpeg" alt="avatar" />
                                         <div class="card-body">
                                             <h5 class="card-title">@Model.Students[i][j].FullName</h5>
-                                            <a  href="#"style="font-size:0.7em">@Model.Students[i][j].Email</a>
+                                            <a href="#" style="font-size:0.7em">@Model.Students[i][j].Email</a>
                                         </div>
                                     </div>
                                 </div>
@@ -246,7 +233,10 @@
                     }
                 </div>
             </div>
+       
         </div>
+
+
     </div>
 
 </div>

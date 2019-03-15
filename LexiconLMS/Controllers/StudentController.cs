@@ -124,7 +124,7 @@ namespace LexiconLMS.Controllers
 
             var studentsList = new List<List<User>>();
 
-            const int studentsPerRow = 3;
+            const int studentsPerRow = 4;
             var row = new List<User>();
             for (var i = 0; i < students.Count; i++)
             {
