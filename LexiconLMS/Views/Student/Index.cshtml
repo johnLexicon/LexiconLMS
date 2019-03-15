@@ -213,24 +213,21 @@
             <div class="shadow p-3 mb-1  rounded" style="background-color:#6e3694">
                 <h5 class="display-5">Students:</h5>
                 <div class="shadow p-3 mb-2 bg-light rounded course-avatars">
-                    @for (var i = 0; i < Model.Students.Count; i++)
-                    {
-                        <div class="row">
-                            @for (var j = 0; j < Model.Students[i].Count; j++)
-                            {
-                                <div class="col-sm-3">
-                                    <div class="card">
-                                        @*<img src="~/images/Avatar.jpg" alt="avatar" />*@
-                                        <img src="~/images/profileicon.jpeg" alt="avatar" />
-                                        <div class="card-body">
-                                            <h5 class="card-title">@Model.Students[i][j].FullName</h5>
-                                            <a href="#" style="font-size:0.7em">@Model.Students[i][j].Email</a>
-                                        </div>
+                    <div class="row">
+                        @for (var i = 0; i < Model.Students.Count; i++)
+                        {
+                            <div class="col-sm">
+                                <div class="card">
+                                    @*<img src="~/images/Avatar.jpg" alt="avatar" />*@
+                                    <img src="~/images/profileicon.jpeg" alt="avatar" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">@Model.Students[i].FullName</h5>
+                                        <a href="#" style="font-size:0.7em">@Model.Students[i].Email</a>
                                     </div>
                                 </div>
-                            }
-                        </div>
-                    }
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
        
