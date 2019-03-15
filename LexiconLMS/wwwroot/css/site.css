@@ -73,7 +73,10 @@ body {
 
     .course-avatars .card {
         margin: 1rem;
+        max-width: 200px;
+        min-width: 200px;
     }
+
     .course-avatars img {
         width: 100px;
         height: 100px;

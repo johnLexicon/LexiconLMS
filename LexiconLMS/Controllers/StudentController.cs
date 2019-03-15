@@ -120,23 +120,12 @@ namespace LexiconLMS.Controllers
         private async Task<StudentCourseViewModel> SetModelStudentsRows(StudentCourseViewModel model, int? courseId)
         {
             var students = await _userManager.GetUsersInRoleAsync("Student");
-            var studentsInCourse = students.Where(p => p.CourseId == courseId).ToList();
 
-            var studentsList = new List<List<User>>();
-
-            const int studentsPerRow = 4;
-            var row = new List<User>();
-            for (var i = 0; i < students.Count; i++)
+            model.Students = new List<User>();
+            foreach (var student in students)
             {
-                var usr = students[i];
-                if (i % studentsPerRow == 0)
-                {
-                    row = new List<User>();
-                    studentsList.Add(row);
-                }
-                row.Add(usr);
+                model.Students.Add(student);
             }
-            model.Students = studentsList;
 
             return model;
         }
