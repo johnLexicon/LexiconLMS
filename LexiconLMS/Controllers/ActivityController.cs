@@ -8,6 +8,7 @@ using LexiconLMS.Data;
 using LexiconLMS.Models;
 using LexiconLMS.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -22,11 +23,13 @@ namespace LexiconLMS.Controllers
 
         private readonly LexiconLMSContext _context;
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
 
-        public ActivityController(LexiconLMSContext context, IMapper mapper)
+        public ActivityController(LexiconLMSContext context, IMapper mapper, UserManager<User> userManager)
         {
             _context = context;
             _mapper = mapper;
+            _userManager = userManager;
            
         }
 
@@ -122,8 +125,16 @@ namespace LexiconLMS.Controllers
                 ActivityType = activity.ActivityType
             };
 
+            var teachers = _userManager.GetUsersInRoleAsync("Teacher");
+            teachers.Wait();
+            var temp = teachers.Result;
+
             model.Documents = new List<DocumentListViewModel>();
-            var documents = _context.ActivityDocument.Where(d => d.ActivityId == id).ToList();
+            var documents = _context.ActivityDocument
+                .Where(d => d.ActivityId == id)
+                .Where(d => temp.Contains(d.User))
+                .ToList();
+
             foreach (var doc in documents)
             {
                 var newDoc = _mapper.Map<DocumentListViewModel>(doc);

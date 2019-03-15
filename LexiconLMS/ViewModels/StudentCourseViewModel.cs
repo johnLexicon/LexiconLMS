@@ -28,11 +28,14 @@ namespace LexiconLMS.ViewModels
         [Display(Name = "Teacher email")]
         public string TeacherEmail { get; set; }
 
-        public List<ModuleAddViewModel> Modules { get; set; }
+        public List<ModuleDetailsViewModel> Modules { get; set; }
 
         public List<List<User>> Students { get; set; }
 
         //Add Activities
-        //public List<ActivityAddViewModel> activities { get; set; }
+        //public List<ActivityDetailsViewModel> activities { get; set; }
+
+        //aaaaand documents
+        public ICollection<DocumentListViewModel> Documents { get; set; }
     }
 }

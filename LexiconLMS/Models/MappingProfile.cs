@@ -13,7 +13,9 @@ namespace LexiconLMS.Models
         {
             CreateMap<Module, ModuleAddViewModel>();
             CreateMap<ModuleAddViewModel, Module>();
-            CreateMap<ModuleDetailsViewModel, Module>().ForSourceMember(a => a.Documents, opt => opt.DoNotValidate());
+            CreateMap<ModuleDetailsViewModel, Module>();//.ForSourceMember(a => a.Documents, opt => opt.DoNotValidate());
+            CreateMap<Module, ModuleDetailsViewModel>();//.ForMember(a => a.Documents, opt => opt.Ignore()).ReverseMap();
+
             CreateMap<CourseAddViewModel, Course>();
             CreateMap<User, CourseDetailsViewModel>()
                 .ForMember(dest => dest.TeacherEmail, from => from.MapFrom(src => src.Email));
@@ -22,6 +24,8 @@ namespace LexiconLMS.Models
             CreateMap<ActivityAddViewModel, Activityy>();
             CreateMap<ActivityDetailsViewModel, Activityy>();
             CreateMap<Activityy, ActivityAddViewModel>();
+            CreateMap<ActivityDetailsViewModel, Activityy>();
+            CreateMap<Activityy, ActivityDetailsViewModel>();
             CreateMap<GenericDocument, DocumentListViewModel>();
 
             CreateMap<Bogus.Person, User>()

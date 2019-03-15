@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.StaticFiles;
 
 namespace LexiconLMS.Controllers
 {
-    [Authorize(Roles ="Teacher")]
+    [Authorize(Roles ="Teacher, Student")]
     public class ActivityDocumentController : Controller
     {
         private readonly LexiconLMSContext _context;
@@ -29,7 +29,9 @@ namespace LexiconLMS.Controllers
             _userManager = userManager;
         }
 
+
         // GET: ActivityDocument/Create
+        [Authorize(Roles ="Teacher")]
         public ActionResult Create(int id)
         {
             var vm = new CreateDocumentViewModel()
@@ -67,14 +69,36 @@ namespace LexiconLMS.Controllers
                 _context.SaveChanges();
 
                 //Can't get it to accept nameof(Details) for some reason
-                return RedirectToAction("Details", "Activity", new { id = vm.EnitityId });
+
+                if (User.IsInRole("Teacher"))
+                {
+                    return RedirectToAction("Details", "Activity", new { id = vm.EnitityId });
+                } else
+                {
+                    return RedirectToAction("Index", "Student");
+                }
             }
             else
             {
+                ViewData["Title"] = "Add Activity Document";
                 return View("_CreateDocumentPartial", vm);
             }
         }
 
+        // GET: ActivityDocument/StudentCreate
+        [Route("/Assignment/Create/{id}")]
+        public ActionResult CreateStudent(int id)
+        {
+            var vm = new CreateDocumentViewModel()
+            {
+                EnitityId = id
+            };
+            var act = _context.Activities.FirstOrDefault(a => a.Id == id);
+            ViewData["Title"] = $"Assignment deadline: {act.EndDate.ToShortDateString() }";
+            return View("_CreateDocumentPartial", vm);
+        }
+
+        [Authorize(Roles="Teacher")]
         // GET: CourseDocument/Delete
         public ActionResult Delete(int id)
         {
@@ -82,7 +106,6 @@ namespace LexiconLMS.Controllers
             {
                 return NotFound();
             }
-
             var document = _context.ActivityDocument.FirstOrDefault(a => a.Id == id);
             if (!(document is null))
             {
@@ -100,7 +123,6 @@ namespace LexiconLMS.Controllers
             return NotFound();
         }
 
-        [Authorize(Roles ="Teacher, Student")]
         public ActionResult Display(int id)
         {
             var document = _context.ActivityDocument.FirstOrDefault(d => d.Id == id);
