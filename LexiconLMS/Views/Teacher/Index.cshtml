@@ -3,8 +3,8 @@
     ViewData["Title"] = "Teacher Page";
 }
 
-<h1 >Teacher's Page</h1>
-<hr/>
+<h1>Teacher's Page</h1>
+<hr />
 <br />
 <h5>Ongoing Courses</h5>
 <ul class="list-group">
@@ -49,8 +49,36 @@
 </table>
 
 
-<div class="form-group">
-    <a asp-controller="Course" asp-action="Index" class="btn btn-purple">Other Courses</a>
-    <a asp-controller="Course" asp-action="Create" class="btn btn-green">Create Course</a>
-</div>
+    <div class="form-group">
+        <a asp-controller="Course" asp-action="Index" class="btn btn-purple">Other Courses</a>
+        <a asp-controller="Course" asp-action="Create" class="btn btn-green">Create Course</a>
+    </div>
 
+
+    @*<table class="table tablestyle smallwidth">
+
+        <thead>
+            <tr>
+                <th>
+                    <h3>Ongoing Courses</h3>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Courses)
+            {
+                <tr>
+                    <td>
+                        <h5><a asp-action="Details" asp-route-id="@item.Id">@item.Name</a></h5>
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <a asp-controller="Course" asp-action="Index" class="btn btn-purple">Other Courses</a>
+        <a asp-controller="Course" asp-action="Create" class="btn btn-green">Create Course</a>
+    </div>*@

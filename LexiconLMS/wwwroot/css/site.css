@@ -62,8 +62,8 @@ body {
 }
 
 .img-course {
-    width: 150px;
-    height: 50px;
+    width: 200px;
+    height: 100px;
 }
 
 .course-avatars {
@@ -73,7 +73,10 @@ body {
 
     .course-avatars .card {
         margin: 1rem;
+        max-width: 200px;
+        min-width: 200px;
     }
+
     .course-avatars img {
         width: 100px;
         height: 100px;
@@ -174,14 +177,15 @@ body {
     }
 
 .btn-grey {
-    background-color: #a09e9e;
+    /*background-color: #a09e9e;*/
+    background-color:#5d5c5c;
     color: white;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
     .btn-grey:hover {
-        background-color: #5d5d5d;
+        background-color: #a09e9e;
         color: white;
         margin-top: 10px;
         margin-bottom: 10px;
@@ -192,11 +196,16 @@ body {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    border: 1px solid #ddd;
+ 
 }
 
     .tablestyle td, .tablestyle th {
-        border: 1px solid #ddd;
+        /*border-bottom: 1px solid #ddd;*/
+        border:none;
         padding: 8px;
+        width:20%;
+       
         
     }
 
@@ -217,6 +226,7 @@ body {
         /*background-color: #4CAF50;*/
         background-color: #46bb4e;
         color: white;
+       
     }
 
 .jumbotron {
@@ -225,4 +235,64 @@ body {
 
 a:hover{
     text-decoration:none;
+}
+
+i{
+    margin-right:5px;
+}
+
+.smallwidth{
+    width:600px;
+}
+
+.editpadding{
+  width:100px;
+}
+
+
+
+
+.widetablestyle{
+
+}
+
+.widetablestyle {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+    .widetablestyle td, .widetablestyle th {
+        /*border-bottom: 1px solid #ddd;*/
+        border: none;
+        padding: 8px;
+        width: 10%;
+    }
+
+    .widetablestyle tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .widetablestyle tr:hover {
+        background-color: #ddd;
+    }
+
+    .widetablestyle th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        /*background-color: #4CAF50;*/
+        background-color: #46bb4e;
+        color: white;
+    }
+
+.scrolling{
+    overflow:scroll;
+    max-height:300px;
+}
+
+.scrolling th {
+    position: sticky;
+    top: 0;
 }
