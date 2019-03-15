@@ -194,6 +194,7 @@ body {
     border-collapse: collapse;
     width: 100%;
     border: 1px solid #ddd;
+   
  
 }
 
@@ -287,6 +288,7 @@ i{
 .scrolling{
     overflow:scroll;
     max-height:300px;
+    margin-bottom:25px;
 }
 
 .scrolling th {
