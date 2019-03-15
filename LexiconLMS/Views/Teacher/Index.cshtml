@@ -6,15 +6,47 @@
 <h1 >Teacher's Page</h1>
 <hr/>
 <br />
-<h4>Ongoing Courses</h4>
+<h5>Ongoing Courses</h5>
 <ul class="list-group">
-    @foreach (var item in Model.Courses)
+    @foreach (var item in Model.OngoingCourses)
     {
         <li class="list-group-item licolor">
             <h5> <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id">@item.Name</a></h5>
         </li>
     }
 </ul>
+<hr />
+<h5>Student's assignments</h5>
+<table class="table tablestyle" data-toggle="table">
+    <thead>
+        <tr class="table-info">
+            <th>@Html.DisplayNameFor(a => a.Assignments.FirstOrDefault().Name)</th>
+            <th>@Html.DisplayNameFor(a => a.Assignments.FirstOrDefault().Owner)</th>
+            <th>@Html.DisplayNameFor(a => a.Assignments.FirstOrDefault().UploadTime)</th>
+            <th>Course/Module</th>
+            <th>Status</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var assignment in Model.Assignments)
+        {
+            <tr class="table-active">
+                <td><a asp-controller="ActivityDocument" asp-action="Display" asp-route-id="@assignment.Id"><i class="fas fa-file-download"></i> @assignment.Name</a></td>
+                <td>@assignment.Owner.FullName</td>
+                <td>@assignment.UploadTime</td>
+                <td>@assignment.CourseName / @assignment.ModuleName</td>
+                @if (assignment.Deadline < assignment.UploadTime)
+                {
+                    <td><i class="fas fa-times-circle" style="color:red"></i> Late</td>
+                } else
+                {
+                    <td><i class="fas fa-check-circle" style="color:green"></i> On time</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
 
 
 <div class="form-group">

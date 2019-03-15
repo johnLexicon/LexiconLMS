@@ -51,14 +51,21 @@ namespace LexiconLMS.Data
 
             builder.Entity<Module>();
 
-            builder.Entity<Activityy>();
+            builder.Entity<Activityy>()
+                .HasMany<ActivityDocument>(d => d.Documents)
+                .WithOne(c => c.Activityy)
+                .HasForeignKey(e => e.ActivityId);
+
             builder.Entity<ActivityType>();
 
             builder.Entity<CourseDocument>();
             
             builder.Entity<ModuleDocument>();
-            
-            builder.Entity<ActivityDocument>();
+
+            builder.Entity<ActivityDocument>()
+                .HasOne<Activityy>(a => a.Activityy)
+                .WithMany(b => b.Documents)
+                .HasForeignKey(e => e.ActivityId);
             
             /*** Seed Data for Activity Types ***/
 
