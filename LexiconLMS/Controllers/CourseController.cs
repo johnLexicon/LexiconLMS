@@ -105,6 +105,7 @@ namespace LexiconLMS.Controllers
                 await _context.Courses.AddAsync(course);
                 _context.SaveChanges();
 
+                TempData["AlertMsg"] = "Course added";
                 return RedirectToAction(nameof(Details), new { course.Id });
             }
             else
@@ -238,6 +239,7 @@ namespace LexiconLMS.Controllers
 
                 _context.SaveChanges();
 
+                TempData["AlertMsg"] = "Saved changes";
                 return RedirectToAction(nameof(Details), new { course.Id });
             }
             else
@@ -280,6 +282,7 @@ namespace LexiconLMS.Controllers
 
             await _context.SaveChangesAsync();
 
+            TempData["AlertMsg"] = "Course deleted";
             return RedirectToAction(nameof(Index));
         }
     }
