@@ -31,38 +31,58 @@ namespace LexiconLMS.Controllers
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-            var course = await _context.Courses
-                .FindAsync(user.CourseId);
+            var course = _context.Courses
+                .Include(d => d.Documents)
+                .FirstOrDefault(c => c.Users.Contains(user));
 
             var modules = _context.Modules
                 .Include(a => a.Activities)
+                .ThenInclude(b => b.Documents)
                 .Include(a => a.Documents)
                 .Where(a => a.CourseId == course.Id)
                 .OrderBy(b => b.StartDate)
                 .ThenBy(c => c.EndDate).ToList();
 
+            var teachers = _userManager.GetUsersInRoleAsync("Teacher");
+            teachers.Wait();
 
             foreach (var m in modules)
             {
-                var orderedActivities = m.Activities.OrderBy(a => a.StartDate).ThenBy(b => b.EndDate).ToList();
+                var orderedActivities = m.Activities
+                    .OrderBy(a => a.StartDate)
+                    .ThenBy(b => b.EndDate)
+                    .ToList();
+
                 m.Activities = orderedActivities;
                 foreach (var activity in m.Activities)
                 {
-                    var act = _context.Activities.Include(b => b.ActivityType).FirstOrDefault(aa => aa.Id == activity.Id);
+                    var act = _context.Activities
+                        .Include(b => b.ActivityType)
+                        .Include(d => d.Documents)
+                        .FirstOrDefault(aa => aa.Id == activity.Id);
                     activity.ActivityType = act.ActivityType;
+                    //activity.Documents = new List<ActivityDocument>();
+                    var documents = _context.ActivityDocument
+                        .Where(d => d.ActivityId == act.Id)
+                        .Where(d => teachers.Result.Contains(d.User))
+                        .ToList();
+                    activity.Documents = documents;
                 }
             }
 
             var model = await SetModelCourseData(course);
             model = SetModelModulesData(model, modules);
             model = await SetModelStudentsRows(model, user.CourseId);
+
+
+
             return View(model);
         }
 
         private StudentCourseViewModel SetModelModulesData(StudentCourseViewModel model, List<Module> modules)
         {           
-            model.Modules = new List<ModuleAddViewModel>();
-            modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleAddViewModel>(m)));
+            model.Modules = new List<ModuleDetailsViewModel>();
+            modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleDetailsViewModel>(m)));
             return model;
         }
 
@@ -78,6 +98,17 @@ namespace LexiconLMS.Controllers
                 model.StartDate = course.StartDate;
                 model.EndDate = course.EndDate;
                 model.Id = course.Id;
+                model.Documents = new List<DocumentListViewModel>();
+                foreach(var doc in course.Documents)
+                {
+                    model.Documents.Add(new DocumentListViewModel()
+                    {
+                        Id = doc.Id,
+                        Name = doc.Name,
+                        Description = doc.Description,
+                        UploadTime = doc.UploadTime,
+                    });
+                }
             }
             else
             {

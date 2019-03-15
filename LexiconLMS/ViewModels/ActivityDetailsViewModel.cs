@@ -41,7 +41,7 @@ namespace LexiconLMS.ViewModels
         public Module Module { get; set; }
         public Course Course { get; set; }
 
-        [IgnoreMap]
+        //[IgnoreMap]
         public List<DocumentListViewModel> Documents { get; set; }
     }
 }

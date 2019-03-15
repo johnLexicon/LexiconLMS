@@ -80,6 +80,7 @@ namespace LexiconLMS.Controllers
             }
             else
             {
+                ViewData["Title"] = "Add Activity Document";
                 return View("_CreateDocumentPartial", vm);
             }
         }
@@ -92,8 +93,8 @@ namespace LexiconLMS.Controllers
             {
                 EnitityId = id
             };
-
-            //TODO: add relevant page title
+            var act = _context.Activities.FirstOrDefault(a => a.Id == id);
+            ViewData["Title"] = $"Assignment deadline: {act.EndDate.ToShortDateString() }";
             return View("_CreateDocumentPartial", vm);
         }
 

@@ -13,11 +13,8 @@ namespace LexiconLMS.Models
         {
             CreateMap<Module, ModuleAddViewModel>();
             CreateMap<ModuleAddViewModel, Module>();
-            CreateMap<ModuleDetailsViewModel, Module>().ForSourceMember(a => a.Documents, opt => opt.DoNotValidate());
-            CreateMap<Module, ModuleDetailsViewModel>();
-
-            CreateMap<Module, ModuleDetailsViewModel>();
-            CreateMap<ModuleDetailsViewModel, Module>();
+            CreateMap<ModuleDetailsViewModel, Module>();//.ForSourceMember(a => a.Documents, opt => opt.DoNotValidate());
+            CreateMap<Module, ModuleDetailsViewModel>();//.ForMember(a => a.Documents, opt => opt.Ignore()).ReverseMap();
 
             CreateMap<CourseAddViewModel, Course>();
             CreateMap<User, CourseDetailsViewModel>()

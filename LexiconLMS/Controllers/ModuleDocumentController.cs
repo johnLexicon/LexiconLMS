@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.StaticFiles;
 
 namespace LexiconLMS.Controllers
 {
-    [Authorize(Roles ="Teacher")]
+    [Authorize(Roles ="Teacher, Student")]
     public class ModuleDocumentController : Controller
     {
         private readonly LexiconLMSContext _context;
@@ -29,6 +29,7 @@ namespace LexiconLMS.Controllers
             _userManager = userManager;
         }
 
+        [Authorize(Roles = "Teacher")]
         // GET: ModuleDocument/Create
         public ActionResult Create(int id)
         {
@@ -40,6 +41,7 @@ namespace LexiconLMS.Controllers
             return View("_CreateDocumentPartial", vm);
         }
 
+        [Authorize(Roles = "Teacher")]
         // POST: ModuleDocument/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -71,10 +73,12 @@ namespace LexiconLMS.Controllers
             }
             else
             {
+                ViewData["Title"] = "Add Module Document";
                 return View("_CreateDocumentPartial", vm);
             }
         }
 
+        [Authorize(Roles = "Teacher")]
         // GET: CourseDocument/Delete
         public ActionResult Delete(int id)
         {
@@ -100,7 +104,6 @@ namespace LexiconLMS.Controllers
             return NotFound();
         }
 
-        [Authorize(Roles ="Teacher, Student")]
         public ActionResult Display(int id)
         {
             var document = _context.ModuleDocument.FirstOrDefault(d => d.Id == id);
