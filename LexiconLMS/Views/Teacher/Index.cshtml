@@ -3,9 +3,7 @@
     ViewData["Title"] = "Teacher Page";
 }
 
-<h1>Teacher's Page</h1>
-<hr />
-<br />
+
 <h5>Ongoing Courses</h5>
 <ul class="list-group">
     @foreach (var item in Model.OngoingCourses)
@@ -15,6 +13,15 @@
         </li>
     }
 </ul>
+
+
+<div class="form-group">
+    <a asp-controller="Course" asp-action="Index" class="btn btn-purple">Other Courses</a>
+    <a asp-controller="Course" asp-action="Create" class="btn btn-green">Create Course</a>
+</div>
+
+@if (!(Model.Assignments is null) && Model.Assignments.Count > 0)
+{
 <hr />
 <h5>Student's assignments</h5>
 <table class="table tablestyle" data-toggle="table">
@@ -39,7 +46,8 @@
                 @if (assignment.Deadline < assignment.UploadTime)
                 {
                     <td><i class="fas fa-times-circle" style="color:red"></i> Late</td>
-                } else
+                }
+                else
                 {
                     <td><i class="fas fa-check-circle" style="color:green"></i> On time</td>
                 }
@@ -47,38 +55,4 @@
         }
     </tbody>
 </table>
-
-
-    <div class="form-group">
-        <a asp-controller="Course" asp-action="Index" class="btn btn-purple">Other Courses</a>
-        <a asp-controller="Course" asp-action="Create" class="btn btn-green">Create Course</a>
-    </div>
-
-
-    @*<table class="table tablestyle smallwidth">
-
-        <thead>
-            <tr>
-                <th>
-                    <h3>Ongoing Courses</h3>
-                </th>
-
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Courses)
-            {
-                <tr>
-                    <td>
-                        <h5><a asp-action="Details" asp-route-id="@item.Id">@item.Name</a></h5>
-                    </td>
-
-
-                </tr>
-            }
-        </tbody>
-    </table>
-    <div class="form-group">
-        <a asp-controller="Course" asp-action="Index" class="btn btn-purple">Other Courses</a>
-        <a asp-controller="Course" asp-action="Create" class="btn btn-green">Create Course</a>
-    </div>*@
+}
