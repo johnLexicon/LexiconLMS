@@ -30,7 +30,7 @@ namespace LexiconLMS.ViewModels
 
         public List<ModuleDetailsViewModel> Modules { get; set; }
 
-        public List<List<User>> Students { get; set; }
+        public List<User> Students { get; set; }
 
         //Add Activities
         //public List<ActivityDetailsViewModel> activities { get; set; }
