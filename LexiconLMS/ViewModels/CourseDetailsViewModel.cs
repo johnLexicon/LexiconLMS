@@ -17,15 +17,15 @@ namespace LexiconLMS.ViewModels
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        [Display(Name = "Start date")]
+        [Display(Name = "Course starts")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
-        [Display(Name = "End date")]
+        [Display(Name = "Course ends")]
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
-        [Display(Name = "Teacher email")]
+        [Display(Name = "Teacher")]
         public string TeacherEmail { get; set; }
 
         [Display(Name = "Students")]

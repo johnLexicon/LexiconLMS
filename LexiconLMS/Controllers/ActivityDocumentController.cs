@@ -72,9 +72,11 @@ namespace LexiconLMS.Controllers
 
                 if (User.IsInRole("Teacher"))
                 {
+                    TempData["AlertMsg"] = "Document added";
                     return RedirectToAction("Details", "Activity", new { id = vm.EnitityId });
                 } else
                 {
+                    TempData["AlertMsg"] = "Assignment uploaded - good luck!";
                     return RedirectToAction("Index", "Student");
                 }
             }
@@ -116,10 +118,10 @@ namespace LexiconLMS.Controllers
 
                 if (!(module is null))
                 {
+                    TempData["AlertMsg"] = "Document deleted";
                     return RedirectToAction("Details", "Activity", new { id = module.Id });
                 }
             }
-
             return NotFound();
         }
 

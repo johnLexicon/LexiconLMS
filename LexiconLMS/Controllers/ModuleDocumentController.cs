@@ -68,6 +68,7 @@ namespace LexiconLMS.Controllers
                 _context.ModuleDocument.Add(newDocument);
                 _context.SaveChanges();
 
+                TempData["AlertMsg"] = "Document added";
                 //Can't get it to accept nameof(Details) for some reason
                 return RedirectToAction("Details", nameof(Module), new { id = vm.EnitityId });
             }
@@ -97,6 +98,7 @@ namespace LexiconLMS.Controllers
 
                 if (!(module is null))
                 {
+                    TempData["AlertMsg"] = "Document deleted";
                     return RedirectToAction("Details", "Module", new { id = module.Id });
                 }
             }

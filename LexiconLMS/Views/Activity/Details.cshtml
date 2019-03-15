@@ -4,47 +4,26 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Activity Details</h1>
+<h3>@Html.DisplayFor(model => model.ActivityType.Type)</h3>
 
 <div>
     <hr />
     <dl class="row">
-        @*<dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Id)
-            </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Id)
-            </dd>*@
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Module)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Module.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-1"></dd>
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ActivityType.Type)
+        <dd class="col-sm-3"></dd>
+        <dd class="col-sm-1"></dd>
+        <dt class="col-sm-8">
+            <i class="fa fa-clock"></i>@Html.DisplayNameFor(model => model.StartDate) <strong>@Model.StartDate.ToLongDateString()</strong>
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ActivityType.Type)
-        </dd>
+        <dd class="col-sm-3"></dd>
+        <dd class="col-sm-1"></dd>
+        <dt class="col-sm-8">
+            <i class="fa fa-clock"></i>@Html.DisplayNameFor(model => model.EndDate) <strong>@Model.EndDate.ToLongDateString()</strong>
+        </dt>
+        <dd class="col-sm-3"></dd>
 
     </dl>
 </div>
