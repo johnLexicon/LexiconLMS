@@ -101,10 +101,16 @@ namespace LexiconLMS.Controllers
                 model.Documents = new List<DocumentListViewModel>();
                 foreach(var doc in course.Documents)
                 {
+                    var docName = doc.Name;
+                    var maxDocNameLength = 40;
+                    if (docName.Length > maxDocNameLength)
+                    {
+                        docName = docName.Remove(maxDocNameLength) + "...";
+                    }
                     model.Documents.Add(new DocumentListViewModel()
                     {
                         Id = doc.Id,
-                        Name = doc.Name,
+                        Name = docName,
                         Description = doc.Description,
                         UploadTime = doc.UploadTime,
                     });
