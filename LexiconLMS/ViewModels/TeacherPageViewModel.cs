@@ -6,6 +6,7 @@ namespace LexiconLMS.ViewModels
 {
     public class TeacherPageViewModel
     {
-        public List<Course> Courses { get; set; }
+        public List<Course> OngoingCourses { get; set; }
+        public List<AssignmentListViewModel> Assignments { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using LexiconLMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LexiconLMS.Migrations
 {
     [DbContext(typeof(LexiconLMSContext))]
-    partial class LexiconLMSContextModelSnapshot : ModelSnapshot
+    [Migration("20190315122140_teacherPage")]
+    partial class teacherPage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,6 +29,8 @@ namespace LexiconLMS.Migrations
 
                     b.Property<int>("ActivityId");
 
+                    b.Property<int?>("ActivityyId");
+
                     b.Property<string>("Description");
 
                     b.Property<byte[]>("DocumentData");
@@ -39,7 +43,7 @@ namespace LexiconLMS.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ActivityId");
+                    b.HasIndex("ActivityyId");
 
                     b.HasIndex("UserId");
 
@@ -661,8 +665,7 @@ namespace LexiconLMS.Migrations
                 {
                     b.HasOne("LexiconLMS.Models.Activityy", "Activityy")
                         .WithMany("Documents")
-                        .HasForeignKey("ActivityId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ActivityyId");
 
                     b.HasOne("LexiconLMS.Models.User", "User")
                         .WithMany()
