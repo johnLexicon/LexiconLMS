@@ -93,7 +93,7 @@ body {
     }
 .bgcolor {
     background-color: rgba(181, 189, 197, 0.5);
-    
+
 }
 
 .hide{
@@ -197,6 +197,7 @@ body {
     border-collapse: collapse;
     width: 100%;
     border: 1px solid #ddd;
+   
  
 }
 
@@ -288,11 +289,16 @@ i{
     }
 
 .scrolling{
-    overflow:scroll;
+    overflow-y:scroll;
     max-height:300px;
+    margin-bottom:25px;
 }
 
 .scrolling th {
     position: sticky;
     top: 0;
+}
+.jumbotron {
+    background-color: #e9ecef !important;
+    
 }
