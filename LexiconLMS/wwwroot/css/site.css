@@ -194,13 +194,15 @@ body {
     border-collapse: collapse;
     width: 100%;
     border: 1px solid #ddd;
+ 
 }
 
     .tablestyle td, .tablestyle th {
         /*border-bottom: 1px solid #ddd;*/
         border:none;
         padding: 8px;
-        width:25%;
+        width:20%;
+       
         
     }
 
@@ -221,6 +223,7 @@ body {
         /*background-color: #4CAF50;*/
         background-color: #46bb4e;
         color: white;
+       
     }
 
 .jumbotron {
@@ -237,4 +240,56 @@ i{
 
 .smallwidth{
     width:600px;
+}
+
+.editpadding{
+  width:100px;
+}
+
+
+
+
+.widetablestyle{
+
+}
+
+.widetablestyle {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+    .widetablestyle td, .widetablestyle th {
+        /*border-bottom: 1px solid #ddd;*/
+        border: none;
+        padding: 8px;
+        width: 10%;
+    }
+
+    .widetablestyle tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .widetablestyle tr:hover {
+        background-color: #ddd;
+    }
+
+    .widetablestyle th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        /*background-color: #4CAF50;*/
+        background-color: #46bb4e;
+        color: white;
+    }
+
+.scrolling{
+    overflow:scroll;
+    max-height:300px;
+}
+
+.scrolling th {
+    position: sticky;
+    top: 0;
 }

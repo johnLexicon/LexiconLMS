@@ -9,75 +9,81 @@
 @*<p>
         <a asp-action="Create">Create New</a>
     </p>*@
-<table class="table tablestyle">
+<table class="table widetablestyle">
     <thead>
         <tr>
-          
-            <th >
+
+            <th>
                 @Html.DisplayNameFor(model => model.ActivityType)
+            </th>
+            <th colspan="2" >
+                @Html.DisplayNameFor(model => model.Module.Course)
+            </th>
+            <th colspan="2">
+                @Html.DisplayNameFor(model => model.Module)
+            </th>
+            <th colspan="2" >
+                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.StartDate)
             </th>
             <th>
-                 @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Module)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Module.Course)
+                @Html.DisplayNameFor(model => model.EndDate)
             </th>
 
+
+
+
             <th></th>
-            <th></th>
+          
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+        <tr>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.ActivityType.Type)
-                </td>
-                <td>
-                    <i class="fa fa-clock" aria-hidden="true"></i> @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    <i class="fa fa-clock" aria-hidden="true"></i> @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    <i class="fa  fa-info-circle"></i> @Html.DisplayFor(modelItem => item.Description)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityType.Type)
+            </td>
+            <td colspan="2">
+                @Html.DisplayFor(modelItem => item.Module.Course.Name)
+            </td>
+            <td colspan="2">
+                @Html.DisplayFor(modelItem => item.Module.Name)
+            </td>
+            <td colspan="2">
+                <i class="fa  fa-info-circle"></i> @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <i class="fa fa-clock" aria-hidden="true"></i> @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                <i class="fa fa-clock" aria-hidden="true"></i> @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
 
-                <td>
-                  @Html.DisplayFor(modelItem => item.Module.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Module.Course.Name)
-                </td>
 
-                <td>
-                    <div class="btn btn-purple btn-sm"><i class="fa fa-edit"></i> @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "text-white" })</div>
-                </td>
 
-                <td>
-                    <div class="btn btn-green btn-sm"><i class="fa fa-info-circle"></i> @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "text-white" })</div>
-                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
-                </td>
-              
-            </tr>
+
+
+            <td>
+                <div class="btn btn-purple btn-sm"><i class="fa fa-edit"></i> @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "text-white" })</div>
+                @*</td>
+
+            <td>*@
+                <div class="btn btn-green btn-sm"><i class="fa fa-info-circle"></i> @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "text-white" })</div>
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+            </td>
+
+        </tr>
         }
     </tbody>
 </table>
 
-<hr />
+@*<hr />
 
-<hr />
+<hr />*@
 <div>
     
     <a asp-action="Index" asp-controller="Teacher" class="btn btn-purple">Back to Home</a>
