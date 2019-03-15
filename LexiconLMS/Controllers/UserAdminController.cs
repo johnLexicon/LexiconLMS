@@ -96,6 +96,7 @@ namespace LexiconLMS.Controllers
                 ModelState.AddModelError("Email", "User/email already exists, not created");
                 return View(vm);
             }
+            TempData["AlertMsg"] = "Teacher/Admin account created";
             return RedirectToAction(nameof(Index));
         }
 
@@ -152,6 +153,7 @@ namespace LexiconLMS.Controllers
 
             if (result.Result.Succeeded)
             {
+                TempData["AlertMsg"] = "Saved changes";
                 return View("Details", vm);
             }
             else
@@ -192,6 +194,7 @@ namespace LexiconLMS.Controllers
 
             var deleteUser = _userManager.DeleteAsync(theUser.Result);
             deleteUser.Wait();
+            TempData["AlertMsg"] = "Account deleted";
             return RedirectToAction(nameof(Index));
         }
     }
