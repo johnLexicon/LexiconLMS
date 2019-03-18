@@ -43,7 +43,8 @@
         </div>*@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-green" />
-                <a asp-action="Index" class="btn btn-purple">Back to List</a>
+                <a asp-action="Details" asp-controller="Module" asp-route-Id="@Model.Module.Id" class="btn btn-purple">Back To Module</a>
+                <a asp-action="Index" class="btn btn-grey">Back To List</a>
             </div>
         </form>
     </div>
