@@ -71,11 +71,25 @@ namespace LexiconLMS.Controllers
                 }
             }
 
+            var assignments = _context.ActivityDocument
+                .Where(d => teachers.Result.Contains(d.User))
+                .Where(d => d.Activityy.Module.Course.Users.Contains(_userManager.GetUserAsync(User).Result))
+                .Where(d => d.Activityy.ActivityType.Type == "Exercise")
+                .Include(d => d.Activityy)
+                .OrderByDescending(d => d.Activityy.EndDate);
+
+            var myAssignments = _context.ActivityDocument
+                .Where(d => d.UserId == _userManager.GetUserId(User));
+
+            var dueAssignments = assignments.Except(myAssignments);
+
+
             var model = await SetModelCourseData(course, teacher);
             model = SetModelModulesData(model, modules);
             model = await SetModelStudentsRows(model, user.CourseId);
 
-
+            model.DueAssignments = _mapper.Map<List<ActivityDocument>, List<AssignmentListViewModel>>(dueAssignments.ToList());
+            model.MyAssignments = _mapper.Map<List<ActivityDocument>, List<AssignmentListViewModel>>(myAssignments.ToList());
 
             return View(model);
         }
