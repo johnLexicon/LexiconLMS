@@ -6,39 +6,30 @@
 
 
 
-<h1>Course Details</h1>
+<h3>Course:  @Html.DisplayFor(model => model.Name)</h3>
 <hr />
 <dl class="row">
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Name)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Name)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.StartDate)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.StartDate)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.EndDate)
-    </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.EndDate)
-    </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.Description)
-    </dt>
-    <dd class="col-sm-10">
+    <dd class="col-sm-1"></dd>
+    <dd class="col-sm-8">
         @Html.DisplayFor(model => model.Description)
     </dd>
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.TeacherEmail)
+    <dd class="col-sm-3"></dd>
+    <dd class="col-sm-1"></dd>
+    <dt class="col-sm-8">
+        <i class="fa fa-clock"></i>@Html.DisplayNameFor(model => model.StartDate) <strong>@Model.StartDate.ToLongDateString()</strong>
     </dt>
-    <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.TeacherEmail)
-    </dd>
+    <dd class="col-sm-3"></dd>
+    <dd class="col-sm-1"></dd>
+    <dt class="col-sm-8">
+        <i class="fa fa-clock"></i>@Html.DisplayNameFor(model => model.EndDate) <strong>@Model.EndDate.ToLongDateString()</strong>
+    </dt>
+    <dd class="col-sm-3"></dd>
+    <dd class="col-sm-1"></dd>
+    <dt class="col-sm-8">
+        <i class="fas fa-at"></i>@Html.DisplayNameFor(model => model.TeacherEmail) <strong><a href="mailto:@Model.TeacherEmail">@Html.DisplayFor(model => model.TeacherEmail)</a></strong>
+    </dt>
+    <dd class="col-sm-3"></dd>
+
 </dl>
 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-purple"><i class="fas fa-edit"></i> Edit Course Details</a>
 
@@ -52,7 +43,7 @@
     <table class="table tablestyle" data-toggle="table">
         <thead>
             <tr>
-                <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().FullName)</th>
+                <th>@Html.DisplayNameFor(a => a.Students)</th>
                 <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().Email)</th>
                 <th></th>
                 <th></th>

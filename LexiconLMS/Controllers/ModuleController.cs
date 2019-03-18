@@ -128,6 +128,7 @@ namespace LexiconLMS.Controllers
                 _context.Add(model);
 
                 await _context.SaveChangesAsync();
+                TempData["AlertMsg"] = "Module added";
                 return RedirectToAction(nameof(Details), new { id = model.Id });
             }
             return View(@module);
@@ -151,6 +152,7 @@ namespace LexiconLMS.Controllers
                 var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == module.CourseId);
                 if (!(course is null))
                 {
+                    TempData["AlertMsg"] = "Module deleted";
                     return RedirectToAction("Details", "Course", new { id = course.Id });
                 }
             }
@@ -216,6 +218,7 @@ namespace LexiconLMS.Controllers
                 _context.Update(moduleEntity);
                 await _context.SaveChangesAsync();
 
+                TempData["AlertMsg"] = "Saved changes";
                 return RedirectToAction(nameof(Details), new { id = moduleEntity.Id });
             }
 

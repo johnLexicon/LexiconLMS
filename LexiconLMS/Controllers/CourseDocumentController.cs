@@ -69,6 +69,7 @@ namespace LexiconLMS.Controllers
                 _context.SaveChanges();
 
                 //Can't get it to accept nameof(Details) for some reason
+                TempData["AlertMsg"] = "Document added";
                 return RedirectToAction("Details", nameof(Course), new { id = vm.EnitityId });
             }
             else
@@ -97,6 +98,7 @@ namespace LexiconLMS.Controllers
 
                 if (!(course is null))
                 {
+                    TempData["AlertMsg"] = "Document deleted";
                     return RedirectToAction("Details", "Course", new { id = course.Id });
                 }
             }

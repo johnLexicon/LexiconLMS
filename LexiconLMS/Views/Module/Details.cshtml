@@ -4,35 +4,28 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Module Details</h1>
+<h3>Module: @Html.DisplayFor(model => model.Name)</h3>
 
 <div>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+        <dd class="col-sm-1">
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
+        <dd class="col-sm-3">
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDate)
+        <dd class="col-sm-1"></dd>
+        <dt class="col-sm-8">
+            <i class="fa fa-clock"></i>@Html.DisplayNameFor(model => model.StartDate) <strong>@Model.StartDate.ToLongDateString()</strong>
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
+        <dd class="col-sm-3"></dd>
+        <dd class="col-sm-1"></dd>
+        <dt class="col-sm-8">
+            <i class="fa fa-clock"></i>@Html.DisplayNameFor(model => model.EndDate) <strong>@Model.EndDate.ToLongDateString()</strong>
+        </dt>
+        <dd class="col-sm-3"></dd>
     </dl>
 </div>
 

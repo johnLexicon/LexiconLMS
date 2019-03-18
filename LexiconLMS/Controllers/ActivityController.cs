@@ -90,6 +90,7 @@ namespace LexiconLMS.Controllers
                 await _context.Activities.AddAsync(activity);
                 await _context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
+                TempData["AlertMsg"] = "Activity added";
                 return RedirectToAction("Details", "module", new { id = activity.Module.Id });
             }
          
@@ -186,6 +187,7 @@ namespace LexiconLMS.Controllers
                 _context.Update(ActivityEntity);
                 await _context.SaveChangesAsync();
 
+                TempData["AlertMsg"] = "Saved changes";
                 return RedirectToAction(nameof(Details), new { id = id });
             }
             ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type", AVM.ActivityTypeId);
@@ -209,6 +211,7 @@ namespace LexiconLMS.Controllers
                 var module = await _context.Modules.FirstOrDefaultAsync(a => a.Id == activity.ModuleId);
                 if (!(module is null))
                 {
+                    TempData["AlertMsg"] = "Activity deleted";
                     return RedirectToAction("Details", "module", new { id = module.Id });
                 }
             }

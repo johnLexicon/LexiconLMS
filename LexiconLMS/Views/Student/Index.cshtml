@@ -14,67 +14,83 @@
 </style>
 
 @*<h1>Student, Welcome to the Course</h1>*@
-<div class="jumbotron " style="background-color: #e9ecef !important;">
+<div class="jumbotron " >
     <div class="media">
         <div class="media-body">
-            <img src="~/images/Courseimg.jpg" class="img-course" alt="logo lexicon">
-            <h3 class="display-5">@Html.DisplayFor(a => a.Name)</h3>
-            <div class="btn btn-green">
-                <i class="fa fa-info-circle"></i><a  class="text-white" data-toggle="modal" data-target="#courseModal" href="@Url.Action("Details", "StudentCourse", new { id = Model.Id })">Details</a>
-            </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="courseModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="courseModalLabel">@Html.DisplayFor(a => a.Name)</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>
-                                <strong>@Html.DisplayNameFor(a => a.Description) :</strong>
-                                @Html.DisplayFor(a => a.Description)
-                            </p>
-                            <p>
-                                <strong>
-                                    @Html.DisplayNameFor(a => a.StartDate) :
-                                </strong>
-                                @Html.DisplayFor(a => a.StartDate)
-                            </p>
-                            <p>
-                                <strong>
-                                    @Html.DisplayNameFor(a => a.EndDate) :
-                                </strong>
-                                @Html.DisplayFor(a => a.EndDate)
-                            </p>
-                            <p>
-                                <strong>@Html.DisplayNameFor(a => a.TeacherName) :</strong>
-                                @Html.DisplayFor(a => a.TeacherName)
-                            </p>
-                            <p>
-                                <strong>@Html.DisplayNameFor(a => a.TeacherEmail) :</strong>
-                                @Html.DisplayFor(a => a.TeacherEmail)
-                            </p>
-                            @if (!(Model.Documents is null) && Model.Documents.Count > 0)
-                            {
-                                <hr />
+            <div class="TopBox">
+
+                <div class="boxForCourse">
+                    <h1> @Html.DisplayFor(a => a.Name) </h1>
+                    <h3>
+                        @Model.StartDate.ToString(" MMMM yyyy")- @Model.EndDate.ToString(" MMMM yyyy")
+                    </h3>
+                    <div class="btn btn-green">
+                        <i class="fa fa-info-circle"></i><a class="text-white" data-toggle="modal" data-target="#courseModal" href="@Url.Action("Details", "StudentCourse", new { id = Model.Id })">Details</a>
+                    </div>
+                </div>
+            
+              
+
+
+                @*<img src="~/images/Courseimg.jpg" class="img-course" alt="logo lexicon">*@
+                @*<h2 class="display-5">@Html.DisplayFor(a => a.Name)</h2>*@
+             
+
+                <!-- Modal -->
+                <div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="courseModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="courseModalLabel">@Html.DisplayFor(a => a.Name)</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @*<p>
+                            <strong>@Html.DisplayNameFor(a => a.Name) :</strong>
+                            @Html.DisplayFor(a => a.Name)
+                        </p>*@
                                 <p>
-                                    <h6>Course Documents</h6>
-                                    @foreach (var document in Model.Documents)
-                                    {
-                                        <a class="btn btn-sm btn-purple" asp-controller="CourseDocument" asp-action="Display" asp-route-id="@document.Id">
-                                            <i class="fas fa-file-download"></i> @document.Name
-                                        </a><br />
-                                    }
+                                    <strong>@Html.DisplayNameFor(a => a.Description) :</strong>
+                                    @Html.DisplayFor(a => a.Description)
                                 </p>
-                            }
+                                <p>
+                                    <strong>
+                                        @Html.DisplayNameFor(a => a.StartDate) :
+                                    </strong>
+                                    @Html.DisplayFor(a => a.StartDate)
+                                </p>
+                                <p>
+                                    <strong>
+                                        @Html.DisplayNameFor(a => a.EndDate) :
+                                    </strong>
+                                    @Html.DisplayFor(a => a.EndDate)
+                                </p>
+                                @if (!(Model.Documents is null) && Model.Documents.Count > 0)
+                                {
+                                    <hr />
+                                    <p>
+                                        <h6>Course Documents</h6>
+                                        @foreach (var document in Model.Documents)
+                                        {
+                                            <a class="btn btn-sm btn-purple" asp-controller="CourseDocument" asp-action="Display" asp-route-id="@document.Id">
+                                                <i class="fas fa-file-download"></i> @document.Name
+                                            </a><br />
+                                        }
+                                    </p>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
+            
+
 
         </div>
 
@@ -83,7 +99,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="shadow p-3 mb-1 rounded" style="background-color:#6e3694">
-                <h5 class="display-5">Modules:</h5>
+                <h5 class="display-5 text-white">Modules:</h5>
                 @foreach (var module in Model.Modules)
                 {
                     <div class="shadow p-3 mb-2 bg-light rounded">
@@ -216,7 +232,7 @@
 
         <div class="col-md-8" style="padding: 5px;">
             <div class="shadow p-3 mb-1  rounded" style="background-color:#6e3694">
-                <h5 class="display-5">Students:</h5>
+                <h5 class="display-5 text-white">Students:</h5>
                 <div class="shadow p-3 mb-2 bg-light rounded course-avatars">
                     <div class="row">
                         @for (var i = 0; i < Model.Students.Count; i++)
