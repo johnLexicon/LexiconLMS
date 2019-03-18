@@ -11,6 +11,8 @@ namespace LexiconLMS.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
+        [Required]
         public byte[] DocumentData { get; set; }
         [DataType(DataType.Date)]
         public DateTime UploadTime { get; set; }
