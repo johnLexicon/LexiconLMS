@@ -94,8 +94,8 @@ namespace LexiconLMS.Controllers
             if (!(course is null))
             {
                 model.Name = course.Name;
-                model.TeacherName = teacher.FullName;
-                model.TeacherEmail = teacher.Email;
+                model.TeacherName = teacher != null ? teacher.FullName : string.Empty;
+                model.TeacherEmail = teacher != null ? teacher.Email : string.Empty;
 
                 model.Description = course.Description;
 
