@@ -34,10 +34,6 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            @*<p>
-                                <strong>@Html.DisplayNameFor(a => a.Name) :</strong>
-                                @Html.DisplayFor(a => a.Name)
-                            </p>*@
                             <p>
                                 <strong>@Html.DisplayNameFor(a => a.Description) :</strong>
                                 @Html.DisplayFor(a => a.Description)
@@ -54,17 +50,26 @@
                                 </strong>
                                 @Html.DisplayFor(a => a.EndDate)
                             </p>
-                            @if(!(Model.Documents is null) && Model.Documents.Count > 0)
+                            <p>
+                                <strong>@Html.DisplayNameFor(a => a.TeacherName) :</strong>
+                                @Html.DisplayFor(a => a.TeacherName)
+                            </p>
+                            <p>
+                                <strong>@Html.DisplayNameFor(a => a.TeacherEmail) :</strong>
+                                @Html.DisplayFor(a => a.TeacherEmail)
+                            </p>
+                            @if (!(Model.Documents is null) && Model.Documents.Count > 0)
                             {
                                 <hr />
                                 <p>
                                     <h6>Course Documents</h6>
-                                @foreach (var document in Model.Documents)
-                                {
-                                    <a class="btn btn-sm btn-purple" asp-controller="CourseDocument" asp-action="Display" asp-route-id="@document.Id">
-                                    <i class="fas fa-file-download"></i> @document.Name</a><br />
-                                }
-                                    </p>
+                                    @foreach (var document in Model.Documents)
+                                    {
+                                        <a class="btn btn-sm btn-purple" asp-controller="CourseDocument" asp-action="Display" asp-route-id="@document.Id">
+                                            <i class="fas fa-file-download"></i> @document.Name
+                                        </a><br />
+                                    }
+                                </p>
                             }
                         </div>
                     </div>

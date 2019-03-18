@@ -45,6 +45,7 @@ namespace LexiconLMS.Controllers
 
             var teachers = _userManager.GetUsersInRoleAsync("Teacher");
             teachers.Wait();
+            var teacher = teachers.Result.Where(a => a.CourseId == course.Id).FirstOrDefault();
 
             foreach (var m in modules)
             {
@@ -70,7 +71,7 @@ namespace LexiconLMS.Controllers
                 }
             }
 
-            var model = await SetModelCourseData(course);
+            var model = await SetModelCourseData(course, teacher);
             model = SetModelModulesData(model, modules);
             model = await SetModelStudentsRows(model, user.CourseId);
 
@@ -86,13 +87,16 @@ namespace LexiconLMS.Controllers
             return model;
         }
 
-        private async Task<StudentCourseViewModel> SetModelCourseData(Course course)
+        private async Task<StudentCourseViewModel> SetModelCourseData(Course course, User teacher)
         {
             var model = new StudentCourseViewModel();
             
             if (!(course is null))
             {
                 model.Name = course.Name;
+                model.TeacherName = teacher.FullName;
+                model.TeacherEmail = teacher.Email;
+
                 model.Description = course.Description;
 
                 model.StartDate = course.StartDate;
