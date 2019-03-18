@@ -3,7 +3,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h4>Course Details</h4>
+@*<h4>Course Details</h4>
 <hr />
 <dl class="row">
     <dt class="col-sm-2">
@@ -61,32 +61,32 @@
         }
     </tbody>
 </table>
-<hr />
+<hr />*@
 
-<table class="table tablestyle " data-toggle="table">
+@*<table class="table tablestyle " data-toggle="table">
     <thead>
-        <tr >
+        <tr>
             <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().FullName)</th>
             <th>@Html.DisplayNameFor(a => a.Students.FirstOrDefault().Email)</th>
-            @*<th></th>*@
+            <!--<th></th>-->
 
         </tr>
     </thead>
     <tbody>
         @foreach (var student in Model.Students)
         {
-            <tr class="table-active">
-                @*<td>@Html.ActionLink(student.FullName, "Details", "StudentAdmin", new { id = @student.Id })</td>*@
-                <td>@student.FullName</td>
-                <td>@student.Email</td>
-                
-            </tr>
+        <tr class="table-active">
+            <!--<td>@Html.ActionLink(student.FullName, "Details", "StudentAdmin", new { id = @student.Id })</td>-->
+            <td>@student.FullName</td>
+            <td>@student.Email</td>
+
+        </tr>
         }
     </tbody>
 </table>
-<hr />
+<hr />*@
 
-<table class="table tablestyle" data-toggle="table">
+@*<table class="table tablestyle" data-toggle="table">
     <thead>
         <tr class="table-info">
             <th>@Html.DisplayNameFor(a => a.Modules.FirstOrDefault().Name)</th>
@@ -106,10 +106,10 @@
             </tr>
         }
     </tbody>
-</table>
-<hr />
+</table>*@
+@*<hr />
 <div>
     <a asp-action="Index" asp-controller="Student" class="btn btn-purple">Back To Home</a>
-</div>
+</div>*@
 
 
