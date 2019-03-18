@@ -14,7 +14,7 @@
 </style>
 
 @*<h1>Student, Welcome to the Course</h1>*@
-<div class="jumbotron " >
+<div class="jumbotron ">
     <div class="media">
         <div class="media-body">
 
@@ -29,13 +29,13 @@
                         <i class="fa fa-info-circle"></i><a class="text-white" data-toggle="modal" data-target="#courseModal" href="@Url.Action("Details", "StudentCourse", new { id = Model.Id })">Details</a>
                     </div>
                 </div>
-            
-              
+
+
 
 
                 @*<img src="~/images/Courseimg.jpg" class="img-course" alt="logo lexicon">*@
                 @*<h2 class="display-5">@Html.DisplayFor(a => a.Name)</h2>*@
-             
+
 
                 <!-- Modal -->
                 <div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="courseModalLabel" aria-hidden="true">
@@ -49,9 +49,9 @@
                             </div>
                             <div class="modal-body">
                                 @*<p>
-            <strong>@Html.DisplayNameFor(a => a.Name) :</strong>
-            @Html.DisplayFor(a => a.Name)
-        </p>*@
+                                        <strong>@Html.DisplayNameFor(a => a.Name) :</strong>
+                                        @Html.DisplayFor(a => a.Name)
+                                    </p>*@
                                 <p>
                                     <strong>@Html.DisplayNameFor(a => a.Description) :</strong>
                                     @Html.DisplayFor(a => a.Description)
@@ -97,7 +97,7 @@
 
 
             </div>
-            
+
 
 
         </div>
@@ -236,9 +236,86 @@
 
         </div>
 
-
-
         <div class="col-md-8" style="padding: 5px;">
+            <div class="shadow p-3 mb-1  rounded" style="background-color:#6e3694">
+                <h5 class="display-5 text-white">Assignments:</h5>
+                <div class="shadow p-3 mb-2 bg-light rounded course-avatars">
+                    <div class="row">
+                        <table class="table tablestyle">
+                            <thead>
+                                <h5>&nbsp;Due Assignments</h5>
+                                <tr>
+                                    <th>Module</th>
+                                    <th>Deadline</th>
+                                    <th>Info</th>
+                                    <th>File</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            @foreach (var assignment in Model.DueAssignments)
+                            {
+                                <tr>
+                                    <td>@assignment.ModuleName</td>
+                                    <td>@assignment.Deadline.ToShortDateString()</td>
+                                    <td>@assignment.Description</td>
+                                    <td><a asp-controller="ActivityDocument" asp-action="Display" asp-route-id="@assignment.Id"><i class="fas fa-file-download"></i> @assignment.Name</a></td>
+
+
+
+                                    @if (assignment.Deadline < DateTime.Now)
+                                    {
+                                        <td><i class="fas fa-times-circle" style="color:red"></i> Late</td>
+                                    }
+                                    else
+                                    {
+                                        <td><i class="fas fa-check-circle" style="color:green"></i> Still time</td>
+                                    }
+                                </tr>
+                            }
+                        </table>
+
+                        <table class="table tablestyle">
+                            <thead>
+                                <h5>&nbsp;Handed in Assignments</h5>
+                                <tr>
+                                    <th>Module</th>
+                                    <th>Deadline</th>
+                                    <th>Info</th>
+                                    <th>File</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            @foreach (var assignment in Model.MyAssignments)
+                            {
+                            <tr>
+                                <td>@assignment.ModuleName</td>
+                                <td>@assignment.Deadline.ToShortDateString()</td>
+                                <td>@assignment.Description</td>
+                                <td><a asp-controller="ActivityDocument" asp-action="Display" asp-route-id="@assignment.Id"><i class="fas fa-file-download"></i> @assignment.Name</a></td>
+
+
+
+                                @if (assignment.Deadline < assignment.UploadTime)
+                                {
+                                    <td><i class="fas fa-times-circle" style="color:red"></i> Late</td>
+                                }
+                                else
+                                {
+                                    <td><i class="fas fa-check-circle" style="color:green"></i> On time</td>
+                                }
+                            </tr>
+                            }
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
             <div class="shadow p-3 mb-1  rounded" style="background-color:#6e3694">
                 <h5 class="display-5 text-white">Students:</h5>
                 <div class="shadow p-3 mb-2 bg-light rounded course-avatars">
@@ -259,13 +336,14 @@
                     </div>
                 </div>
             </div>
-       
+
         </div>
 
 
     </div>
 
 </div>
+    </div>
 
 
 @section scripts

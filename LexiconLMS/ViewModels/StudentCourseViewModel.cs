@@ -35,10 +35,11 @@ namespace LexiconLMS.ViewModels
 
         public List<User> Students { get; set; }
 
-        //Add Activities
-        //public List<ActivityDetailsViewModel> activities { get; set; }
-
         //aaaaand documents
         public ICollection<DocumentListViewModel> Documents { get; set; }
+
+        public ICollection<AssignmentListViewModel> DueAssignments { get; set; }
+
+        public ICollection<AssignmentListViewModel> MyAssignments { get; set; }
     }
 }
