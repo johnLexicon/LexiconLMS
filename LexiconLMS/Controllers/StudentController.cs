@@ -81,8 +81,8 @@ namespace LexiconLMS.Controllers
             var myAssignments = _context.ActivityDocument
                 .Where(d => d.UserId == _userManager.GetUserId(User));
 
-            var dueAssignments = assignments.Except(myAssignments);
-
+            var dueAssignments = assignments
+                .Where(d => myAssignments.All(e => e.ActivityId != d.ActivityId));
 
             var model = await SetModelCourseData(course, teacher);
             model = SetModelModulesData(model, modules);
