@@ -45,6 +45,7 @@ namespace LexiconLMS.Controllers
 
             var teachers = _userManager.GetUsersInRoleAsync("Teacher");
             teachers.Wait();
+            var teacher = teachers.Result.Where(a => a.CourseId == course.Id).FirstOrDefault();
 
             foreach (var m in modules)
             {
@@ -70,7 +71,7 @@ namespace LexiconLMS.Controllers
                 }
             }
 
-            var model = await SetModelCourseData(course);
+            var model = await SetModelCourseData(course, teacher);
             model = SetModelModulesData(model, modules);
             model = await SetModelStudentsRows(model, user.CourseId);
 
@@ -86,13 +87,16 @@ namespace LexiconLMS.Controllers
             return model;
         }
 
-        private async Task<StudentCourseViewModel> SetModelCourseData(Course course)
+        private async Task<StudentCourseViewModel> SetModelCourseData(Course course, User teacher)
         {
             var model = new StudentCourseViewModel();
             
             if (!(course is null))
             {
                 model.Name = course.Name;
+                model.TeacherName = teacher != null ? teacher.FullName : string.Empty;
+                model.TeacherEmail = teacher != null ? teacher.Email : string.Empty;
+
                 model.Description = course.Description;
 
                 model.StartDate = course.StartDate;
@@ -101,10 +105,16 @@ namespace LexiconLMS.Controllers
                 model.Documents = new List<DocumentListViewModel>();
                 foreach(var doc in course.Documents)
                 {
+                    var docName = doc.Name;
+                    var maxDocNameLength = 40;
+                    if (docName.Length > maxDocNameLength)
+                    {
+                        docName = docName.Remove(maxDocNameLength) + "...";
+                    }
                     model.Documents.Add(new DocumentListViewModel()
                     {
                         Id = doc.Id,
-                        Name = doc.Name,
+                        Name = docName,
                         Description = doc.Description,
                         UploadTime = doc.UploadTime,
                     });
