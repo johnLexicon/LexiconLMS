@@ -20,9 +20,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
-    <Folder Include="Views\StudentActivity\" />
-    <Folder Include="Views\StudentModule\" />
-    <Folder Include="Views\StudentCourse\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Controllers\ActivityStudentController.cs" />
