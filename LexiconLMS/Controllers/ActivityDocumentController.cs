@@ -64,7 +64,10 @@ namespace LexiconLMS.Controllers
                     UploadTime = DateTime.Now,
                     ActivityId = vm.EnitityId,
                 };
-
+                if (newDocument.Description is null)
+                {
+                    newDocument.Description = "none";
+                }
                 newDocument.UserId = _userManager.GetUserId(User);
 
                 using (var memoryStream = new MemoryStream())
