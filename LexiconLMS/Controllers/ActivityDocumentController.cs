@@ -39,6 +39,7 @@ namespace LexiconLMS.Controllers
                 EnitityId = id
             };
             ViewData["Title"] = "Add Activity Document";
+            ViewData["parentUrl"] = $"/Activity/Details/{id}"; 
             return View("_CreateDocumentPartial", vm);
         }
 
@@ -49,6 +50,13 @@ namespace LexiconLMS.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(vm.file is null)
+                {
+                    ModelState.AddModelError("file", "File can't be empty!");
+                    ViewData["parentUrl"] = $"/Activity/Details/{vm.Id}";
+                    ViewData["Title"] = "Add Activity Document";
+                    return View("_CreateDocumentPartial", vm);
+                }
                 var newDocument = new ActivityDocument()
                 {
                     Description = vm.Description,
@@ -82,6 +90,7 @@ namespace LexiconLMS.Controllers
             }
             else
             {
+                ViewData["parentUrl"] = $"/Activity/Details/{vm.Id}";
                 ViewData["Title"] = "Add Activity Document";
                 return View("_CreateDocumentPartial", vm);
             }
@@ -97,6 +106,7 @@ namespace LexiconLMS.Controllers
             };
             var act = _context.Activities.FirstOrDefault(a => a.Id == id);
             ViewData["Title"] = $"Assignment deadline: {act.EndDate.ToShortDateString() }";
+            ViewData["parentUrl"] = $"/";
             return View("_CreateDocumentPartial", vm);
         }
 

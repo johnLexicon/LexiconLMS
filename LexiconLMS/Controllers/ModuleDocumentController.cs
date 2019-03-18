@@ -37,6 +37,7 @@ namespace LexiconLMS.Controllers
             {
                 EnitityId = id
             };
+            ViewData["parentUrl"] = $"/Module/Details/{id}";
             ViewData["Title"] = "Add Module Document";
             return View("_CreateDocumentPartial", vm);
         }
@@ -49,6 +50,13 @@ namespace LexiconLMS.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (vm.file is null)
+                {
+                    ViewData["parentUrl"] = $"/Module/Details/{vm.Id}";
+                    ModelState.AddModelError("file", "File can't be empty!");
+                    ViewData["Title"] = "Add Module Document";
+                    return View("_CreateDocumentPartial", vm);
+                }
                 var newDocument = new ModuleDocument()
                 {
                     Description = vm.Description,
@@ -74,6 +82,7 @@ namespace LexiconLMS.Controllers
             }
             else
             {
+                ViewData["parentUrl"] = $"/Course/Details/{vm.Id}";
                 ViewData["Title"] = "Add Module Document";
                 return View("_CreateDocumentPartial", vm);
             }
