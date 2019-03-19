@@ -76,7 +76,7 @@ namespace LexiconLMS.Controllers
                 .Where(d => d.Activityy.Module.Course.Users.Contains(_userManager.GetUserAsync(User).Result))
                 .Where(d => d.Activityy.ActivityType.Type == "Exercise")
                 .Include(d => d.Activityy)
-                .OrderByDescending(d => d.Activityy.EndDate);
+                .OrderBy(d => d.Activityy.EndDate);
 
             var myAssignments = _context.ActivityDocument
                 .Where(d => d.UserId == _userManager.GetUserId(User));
