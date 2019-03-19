@@ -112,7 +112,7 @@
                 {
                     <div class="shadow p-3 mb-2 bg-light rounded">
 
-                        @Html.ActionLink(module.Name, string.Empty, string.Empty, new { }, new { data_toggle = "modal", data_target = "#moduleModal-" + module.Id })
+                        <span class="btn btn-sm">@Html.ActionLink(module.Name, string.Empty, string.Empty, new { }, new { data_toggle = "modal", data_target = "#moduleModal-" + module.Id })</span>
 
                         <i class="float-lg-right fa fa-chevron-circle-up" aria-hidden="true"></i>
                         <p>
