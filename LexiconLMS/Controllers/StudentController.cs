@@ -62,7 +62,6 @@ namespace LexiconLMS.Controllers
                         .Include(d => d.Documents)
                         .FirstOrDefault(aa => aa.Id == activity.Id);
                     activity.ActivityType = act.ActivityType;
-                    //activity.Documents = new List<ActivityDocument>();
                     var documents = _context.ActivityDocument
                         .Where(d => d.ActivityId == act.Id)
                         .Where(d => teachers.Result.Contains(d.User))

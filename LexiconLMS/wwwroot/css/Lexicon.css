@@ -35,3 +35,10 @@ a {
         color: #9049bf;
     }
 
+    .LinkButtons a {
+        color:white;        
+    }
+    .tenpxmargin {
+        margin: 10px;
+    }
+
