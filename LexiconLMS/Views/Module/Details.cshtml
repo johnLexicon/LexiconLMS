@@ -4,10 +4,45 @@
     ViewData["Title"] = "Details";
 }
 
-<h3>Module: @Html.DisplayFor(model => model.Name)</h3>
+<div class="col-sm-10">
+    <h5>Details For Module:</h5>
+    <div class="alert-light">
+        <ul>
+            <li>
+                Course:
+                <a class="bread-crumb-link" asp-action="Details" asp-controller="Course" asp-route-id="@(Model.CourseId)">@(Model.CourseName)</a>
+                <span>
+                    @Html.DisplayFor(a => a.ParentStartDate) -
+                    @Html.DisplayFor(a => a.ParentEndDate)
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>
 
 <div>
     <hr />
+
+    <dl class="row">
+        <dd class="col-sm-1">
+        </dd>
+        <dd class="col-sm-8">
+            <strong>
+                @Html.DisplayFor(model => model.Name)
+            </strong>
+        </dd>
+        <dd class="col-sm-3">
+        </dd>
+        <dd class="col-sm-1"></dd>
+        <dt class="col-sm-8">
+        </dt>
+        <dd class="col-sm-3"></dd>
+        <dd class="col-sm-1"></dd>
+        <dt class="col-sm-8">
+        </dt>
+        <dd class="col-sm-3"></dd>
+    </dl>
+
     <dl class="row">
         <dd class="col-sm-1">
         </dd>
@@ -48,15 +83,14 @@
         {
             <tr>
                 <td>@Html.ActionLink(activity.ActivityType.Type, "Details", "Activity", new { id = @activity.Id })</td>
-                @*<td>@activity.ActivityType.Type</td>*@
+               
                 <td><i class="fa fa-clock"></i>@activity.StartDate.ToShortDateString()</td>
                 <td><i class="fa fa-clock"></i>@activity.EndDate.ToShortDateString()</td>
                 <td><i class="fa fa-info-circle"></i>@activity.Description</td>
                 <td>
 
 
-                    @*</td>
-                        <td>*@
+                   
                     <div class="btn btn-grey btn-sm">
                         <a href="@Url.Action("Delete", "Activity", new { id =activity.Id})" class="text-white"><i class="fa fa-trash"></i>Remove</a>
                     </div>
@@ -99,6 +133,4 @@
 
 <div>
     <a class="btn btn-purple" asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
-
-
 </div>

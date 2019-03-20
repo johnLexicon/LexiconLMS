@@ -64,6 +64,7 @@ namespace LexiconLMS.Controllers
 
             model.ParentStartDate = module.StartDate;
             model.ParentEndDate = module.EndDate;
+            model.ModuleName = module.Name;
 
             var startTimeActivity = module.StartDate;
             model.StartDate = startTimeActivity;
@@ -111,10 +112,17 @@ namespace LexiconLMS.Controllers
                 .Include(v => v.Module)
                 .Include(v => v.ActivityType)
                 .FirstOrDefaultAsync(m => m.Id== id);
-            if (activity == null)
+            if (activity == null || activity.Module is null)
             {
                 return NotFound();
             }
+
+            var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == activity.Module.CourseId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
             var model = new ActivityDetailsViewModel()
             {
                 Id = activity.Id,
@@ -123,7 +131,8 @@ namespace LexiconLMS.Controllers
                 Description = activity.Description,
                 StartDate = activity.StartDate,
                 EndDate = activity.EndDate,
-                ActivityType = activity.ActivityType
+                ActivityType = activity.ActivityType,
+                Course = course
             };
 
             var teachers = _userManager.GetUsersInRoleAsync("Teacher");
@@ -154,14 +163,23 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            var activity = await _context.Activities.Include(a => a.Module).FirstOrDefaultAsync(a => a.Id == id);
+            var activity = await _context.Activities
+                .Include(a => a.Module)
+                .FirstOrDefaultAsync(a => a.Id == id);
 
-            if (activity == null)
+            if (activity == null || activity.Module is null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == activity.Module.CourseId);
+            if (course == null)
             {
                 return NotFound();
             }
 
             var viewModel = _mapper.Map<ActivityAddViewModel>(activity);
+            viewModel.Course = course;
             viewModel.ParentStartDate = activity.Module.StartDate;
             viewModel.ParentEndDate = activity.Module.EndDate;
 

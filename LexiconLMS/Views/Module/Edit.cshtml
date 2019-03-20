@@ -4,10 +4,22 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>@Html.DisplayNameFor(a => a.CourseName): @Html.DisplayFor(a => a.CourseName)</h1>
-<hr />
-<h4>Edit Module</h4>
-<hr />
+<div class="col-sm-10">
+    <h5>Edit Module For:</h5>
+    <div class="alert-light">
+        <ul>
+            <li>
+                Course:
+                <a class="bread-crumb-link" asp-action="Details" asp-controller="Course" asp-route-id="@(Model.CourseId)">@(Model.CourseName)</a>
+                <span>
+                    @Html.DisplayFor(a => a.ParentStartDate) -
+                    @Html.DisplayFor(a => a.ParentEndDate)
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -49,10 +61,6 @@
         </form>
     </div>
 </div>
-
-@*<div>
-    <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId" class="btn btn-purple">Back to Course</a>
-</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

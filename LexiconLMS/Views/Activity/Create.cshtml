@@ -2,20 +2,30 @@
 @{
     ViewData["Title"] = "Create Activity";
 }
-@*<h1>@Html.DisplayNameFor(a => a.ModuleName): @Html.DisplayFor(a => a.ModuleName)</h1>
-<h4>create activity</h4>*@
-@*<div>
-    <a asp-controller="Activity" asp-action="Create">Create New Activity</a>
-</div>*@
 
 
 <div class="col-sm-10">
     <h5>Create New Activity For:</h5>  
     <div class="alert-light">
-        <h4> @Html.DisplayFor(model => model.ModuleName)<span>,</span>@Html.DisplayFor(model => model.Course.Name)</h4> 
-
-       <h6></h6> 
-       
+        <ul>
+            <li>
+                Course: 
+                <a class="bread-crumb-link" asp-action="Details" asp-controller="Course" asp-route-id="@Model.Course.Id">@Model.Course.Name</a>
+                <span>
+                    @Model.Course.StartDate.ToShortDateString() -
+                    @Model.Course.EndDate.ToShortDateString()
+                </span>
+                <ul>
+                    <li>
+                        Module:
+                        <a class="bread-crumb-link" asp-action="Details" asp-controller="Module" asp-route-id="@Model.ModuleId">@Model.ModuleName</a>
+                        <span>
+                            @Html.DisplayFor(model => model.StartDate) - @Html.DisplayFor(model => model.EndDate)
+                        </span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </div>
 <hr/>
@@ -24,12 +34,6 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="All" class="text-danger"></div>
-
-            @*<div class="form-group">
-            <label asp-for="Name" class="control-label"></label>
-            <textarea asp-for="Name" class="form-control"></textarea>
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>*@
 
             <div class="form-group">
                 <label asp-for="ActivityTypeId" class="control-label"></label>

@@ -302,3 +302,12 @@ i{
     background-color: #e9ecef !important;
     
 }
+
+
+
+.bread-crumb-link {
+    font-size: 1.0rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+}

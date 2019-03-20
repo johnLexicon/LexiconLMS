@@ -61,6 +61,8 @@ namespace LexiconLMS.Controllers
                 Description = module.Description,
                 StartDate = module.StartDate,
                 EndDate = module.EndDate,
+                ParentStartDate = course.StartDate,
+                ParentEndDate = course.EndDate
             };
             model.CourseId = course.Id;
             model.CourseName = course.Name;
