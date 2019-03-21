@@ -4,33 +4,12 @@
     ViewData["Title"] = "Edit";
 }
 
-<div class="col-sm-10">
-    <h5>Edit Activity For:</h5>
-
-    <div class="alert-light">
-        <ul>
-            <li>
-                Course:
-                <a class="bread-crumb-link" asp-action="Details" asp-controller="Course" asp-route-id="@Model.Course.Id">@Model.Course.Name</a>
-                <span>
-                    @Model.Course.StartDate.ToShortDateString() -
-                    @Model.Course.EndDate.ToShortDateString()
-                </span>
-                <ul>
-                    <li>
-                        Module:
-                        <a class="bread-crumb-link" asp-action="Details" asp-controller="Module" asp-route-id="@Model.ModuleId">@Model.ModuleName</a>
-                        <span>
-                            @Html.DisplayFor(model => model.StartDate) - @Html.DisplayFor(model => model.EndDate)
-                        </span>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+<div>
+    <partial name="_ActivityBreadCrumbPartial" />
 </div>
-
 <hr />
+<h5>Edit Activity:</h5>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">

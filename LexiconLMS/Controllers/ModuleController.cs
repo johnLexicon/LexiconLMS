@@ -122,7 +122,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name, Description, StartDate, EndDate, DocId, CourseId, ParentStartDate, ParentEndDate")] ModuleAddViewModel @module)
+        public async Task<IActionResult> Create([Bind("Name, Description, StartDate, EndDate, DocId, CourseId, ParentStartDate, ParentEndDate, CourseName")] ModuleAddViewModel @module)
         {
             if (ModelState.IsValid)
             {
@@ -195,7 +195,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id, Name, Description, StartDate, EndDate, CourseId, ParentStartDate, ParentEndDate")] ModuleAddViewModel @module)
+        public async Task<IActionResult> Edit([Bind("Id, Name, Description, StartDate, EndDate, CourseId, ParentStartDate, ParentEndDate, CourseName")] ModuleAddViewModel @module)
         {
             if (ModelState.IsValid)
             {

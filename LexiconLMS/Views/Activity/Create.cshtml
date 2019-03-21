@@ -3,32 +3,11 @@
     ViewData["Title"] = "Create Activity";
 }
 
-
-<div class="col-sm-10">
-    <h5>Create New Activity For:</h5>  
-    <div class="alert-light">
-        <ul>
-            <li>
-                Course: 
-                <a class="bread-crumb-link" asp-action="Details" asp-controller="Course" asp-route-id="@Model.Course.Id">@Model.Course.Name</a>
-                <span>
-                    @Model.Course.StartDate.ToShortDateString() -
-                    @Model.Course.EndDate.ToShortDateString()
-                </span>
-                <ul>
-                    <li>
-                        Module:
-                        <a class="bread-crumb-link" asp-action="Details" asp-controller="Module" asp-route-id="@Model.ModuleId">@Model.ModuleName</a>
-                        <span>
-                            @Html.DisplayFor(model => model.StartDate) - @Html.DisplayFor(model => model.EndDate)
-                        </span>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+<div>
+    <partial name="_ActivityBreadCrumbPartial" />
 </div>
-<hr/>
+<hr />
+<h5>Create Activity:</h5>
 
 <div class="row">
     <div class="col-md-4">
@@ -63,24 +42,14 @@
             <input type="hidden" asp-for="ParentStartDate" class="form-control" />
             <input type="hidden" asp-for="ParentEndDate" class="form-control" />
 
-            <div class="form-group">
-                @*//Comment For Demo*@
-                @*<a asp-controller="Documents" asp-action="Create" asp-route-id="@Model.Id" class="btn btn-primary">Add Activity Documents</a>*@
-
-            </div>
             <div>
                 <input type="submit" value="Save" class="btn btn-green" />
-                @*<a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId" class="btn btn-info">Back to Module</a>*@
                 <a asp-action="Details" asp-controller="Module" class="btn btn-grey" asp-route-id="@Model.ModuleId"></i>Cancel</a>
 
             </div>
         </form>
     </div>
 </div>
-@*<div>
-  
-    <a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId" class="btn btn-info">Back to Module</a>
-</div>*@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
