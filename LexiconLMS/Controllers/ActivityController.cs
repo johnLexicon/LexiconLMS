@@ -151,7 +151,8 @@ namespace LexiconLMS.Controllers
                 StartDate = activity.StartDate,
                 EndDate = activity.EndDate,
                 ActivityType = activity.ActivityType,
-                Course = course
+                Course = course,
+                Module = activity.Module
             };
 
             var teachers = _userManager.GetUsersInRoleAsync("Teacher");
