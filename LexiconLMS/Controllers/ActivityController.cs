@@ -94,7 +94,26 @@ namespace LexiconLMS.Controllers
                 TempData["AlertMsg"] = "Activity added";
                 return RedirectToAction("Details", "module", new { id = activity.Module.Id });
             }
-         
+
+
+            var module = await _context.Modules.Include(m => m.Course).FirstOrDefaultAsync(m => m.Id == viewModel.ModuleId);
+
+            if (module is null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == module.CourseId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            viewModel.Course = course;
+            viewModel.Module = module;
+            viewModel.ModuleId = module.Id;
+            viewModel.ModuleName = module.Name;
+
             ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type");
             return View(viewModel);
 
@@ -208,6 +227,27 @@ namespace LexiconLMS.Controllers
                 TempData["AlertMsg"] = "Saved changes";
                 return RedirectToAction(nameof(Details), new { id = id });
             }
+
+            var activity = await _context.Activities
+                .Include(a => a.Module)
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (activity == null || activity.Module is null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == activity.Module.CourseId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            AVM.Course = course;
+            AVM.Module = activity.Module;
+            AVM.ModuleId = activity.Module.Id;
+            AVM.ModuleName = activity.Module.Name;
+
             ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type", AVM.ActivityTypeId);
             return View(AVM);
         }

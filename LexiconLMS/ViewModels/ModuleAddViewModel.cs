@@ -30,20 +30,20 @@ namespace LexiconLMS.ViewModels
         public string CourseName { get; set; }
 
         [Required]
-        [Display(Name = "Module name")]
+        [Display(Name = "Module Name")]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
         public string Description { get; set; }
 
         [Required]
-        [Display(Name = "Start date")]
+        [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
         [StartDateNotEarlierThanParentStartDate(ErrorMessage = "Module Start Date {0} must be later or equal to Course Start Date {1}")]
         public DateTime StartDate { get; set; }
 
         [Required]
-        [Display(Name = "End date")]
+        [Display(Name = "End Date")]
         [DataType(DataType.Date)]
         [EndDateLaterThanStartDate]
         [EndDateNotLaterThanParentEndDate(ErrorMessage = "Module End Date {0} must be earlier or equal to Course End Date {1}")]

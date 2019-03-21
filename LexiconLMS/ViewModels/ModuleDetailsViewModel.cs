@@ -27,12 +27,12 @@ namespace LexiconLMS.ViewModels
         public string Description { get; set; }
 
         [Required]
-        [Display(Name = "Module starts")]
+        [Display(Name = "Module Starts")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         [Required]
-        [Display(Name = "Module ends")]
+        [Display(Name = "Module Ends")]
         [DataType(DataType.Date)]
         [EndDateLaterThanStartDate]
         public DateTime EndDate { get; set; }
