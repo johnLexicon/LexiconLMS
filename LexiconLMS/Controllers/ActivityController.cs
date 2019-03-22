@@ -64,6 +64,7 @@ namespace LexiconLMS.Controllers
 
             model.ParentStartDate = module.StartDate;
             model.ParentEndDate = module.EndDate;
+            model.ModuleName = module.Name;
 
             var startTimeActivity = module.StartDate;
             model.StartDate = startTimeActivity;
@@ -93,7 +94,26 @@ namespace LexiconLMS.Controllers
                 TempData["AlertMsg"] = "Activity added";
                 return RedirectToAction("Details", "module", new { id = activity.Module.Id });
             }
-         
+
+
+            var module = await _context.Modules.Include(m => m.Course).FirstOrDefaultAsync(m => m.Id == viewModel.ModuleId);
+
+            if (module is null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == module.CourseId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            viewModel.Course = course;
+            viewModel.Module = module;
+            viewModel.ModuleId = module.Id;
+            viewModel.ModuleName = module.Name;
+
             ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type");
             return View(viewModel);
 
@@ -111,10 +131,17 @@ namespace LexiconLMS.Controllers
                 .Include(v => v.Module)
                 .Include(v => v.ActivityType)
                 .FirstOrDefaultAsync(m => m.Id== id);
-            if (activity == null)
+            if (activity == null || activity.Module is null)
             {
                 return NotFound();
             }
+
+            var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == activity.Module.CourseId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
             var model = new ActivityDetailsViewModel()
             {
                 Id = activity.Id,
@@ -123,7 +150,9 @@ namespace LexiconLMS.Controllers
                 Description = activity.Description,
                 StartDate = activity.StartDate,
                 EndDate = activity.EndDate,
-                ActivityType = activity.ActivityType
+                ActivityType = activity.ActivityType,
+                Course = course,
+                Module = activity.Module
             };
 
             var teachers = _userManager.GetUsersInRoleAsync("Teacher");
@@ -154,14 +183,23 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            var activity = await _context.Activities.Include(a => a.Module).FirstOrDefaultAsync(a => a.Id == id);
+            var activity = await _context.Activities
+                .Include(a => a.Module)
+                .FirstOrDefaultAsync(a => a.Id == id);
 
-            if (activity == null)
+            if (activity == null || activity.Module is null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == activity.Module.CourseId);
+            if (course == null)
             {
                 return NotFound();
             }
 
             var viewModel = _mapper.Map<ActivityAddViewModel>(activity);
+            viewModel.Course = course;
             viewModel.ParentStartDate = activity.Module.StartDate;
             viewModel.ParentEndDate = activity.Module.EndDate;
 
@@ -190,6 +228,27 @@ namespace LexiconLMS.Controllers
                 TempData["AlertMsg"] = "Saved changes";
                 return RedirectToAction(nameof(Details), new { id = id });
             }
+
+            var activity = await _context.Activities
+                .Include(a => a.Module)
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (activity == null || activity.Module is null)
+            {
+                return NotFound();
+            }
+
+            var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == activity.Module.CourseId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            AVM.Course = course;
+            AVM.Module = activity.Module;
+            AVM.ModuleId = activity.Module.Id;
+            AVM.ModuleName = activity.Module.Name;
+
             ViewData["ActivityTypeId"] = new SelectList(_context.Set<ActivityType>(), "Id", "Type", AVM.ActivityTypeId);
             return View(AVM);
         }

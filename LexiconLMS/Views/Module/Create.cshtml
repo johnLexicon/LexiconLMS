@@ -4,12 +4,12 @@
     ViewData["Title"] = "Create Module";
 }
 
-<h5>@Html.DisplayNameFor(a => a.CourseName):</h5>
-<h3> @Html.DisplayFor(a => a.CourseName)</h3>
-
-<hr/>
-<h4>Create Module</h4>
+<div>
+    <partial name="_ModuleBreadCrumbPartial" />
+</div>
 <hr />
+<h5>Create Module:</h5>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -48,10 +48,6 @@
         </form>
     </div>
 </div>
-
-
-  
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

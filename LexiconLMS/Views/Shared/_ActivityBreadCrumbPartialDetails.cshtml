@@ -1,0 +1,27 @@
+﻿@model LexiconLMS.ViewModels.ActivityDetailsViewModel
+
+
+<fieldset class="fieldset">
+    <legend>Navigation</legend>
+    <ul>
+        <li>
+            Course:
+            <a class="bread-crumb-link" asp-action="Details" asp-controller="Course" asp-route-id="@Model.Course.Id">@Model.Course.Name</a>
+            <span>
+                @Model.Course.StartDate.ToShortDateString() -
+                @Model.Course.EndDate.ToShortDateString()
+            </span>
+            <ul>
+                <li>
+                    Module:
+                    <a class="bread-crumb-link" asp-action="Details" asp-controller="Module" asp-route-id="@Model.ModuleId">@Model.ModuleName</a>
+                    <span>
+                        @Model.Module.StartDate.ToShortDateString() -
+                        @Model.Module.EndDate.ToShortDateString()
+                        @*@Html.DisplayFor(model => @Model.Module.StartDate) - @Html.DisplayFor(model => @Model.Module.EndDate)*@
+                    </span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</fieldset>

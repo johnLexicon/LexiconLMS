@@ -4,10 +4,13 @@
     ViewData["Title"] = "Details";
 }
 
-<h3>@Html.DisplayFor(model => model.ActivityType.Type)</h3>
+<div>
+    <partial name="_ActivityBreadCrumbPartialDetails" />
+</div>
+<hr />
+<h5>Activity Details:</h5>
 
 <div>
-    <hr />
     <dl class="row">
         <dd class="col-sm-1"></dd>
         <dd class="col-sm-8">
@@ -36,26 +39,22 @@
     <tbody>
         @foreach (var document in Model.Documents)
         {
-        <tr>
-            <td><i class="fas fa-file-download"></i> @Html.ActionLink(document.Name, "Display", "ActivityDocument", new { id = document.Id }) (@document.Filezise)</td>
-            <td><i class="fas fa-clock"></i> @Html.DisplayFor(d => document.UploadTime)</td>
-            <td><i class="fas fa-info-circle"></i> @document.Description</td>
+            <tr>
+                <td><i class="fas fa-file-download"></i> @Html.ActionLink(document.Name, "Display", "ActivityDocument", new { id = document.Id }) (@document.Filezise)</td>
+                <td><i class="fas fa-clock"></i> @Html.DisplayFor(d => document.UploadTime)</td>
+                <td><i class="fas fa-info-circle"></i> @document.Description</td>
 
-            <td>
-                <div class="btn btn-grey btn-sm">
-                    <a href="@Url.Action("Delete", "ActivityDocument", new { id = document.Id })" class="text-white"><i class="fa fa-trash" aria-hidden="true"></i>Remove</a>
-                </div>
+                <td>
+                    <div class="btn btn-grey btn-sm">
+                        <a href="@Url.Action("Delete", "ActivityDocument", new { id = document.Id })" class="text-white"><i class="fa fa-trash" aria-hidden="true"></i>Remove</a>
+                    </div>
 
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
 <div>
-
-    <div>
-        <a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId" class="btn btn-purple">Back to Module</a>
-
-        @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
-        <a asp-action="Index" class="btn btn-green">All Activities</a>
-    </div>
+    <a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId" class="btn btn-purple">Back to Module</a>
+    <a asp-action="Index" class="btn btn-green">All Activities</a>
+</div>

@@ -4,13 +4,19 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit Activity</h1>
-
+<div>
+    <partial name="_ActivityBreadCrumbPartial" />
+</div>
 <hr />
+<h5>Edit Activity:</h5>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="All" class="text-danger"></div>
+
+
+
             <div class="form-group">
                 <label asp-for="ActivityTypeId" class="control-label"></label>
                 <select asp-for="ActivityTypeId" class="form-control" asp-items="ViewBag.ActivityTypeId"></select>
@@ -36,11 +42,6 @@
             <input type="hidden" asp-for="ParentStartDate" class="form-control" />
             <input type="hidden" asp-for="ParentEndDate" class="form-control" />
 
-            @*<div class="form-group">
-            <label asp-for="ModuleId" class="control-label"></label>
-            <select asp-for="ModuleId" class="form-control" asp-items="ViewBag.ModuleId"></select>
-            <span asp-validation-for="ModuleId" class="text-danger"></span>
-        </div>*@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-green" />
                 <a asp-action="Details" asp-controller="Module" asp-route-Id="@Model.Module.Id" class="btn btn-purple">Back To Module</a>

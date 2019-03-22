@@ -20,19 +20,19 @@ namespace LexiconLMS.ViewModels
         public string CourseName { get; set; }
 
         [Required]
-        [Display(Name = "Module name")]
+        [Display(Name = "Module Name")]
         public string Name { get; set; }
 
         [Display(Name = "Description")]
         public string Description { get; set; }
 
         [Required]
-        [Display(Name = "Module starts")]
+        [Display(Name = "Module Starts")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         [Required]
-        [Display(Name = "Module ends")]
+        [Display(Name = "Module Ends")]
         [DataType(DataType.Date)]
         [EndDateLaterThanStartDate]
         public DateTime EndDate { get; set; }
@@ -42,5 +42,14 @@ namespace LexiconLMS.ViewModels
 
 
         public ICollection<DocumentListViewModel> Documents { get; set; }
+
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime ParentStartDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime ParentEndDate { get; set; }
     }
 }
