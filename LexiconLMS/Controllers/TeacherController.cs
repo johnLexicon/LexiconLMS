@@ -34,7 +34,7 @@ namespace LexiconLMS.Controllers
             var theUser = _userManager.GetUserAsync(User);
             theUser.Wait();
 
-            var courses = _context.Courses.Where(c => c.StartDate <= today && c.EndDate >= today);
+            var courses = _context.Courses.Where(c => c.StartDate <= today && c.EndDate > today);
             TeacherPageViewModel viewModel = new TeacherPageViewModel
             {
                 OngoingCourses = courses.ToList()

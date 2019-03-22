@@ -142,7 +142,15 @@ namespace LexiconLMS.Controllers
 
         private async Task<StudentCourseViewModel> SetModelStudentsRows(StudentCourseViewModel model, int? courseId)
         {
+            
             var students = await _userManager.GetUsersInRoleAsync("Student");
+
+            var courseFriends = _context.Courses.FirstOrDefault(s => s.Id == courseId).Users;
+            var studentFriends = courseFriends.Intersect(students);
+
+            model.Students = studentFriends.ToList();
+
+            return model;
 
             model.Students = new List<User>();
             foreach (var student in students)
