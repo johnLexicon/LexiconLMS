@@ -46,13 +46,15 @@ body {
   margin-bottom: 60px;
 }
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #212529;
+    color:white !important;
 }
 
 .jumbotron {
@@ -60,8 +62,8 @@ body {
 }
 
 .img-course {
-    width: 150px;
-    height: 50px;
+    width: 200px;
+    height: 100px;
 }
 
 .course-avatars {
@@ -71,17 +73,251 @@ body {
 
     .course-avatars .card {
         margin: 1rem;
+        max-width: 200px;
+        min-width: 200px;
     }
+
     .course-avatars img {
         width: 100px;
         height: 100px;
+        border-radius:50%;
+        margin:20px auto;
+
     }
 
+.card {
+    box-shadow: 5px 5px #e4e4e4;
+}
+    .card-body{
+        text-align:center;
+    }
 .bgcolor {
     background-color: rgba(181, 189, 197, 0.5);
-    
+
 }
 
 .hide{
     display:none;
+}
+.newcolor{
+    background-color:green;
+}
+
+.licolor:nth-child(odd) {
+    background-color: #eaeaea;
+}
+
+.btn-purple {
+    background-color: #6e3694;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .btn-purple:hover {
+        background-color: #9162e4;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+.btn-green {
+    background-color: #46bb4e;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .btn-green:hover {
+        background-color: #368c3c;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+.btn-border-green {
+    border-color: rgb(47, 212, 132);
+    color: #6e3694;
+}
+
+.btn-border-green:hover {
+    background-color: rgb(47, 212, 132);
+    color:white;
+}
+
+
+.btn-red {
+    background-color: #d32f2f;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .btn-red:hover {
+        background-color: #f05545;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+.btn-orange {
+    /*background-color: #f9a825;*/
+    background-color: #f57920;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .btn-orange:hover {
+        /*background-color: #fbc02d;*/
+        background-color: #ff9800;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+.btn-grey {
+    /*background-color: #a09e9e;*/
+    background-color:#5d5c5c;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .btn-grey:hover {
+        background-color: #a09e9e;
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+
+.tablestyle {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+   
+ 
+}
+
+    .tablestyle td, .tablestyle th {
+        /*border-bottom: 1px solid #ddd;*/
+        border:none;
+        padding: 8px;
+        width:20%;
+       
+        
+    }
+
+    .tablestyle tr:nth-child(odd) {
+        background-color: #eaeaea;
+        
+    }
+
+    .tablestyle tr:hover {
+        background-color: #ddd;
+      
+    }
+
+    .tablestyle th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        /*background-color: #4CAF50;*/
+        background-color: #46bb4e;
+        color: white;
+       
+    }
+
+.jumbotron {
+    background-color: transparent !important;
+}
+
+a:hover{
+    text-decoration:none;
+}
+
+i{
+    margin-right:5px;
+}
+
+.smallwidth{
+    width:600px;
+}
+
+.editpadding{
+  width:100px;
+}
+
+
+
+
+.widetablestyle{
+
+}
+
+.widetablestyle {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+    .widetablestyle td, .widetablestyle th {
+        /*border-bottom: 1px solid #ddd;*/
+        border: none;
+        padding: 8px;
+        width: 10%;
+    }
+
+    .widetablestyle tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .widetablestyle tr:hover {
+        background-color: #ddd;
+    }
+
+    .widetablestyle th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        /*background-color: #4CAF50;*/
+        background-color: #46bb4e;
+        color: white;
+    }
+
+.scrolling{
+    overflow-y:scroll;
+    max-height:300px;
+    margin-bottom:25px;
+}
+
+.scrolling th {
+    position: sticky;
+    top: 0;
+}
+.jumbotron {
+    background-color: #e9ecef !important;
+    
+}
+
+
+
+.bread-crumb-link {
+    font-size: 1.0rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+
+
+.fieldset {
+    border: 2px solid #a1a1a1;
+    padding: 10px 40px;
+    background: #dddddd;
+    width: auto;
+    border-radius: 25px;
 }

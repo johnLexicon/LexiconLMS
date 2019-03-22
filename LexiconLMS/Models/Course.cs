@@ -15,6 +15,8 @@ namespace LexiconLMS.Models
         public DateTime EndDate { get; set; }
         //public User Teacher { get; set; }
 
-        public IEnumerable<User> Users { get; set; }
+        public ICollection<User> Users { get; set; } //danger!!!!
+
+        public ICollection<CourseDocument> Documents { get; set; }
     }
 }

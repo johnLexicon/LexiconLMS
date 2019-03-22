@@ -31,66 +31,134 @@ namespace LexiconLMS.Controllers
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-            var course = await _context.Courses.FindAsync(user.CourseId);
+            var course = _context.Courses
+                .Include(d => d.Documents)
+                .FirstOrDefault(c => c.Users.Contains(user));
 
-            var modules = _context.Modules.Include(a=>a.Activities).Where(a => a.CourseId == user.CourseId).OrderBy(b => b.EndDate).ToList();
+            var modules = _context.Modules
+                .Include(a => a.Activities)
+                .ThenInclude(b => b.Documents)
+                .Include(a => a.Documents)
+                .Where(a => a.CourseId == course.Id)
+                .OrderBy(b => b.StartDate)
+                .ThenBy(c => c.EndDate).ToList();
 
-            var students = await _userManager.GetUsersInRoleAsync("Student");
-            var studentsInCourse = students.Where(p => p.CourseId == user.CourseId).ToList();
+            var teachers = _userManager.GetUsersInRoleAsync("Teacher");
+            teachers.Wait();
+            var teacher = teachers.Result.Where(a => a.CourseId == course.Id).FirstOrDefault();
 
-            var activities = new List<Activityy>();
-            //showing Activities
-
-            foreach(var m in modules)
+            foreach (var m in modules)
             {
-                 activities = _context.Activities.Include(a=>a.Module).Include(a=>a.ActivityType).Where(a => a.ModuleId ==m.Id).ToList();
-            }
-         
+                var orderedActivities = m.Activities
+                    .OrderBy(a => a.StartDate)
+                    .ThenBy(b => b.EndDate)
+                    .ToList();
 
-            //
+                m.Activities = orderedActivities;
+                foreach (var activity in m.Activities)
+                {
+                    var act = _context.Activities
+                        .Include(b => b.ActivityType)
+                        .Include(d => d.Documents)
+                        .FirstOrDefault(aa => aa.Id == activity.Id);
+                    activity.ActivityType = act.ActivityType;
+                    var documents = _context.ActivityDocument
+                        .Where(d => d.ActivityId == act.Id)
+                        .Where(d => teachers.Result.Contains(d.User))
+                        .ToList();
+                    activity.Documents = documents;
+                }
+            }
+
+            var assignments = _context.ActivityDocument
+                .Where(d => teachers.Result.Contains(d.User))
+                .Where(d => d.Activityy.Module.Course.Users.Contains(_userManager.GetUserAsync(User).Result))
+                .Where(d => d.Activityy.ActivityType.Type == "Exercise")
+                .Include(d => d.Activityy)
+                .OrderBy(d => d.Activityy.EndDate);
+
+            var myAssignments = _context.ActivityDocument
+                .Where(d => d.UserId == _userManager.GetUserId(User));
+
+            var dueAssignments = assignments
+                .Where(d => myAssignments.All(e => e.ActivityId != d.ActivityId));
+
+            var model = await SetModelCourseData(course, teacher);
+            model = SetModelModulesData(model, modules);
+            model = await SetModelStudentsRows(model, user.CourseId);
+
+            model.DueAssignments = _mapper.Map<List<ActivityDocument>, List<AssignmentListViewModel>>(dueAssignments.ToList());
+            model.MyAssignments = _mapper.Map<List<ActivityDocument>, List<AssignmentListViewModel>>(myAssignments.ToList());
+
+            return View(model);
+        }
+
+        private StudentCourseViewModel SetModelModulesData(StudentCourseViewModel model, List<Module> modules)
+        {           
+            model.Modules = new List<ModuleDetailsViewModel>();
+            modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleDetailsViewModel>(m)));
+            return model;
+        }
+
+        private async Task<StudentCourseViewModel> SetModelCourseData(Course course, User teacher)
+        {
             var model = new StudentCourseViewModel();
+            
             if (!(course is null))
             {
                 model.Name = course.Name;
+                model.TeacherName = teacher != null ? teacher.FullName : string.Empty;
+                model.TeacherEmail = teacher != null ? teacher.Email : string.Empty;
+
                 model.Description = course.Description;
 
                 model.StartDate = course.StartDate;
                 model.EndDate = course.EndDate;
                 model.Id = course.Id;
+                model.Documents = new List<DocumentListViewModel>();
+                foreach(var doc in course.Documents)
+                {
+                    var docName = doc.Name;
+                    var maxDocNameLength = 40;
+                    if (docName.Length > maxDocNameLength)
+                    {
+                        docName = docName.Remove(maxDocNameLength) + "...";
+                    }
+                    model.Documents.Add(new DocumentListViewModel()
+                    {
+                        Id = doc.Id,
+                        Name = docName,
+                        Description = doc.Description,
+                        UploadTime = doc.UploadTime,
+                    });
+                }
             }
             else
             {
                 model.Name = "Not in any course!";
             }
-            model.Modules = new List<ModuleViewModel>();
-            modules.ForEach(m => model.Modules.Add(_mapper.Map<ModuleViewModel>(m)));
-            model.Students = StudentsToRows(studentsInCourse);
-
-            //
-            model.activities = new List<ActivityViewModel>();
-            activities.ForEach(a => model.activities.Add(_mapper.Map<ActivityViewModel>(a)));
-
-            return View(model);
+            return model;
         }
 
-        private static List<List<User>> StudentsToRows(List<User> students)
+        private async Task<StudentCourseViewModel> SetModelStudentsRows(StudentCourseViewModel model, int? courseId)
         {
-            var studentsList = new List<List<User>>();
+            
+            var students = await _userManager.GetUsersInRoleAsync("Student");
 
-            const int studentsPerRow = 3;
-            var row = new List<User>();
-            for (var i = 0; i < students.Count; i++)
+            var courseFriends = _context.Courses.FirstOrDefault(s => s.Id == courseId).Users;
+            var studentFriends = courseFriends.Intersect(students);
+
+            model.Students = studentFriends.ToList();
+
+            return model;
+
+            model.Students = new List<User>();
+            foreach (var student in students)
             {
-                var usr = students[i];
-                if (i % studentsPerRow == 0)
-                {
-                    row = new List<User>();
-                    studentsList.Add(row);
-                }
-                row.Add(usr);
+                model.Students.Add(student);
             }
 
-            return studentsList;
+            return model;
         }
     }
 }

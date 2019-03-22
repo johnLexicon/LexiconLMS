@@ -28,4 +28,17 @@
     font-size: 1.5rem;
     text-transform:capitalize;
 }
+a {
+    color: #7839a1;
+}
+    a:hover {
+        color: #9049bf;
+    }
+
+    .LinkButtons a {
+        color:white;        
+    }
+    .tenpxmargin {
+        margin: 10px;
+    }
 

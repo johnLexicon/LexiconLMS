@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LexiconLMS.Models.Course">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACACAAAAAgAAAAAAAAAAQgAAAAAAACAAAAAEAAAAA=</HashCode>
+      <FileName>Models\Course.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LexiconLMS.Models.Activityy">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAAAAAAAQgAAAAAAAGAAAACEgAAAA=</HashCode>
+      <FileName>Models\Activity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ActivityType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="LexiconLMS.Models.ActivityDocument">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Models\ActivityDocument.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Activityy" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="LexiconLMS.Models.ActivityType">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Models\ActivityType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LexiconLMS.Models.CourseDocument">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\CourseDocument.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Course" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="LexiconLMS.Models.Module">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAAAAAAgAAAAAIAAAAQgAAAAAAACAAAAAMAAAAA=</HashCode>
+      <FileName>Models\Module.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LexiconLMS.Models.ModuleDocument">
+    <Position X="4.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Models\ModuleDocument.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Module" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="LexiconLMS.Models.GenericDocument" Collapsed="true">
+    <Position X="4.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAQAAAAgAAAAAAAAAAwAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GenericDocument.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LexiconLMS.Models.User">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAIAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Course" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

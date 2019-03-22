@@ -1,12 +1,11 @@
 ﻿@model LexiconLMS.ViewModels.CreateDocumentViewModel
 
 @{
-    ViewData["Title"] = "Add";
+
 }
 
-<h1>Add Document</h1>
+<h1>@ViewData["Title"]</h1>
 
-<h4>Course</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,8 +14,8 @@
             <input type="hidden" asp-for="EnitityId" />
             <div class="form-group">
                 <label asp-for="file" class="control-label"></label>
-                <input asp-for="file" type="file" />
-                <span asp-validation-for="file" class="text-danger"></span>
+                <input asp-for="file" type="file"/>
+                <br /><span asp-validation-for="file" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
@@ -25,13 +24,14 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Upload" class="btn btn-primary" />
+                <input type="submit" value="Upload" class="btn btn-green" />
+               <a href=@ViewData["parentUrl"] class="btn btn-purple">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@*<div>
+    <a asp-action="Index" class="btn btn-purple">Back to List</a>
+</div>*@
 

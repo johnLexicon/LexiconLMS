@@ -1,13 +1,15 @@
-﻿@model LexiconLMS.ViewModels.ModuleViewModel
+﻿@model LexiconLMS.ViewModels.ModuleAddViewModel
 
 @{
     ViewData["Title"] = "Create Module";
 }
 
-<h1>@Html.DisplayNameFor(a => a.CourseName): @Html.DisplayFor(a => a.CourseName)</h1>
-
-<h4>Create Module</h4>
+<div>
+    <partial name="_ModuleBreadCrumbPartial" />
+</div>
 <hr />
+<h5>Create Module:</h5>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -34,20 +36,18 @@
             </div>
 
             <input type="hidden" asp-for="CourseId" class="form-control" />
+            <input type="hidden" asp-for="ParentStartDate" class="form-control" />
+            <input type="hidden" asp-for="ParentEndDate" class="form-control" />
 
             <div class="form-group">
-                <a class="btn btn-info" asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-action="Details" asp-controller="Course" class="btn btn-danger" asp-route-id="@Model.CourseId">Cancel</a>
+                <a class="btn btn-purple" asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
+                <input type="submit" value="Create" class="btn btn-green" />
+                <a asp-action="Details" asp-controller="Course" class="btn btn-grey" asp-route-id="@Model.CourseId">Cancel</a>
 
             </div>
         </form>
     </div>
 </div>
-
-
-  
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

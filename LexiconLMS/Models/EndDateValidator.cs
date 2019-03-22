@@ -19,9 +19,9 @@ namespace LexiconLMS.Models
         {
             if(validationContext.ObjectInstance is IDateInterval module)
             {
-                if (module.EndDate.CompareTo(module.StartDate) <= 0)
+                if (module.EndDate.CompareTo(module.StartDate) < 0)
                 {
-                    return new ValidationResult("End Date must be later than Start Date");
+                    return new ValidationResult("End Date must be equal or later than Start Date");
                 }                
             }
             return ValidationResult.Success;

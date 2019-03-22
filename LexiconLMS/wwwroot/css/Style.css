@@ -23,6 +23,7 @@ body, html {
     transform: translate(-50%,-0%);
     background: rgba(0,0,0,0.5);
     text-align: center;
+    margin-top: 100px;
 }
 
 .form-control {
@@ -77,11 +78,13 @@ body, html {
     transition: 0.25s;
     cursor: pointer;
     border-color: dimgray;
-    background-color: rgba(0,0,0,0);
+    /*background-color: rgba(0,0,0,0);*/
+    background-color: rgba(227,112,5,1);
 }
     .loginButton:hover {
-        border-color: rgb(227,112,5);
-        background-color: rgba(227,112,5,1);
+        /*border-color: rgb(227,112,5);
+        background-color: rgba(227,112,5,1);*/
+        background-color: #d84315;
     }
 .bg {
     /* The image used */

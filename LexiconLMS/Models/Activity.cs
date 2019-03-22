@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace LexiconLMS.Models
@@ -22,6 +23,7 @@ namespace LexiconLMS.Models
         //nav ref
         public ActivityType ActivityType{ get; set; }
         public Module Module { get; set; }
+        public ICollection<ActivityDocument> Documents { get; set; }
 
 
     }

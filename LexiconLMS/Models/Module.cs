@@ -19,5 +19,7 @@ namespace LexiconLMS.Models
 
 
         public ICollection<Activityy> Activities { get; set; }
+
+        public ICollection<ModuleDocument> Documents { get; set; }
     }
 }

@@ -1,14 +1,14 @@
 ﻿@model LexiconLMS.ViewModels.UserAdminViewModel
 
 @{
-    ViewData["Title"] = "Confirm Delete account";
+    ViewData["Title"] = "Confirm Delete";
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <hr />
 <div>
-    <h4>Details</h4>
+    <h4>Account Details</h4>
     <hr />
     <dl class="row">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -25,12 +25,12 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
     </dl>
-
+    <hr />
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         @if (Model.Email != User.Identity.Name) {
-        <input type="submit" value="Delete" class="btn btn-danger" /> } |
+        <input type="submit" value="Delete" class="btn btn-grey" /> } 
                                                                          
-              <a asp-action="Index">Back to List</a>
+              <a asp-action="Index" class="btn btn-purple">Back to List</a>
     </form>
 </div>

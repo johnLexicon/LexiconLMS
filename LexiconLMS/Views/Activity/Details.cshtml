@@ -1,58 +1,60 @@
-﻿@model LexiconLMS.Models.Activityy
+﻿@model LexiconLMS.ViewModels.ActivityDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Activity Details</h1>
+<div>
+    <partial name="_ActivityBreadCrumbPartialDetails" />
+</div>
+<hr />
+<h5>Activity Details:</h5>
 
 <div>
-    <hr />
     <dl class="row">
-        @*<dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>*@
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Module)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Module.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-1"></dd>
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ActivityType.Type)
+        <dd class="col-sm-3"></dd>
+        <dd class="col-sm-1"></dd>
+        <dt class="col-sm-8">
+            <i class="fa fa-clock"></i>@Html.DisplayNameFor(model => model.StartDate) <strong>@Model.StartDate.ToLongDateString()</strong>
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ActivityType.Type)
-        </dd>
+        <dd class="col-sm-3"></dd>
+        <dd class="col-sm-1"></dd>
+        <dt class="col-sm-8">
+            <i class="fa fa-clock"></i>@Html.DisplayNameFor(model => model.EndDate) <strong>@Model.EndDate.ToLongDateString()</strong>
+        </dt>
+        <dd class="col-sm-3"></dd>
 
     </dl>
 </div>
+
+<hr />
 <div>
+    <a asp-action="Create" asp-controller="ActivityDocument" asp-route-id="@Model.Id" class="btn btn-sm btn-secondary"><i class="fas fa-file-upload"></i> Add Document</a>
+</div>
+<table class="table tablestyle" data-toggle="table">
+    <tbody>
+        @foreach (var document in Model.Documents)
+        {
+            <tr>
+                <td><i class="fas fa-file-download"></i> @Html.ActionLink(document.Name, "Display", "ActivityDocument", new { id = document.Id }) (@document.Filezise)</td>
+                <td><i class="fas fa-clock"></i> @Html.DisplayFor(d => document.UploadTime)</td>
+                <td><i class="fas fa-info-circle"></i> @document.Description</td>
 
-    <div>
-        <a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId" class="btn btn-info">Back to Module</a>
+                <td>
+                    <div class="btn btn-grey btn-sm">
+                        <a href="@Url.Action("Delete", "ActivityDocument", new { id = document.Id })" class="text-white"><i class="fa fa-trash" aria-hidden="true"></i>Remove</a>
+                    </div>
 
-        @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
-        <a asp-action="Index" class="btn btn-primary">Back to List</a>
-    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-controller="Module" asp-action="Details" asp-route-id="@Model.ModuleId" class="btn btn-purple">Back to Module</a>
+    <a asp-action="Index" class="btn btn-green">All Activities</a>
+</div>

@@ -1,19 +1,21 @@
-﻿@model LexiconLMS.ViewModels.ModuleViewModel
+﻿@model LexiconLMS.ViewModels.ModuleAddViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>@Html.DisplayNameFor(a => a.CourseName): @Html.DisplayFor(a => a.CourseName)</h1>
-
-<h4>ModuleViewModel</h4>
+<div>
+    <partial name="_ModuleBreadCrumbPartial" />
+</div>
 <hr />
+<h5>Edit Module:</h5>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            
+
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -36,16 +38,18 @@
             </div>
 
             <input type="hidden" asp-for="CourseId" class="form-control" />
+            <input type="hidden" asp-for="CourseName" class="form-control" />
+            <input type="hidden" asp-for="ParentStartDate" class="form-control" />
+            <input type="hidden" asp-for="ParentEndDate" class="form-control" />
 
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+                <input type="submit" value="Save" class="btn btn-green" />
+                <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId" class="btn btn-purple">Back to Course</a>
+
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.CourseId">Back to Course</a>
 </div>
 
 @section Scripts {

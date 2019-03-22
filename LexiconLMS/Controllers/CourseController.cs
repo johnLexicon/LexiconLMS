@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Humanizer;
+using Humanizer.Bytes;
 using LexiconLMS.Data;
 using LexiconLMS.Models;
 using LexiconLMS.ViewModels;
@@ -32,7 +34,6 @@ namespace LexiconLMS.Controllers
         public ActionResult Index()
         {
             var courses = _context.Courses.Include(u => u.Users);
-            //var viewModels = await courses.ProjectTo<CourseListViewModel>(_mapper.ConfigurationProvider).ToListAsync();
 
             var Teachers = _userManager.GetUsersInRoleAsync("Teacher");
             Teachers.Wait();
@@ -51,7 +52,6 @@ namespace LexiconLMS.Controllers
                 {
                     theTeacher = new List<User>() { new User() { FullName = "not assigned" } };
                 }
-
 
                 var vm = new CourseListViewModel()
                 {
@@ -75,11 +75,10 @@ namespace LexiconLMS.Controllers
             var students = await _userManager.GetUsersInRoleAsync("Student");
 
             var startDate = DateTime.Now;
-            AddCourseViewModel viewModel = new AddCourseViewModel
+            CourseAddViewModel viewModel = new CourseAddViewModel
             {
                 Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList(),
                 StartDate = startDate,
-                //Students = students.Where(u => u.CourseId is null).Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList(),
                 EndDate = startDate.AddMonths(1)
             };
 
@@ -87,7 +86,7 @@ namespace LexiconLMS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AddCourseViewModel viewModel)
+        public async Task<IActionResult> Create(CourseAddViewModel viewModel)
         {
             
             if (ModelState.IsValid)
@@ -100,24 +99,19 @@ namespace LexiconLMS.Controllers
                 {
                     participants.Add(teacher);
                 }
-               
-                //var students = _userManager.Users.Where(u => viewModel.StudentIds.Contains(u.Id));
 
-                //participants.AddRange(students);
                 course.Users = participants;
 
                 await _context.Courses.AddAsync(course);
                 _context.SaveChanges();
 
-                //return RedirectToAction(nameof(Index));
+                TempData["AlertMsg"] = "Course added";
                 return RedirectToAction(nameof(Details), new { course.Id });
             }
             else
             {
                 var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
                 viewModel.Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList();
-                //var students = await _userManager.GetUsersInRoleAsync("Student");
-                //viewModel.Students = students.Where(u => u.CourseId is null).Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList();
             }
 
             return View(viewModel);
@@ -146,14 +140,25 @@ namespace LexiconLMS.Controllers
 
             viewModel.TeacherEmail = theTeacher.FirstOrDefault().Email;
 
-            viewModel.Documents = _context.CourseDocument.Where(d => d.CourseId == id).ToList();
+            viewModel.Documents = new List<DocumentListViewModel>();
+            var documents = _context.CourseDocument.Where(d => d.CourseId == id).ToList();
+            foreach (var doc in documents)
+            {
+                var newDoc = _mapper.Map<DocumentListViewModel>(doc);
+                newDoc.Filezise = (doc.DocumentData.Length).Bytes().Humanize("#.#");
+                viewModel.Documents.Add(newDoc);
+            }
 
             viewModel.Students = course.Users.Except(theTeacher);
-            
 
-            viewModel.Modules = new List<ModuleViewModel>();
-            var modules = _context.Modules.Where(a => a.CourseId == id).ToList();
-            modules.ForEach(a => viewModel.Modules.Add(_mapper.Map<ModuleViewModel>(a)));
+
+            viewModel.Modules = new List<ModuleAddViewModel>();
+            var modules = _context.Modules
+                .Where(a => a.CourseId == id)
+                .OrderBy(b => b.StartDate)
+                .ThenBy(c => c.EndDate).ToList();
+
+            modules.ForEach(a => viewModel.Modules.Add(_mapper.Map<ModuleAddViewModel>(a)));
 
             return View(viewModel);
         }
@@ -169,9 +174,7 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            //var viewModel = _mapper.Map<AddCourseViewModel>(course);
-
-            var viewModel = new AddCourseViewModel()
+            var viewModel = new CourseAddViewModel()
             {
                 Id = course.Id,
                 Name = course.Name,
@@ -192,21 +195,12 @@ namespace LexiconLMS.Controllers
 
             viewModel.Teachers = teachers.Result.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList();
             viewModel.TeacherId = theTeacher.FirstOrDefault().Id;
-            //viewModel.Students = course.Users.Except(theTeacher);
-            //if (viewModel.Students.Count() < 1)
-            //{
-            //    viewModel.Students = new List<User>() { new User() { Email = "none" } };
-            //}
-
-            //viewModel.Modules = new List<ModuleViewModel>();
-            //var modules = _context.Modules.Where(a => a.CourseId == id).ToList();
-            //modules.ForEach(a => viewModel.Modules.Add(_mapper.Map<ModuleViewModel>(a)));
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(AddCourseViewModel viewModel)
+        public async Task<IActionResult> Edit(CourseAddViewModel viewModel)
         {
 
             if (ModelState.IsValid)
@@ -220,32 +214,55 @@ namespace LexiconLMS.Controllers
                 course.Name = viewModel.Name;
                 course.Description = viewModel.Description;
 
-                List<User> participants = new List<User>();
+                var participants = course.Users;
+
+                //List<User> participants = new List<User>();
                 if (!(teacher is null))
                 {
-                    participants.Add(teacher);
+                    var teachers = _userManager.GetUsersInRoleAsync("Teacher");
+                    teachers.Wait();
+                    participants = participants.Except(teachers.Result).Append(teacher).ToList();
                 }
-
-                //var students = _userManager.Users.Where(u => viewModel.StudentIds.Contains(u.Id));
-
-                //participants.AddRange(students);
                 course.Users = participants;
 
-                //await _context.Courses.Update(course);
+
+                var modulesOutSideStartEndDate = await GetModulesOutSideCourseStartEndDates(course);
+                if(modulesOutSideStartEndDate.Count() > 0)
+                {
+                    var errorCount = 0;
+                    foreach (var module in modulesOutSideStartEndDate)
+                    {
+                        ModelState.AddModelError($"module_start_end_error_{errorCount++}", $"Module: {module.Name} {module.StartDate.ToString(Common.DateFormat)} - {module.EndDate.ToString(Common.DateFormat)} is outside course Start/End dates" );
+                    }
+                    return View(viewModel);
+                }
+
                 _context.SaveChanges();
 
-                //return RedirectToAction(nameof(Index));
+                TempData["AlertMsg"] = "Saved changes";
                 return RedirectToAction(nameof(Details), new { course.Id });
             }
             else
             {
                 var teachers = await _userManager.GetUsersInRoleAsync("Teacher");
                 viewModel.Teachers = teachers.Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList();
-                //var students = await _userManager.GetUsersInRoleAsync("Student");
-                //viewModel.Students = students.Where(u => u.CourseId is null).Select(t => new Tuple<string, string>(t.Id, t.UserName)).ToList();
             }
 
             return View(viewModel);
+        }
+
+        private async Task<List<Module>> GetModulesOutSideCourseStartEndDates(Course course)
+        {
+            var res = new List<Module>();
+            var modules = await _context.Modules.Where(a => a.CourseId == course.Id).Include("Activities").ToListAsync();
+            foreach(var module in modules)
+            {
+                if(module.StartDate.CompareTo(course.StartDate) < 0 || module.EndDate.CompareTo(course.EndDate) > 0)
+                {
+                    res.Add(module);
+                }
+            }
+            return res;
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -257,10 +274,15 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
+            var students = await _userManager.GetUsersInRoleAsync("Student");
+            var studentsInCourse = students.Where(s => s.CourseId == courseToDelete.Id);
+
             _context.Remove(courseToDelete);
-            
+            _context.RemoveRange(studentsInCourse);
+
             await _context.SaveChangesAsync();
 
+            TempData["AlertMsg"] = "Course deleted";
             return RedirectToAction(nameof(Index));
         }
     }

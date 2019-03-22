@@ -4,11 +4,12 @@
     ViewData["Title"] = "Add Course";
 }
 
-<h4>Courses</h4>
+<h1>Courses</h1>
 <hr />
-<a asp-action="Create" class="btn btn-primary">Create course</a>
-<table class="table table-striped table-hover" style="margin-top: 15px">
-    @*<thead>
+<a asp-action="Create" class="btn btn-green"> Create Course </a>
+<a asp-action="Index" asp-controller="Teacher" class="btn btn-grey">Back To Home </a>
+<table class="table tablestyle" >
+    <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -16,30 +17,35 @@
             <th>
                 @Html.DisplayNameFor(model => model.StartDate)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
+            </th>*@
+            @*<th>
                 @Html.DisplayNameFor(model => model.TeacherName)
-            </th>
-            <th>
+            </th>*@
+            @*<th>
                 @Html.DisplayNameFor(model => model.Description)
-            </th>
+            </th*@
             <th>
                 @Html.DisplayNameFor(model => model.NumberOfStudents)
             </th>
+            <th></th>
+
+
+
+
         </tr>
-    </thead>*@
+    </thead>
     <tbody>
         @foreach (var item in Model)
         {
         <tr>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id" class="CourseName">@item.Name</a>
-
-                <span class="CourseData">
-                    <i class="fa fa-clock-o"></i>@Html.DisplayFor(modelItem => item.StartDate)
-                </span>
+                 <td>
+                   <h5><a asp-action="Details" asp-route-id="@item.Id">@item.Name</a></h5> 
+                </td>
+                <td>
+                    <i class="fa fa-clock"></i>@Html.DisplayFor(modelItem => item.StartDate)
+                </td>
                 @*<span class="CourseData">
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </span>*@
@@ -49,15 +55,19 @@
                 <span class="CourseData CourseMore">
                     @Html.DisplayFor(model => item.Description)
                 </span>*@
-                <span class="CourseData">
+                <td>
                     <i class="fa fa-users"></i> @Html.DisplayFor(model => item.NumberOfStudents) students in class
-                </span>
-                <span class="CourseButtons">
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>Edit Details</a>
+                </td>
+
+                <td>
+                   <div class="btn btn-purple btn-sm" ><a asp-action="Edit" asp-route-id="@item.Id" class="text-white"><i class="fa fa-edit"></i>Edit</a></div> 
+
+                
                     @*<a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle fa-lg"></i> Info</a>*@
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Remove</a>
-                </span>
-</td>
+
+                    <div class="btn btn-grey btn-sm"> <a asp-action="Delete" asp-route-id="@item.Id" class="text-white"><i class="fa fa-trash"></i> Remove</a></div>
+                </td>
+
         </tr>
         }
     </tbody>

@@ -14,6 +14,9 @@ namespace LexiconLMS.ViewModels
         [Display(Name = "Course name")]
         public string Name { get; set; }
 
+        [Display(Name = "Teacher name")]
+        public string TeacherName { get; set; }
+
         [Display(Name = "Description")]
         public string Description { get; set; }
 
@@ -28,11 +31,15 @@ namespace LexiconLMS.ViewModels
         [Display(Name = "Teacher email")]
         public string TeacherEmail { get; set; }
 
-        public List<ModuleViewModel> Modules { get; set; }
+        public List<ModuleDetailsViewModel> Modules { get; set; }
 
-        public List<List<User>> Students { get; set; }
+        public List<User> Students { get; set; }
 
-        //Add Activities
-        public List<ActivityViewModel> activities { get; set; }
+        //aaaaand documents
+        public ICollection<DocumentListViewModel> Documents { get; set; }
+
+        public ICollection<AssignmentListViewModel> DueAssignments { get; set; }
+
+        public ICollection<AssignmentListViewModel> MyAssignments { get; set; }
     }
 }

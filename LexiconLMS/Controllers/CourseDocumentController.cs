@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.StaticFiles;
 
 namespace LexiconLMS.Controllers
 {
-    [Authorize(Roles ="Teacher")]
+    [Authorize(Roles ="Teacher, Student")]
     public class CourseDocumentController : Controller
     {
         private readonly LexiconLMSContext _context;
@@ -29,6 +29,7 @@ namespace LexiconLMS.Controllers
             _userManager = userManager;
         }
 
+        [Authorize(Roles="Teacher")]
         // GET: CourseDocument/Create
         public ActionResult Create(int id)
         {
@@ -36,9 +37,12 @@ namespace LexiconLMS.Controllers
             {
                 EnitityId = id
             };
-            return View(vm);
+            ViewData["Title"] = "Add Course Document";
+            ViewData["parentUrl"] = $"/Course/Details/{id}";
+            return View("_CreateDocumentPartial", vm);
         }
 
+        [Authorize(Roles = "Teacher")]
         // POST: CourseDocument/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -46,6 +50,13 @@ namespace LexiconLMS.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (vm.file is null)
+                {
+                    ModelState.AddModelError("file", "File can't be empty!");
+                    ViewData["parentUrl"] = $"/Course/Details/{vm.Id}";
+                    ViewData["Title"] = "Add Course Document";
+                    return View("_CreateDocumentPartial", vm);
+                }
                 var newDocument = new CourseDocument()
                 {
                     Description = vm.Description,
@@ -54,6 +65,10 @@ namespace LexiconLMS.Controllers
                     CourseId = vm.EnitityId,
                 };
 
+                if(newDocument.Description is null)
+                {
+                    newDocument.Description = "none";
+                }
                 newDocument.UserId = _userManager.GetUserId(User);
 
                 using (var memoryStream = new MemoryStream())
@@ -66,14 +81,18 @@ namespace LexiconLMS.Controllers
                 _context.SaveChanges();
 
                 //Can't get it to accept nameof(Details) for some reason
+                TempData["AlertMsg"] = "Document added";
                 return RedirectToAction("Details", nameof(Course), new { id = vm.EnitityId });
             }
             else
             {
-                return View(vm);
+                ViewData["parentUrl"] = $"/Course/Details/{vm.Id}";
+                ViewData["Title"] = "Add Course Document";
+                return View("_CreateDocumentPartial", vm);
             }
         }
 
+        [Authorize(Roles = "Teacher")]
         // GET: CourseDocument/Delete
         public ActionResult Delete(int id)
         {
@@ -82,18 +101,17 @@ namespace LexiconLMS.Controllers
                 return NotFound();
             }
 
-            //var document = await _context.CourseDocument.FirstOrDefaultAsync(a => a.Id == id);
             var document = _context.CourseDocument.FirstOrDefault(a => a.Id == id);
             if (!(document is null))
             {
                 _context.Remove(document);
                 _context.SaveChanges();
 
-                //var course = await _context.Courses.FirstOrDefaultAsync(a => a.Id == document.EntityId);
                 var course = _context.Courses.FirstOrDefault(a => a.Id == document.CourseId);
 
                 if (!(course is null))
                 {
+                    TempData["AlertMsg"] = "Document deleted";
                     return RedirectToAction("Details", "Course", new { id = course.Id });
                 }
             }
@@ -105,16 +123,23 @@ namespace LexiconLMS.Controllers
         {
             var document = _context.CourseDocument.FirstOrDefault(d => d.Id == id);
 
-            if(document is null)
+            if (document is null)
             {
                 return NotFound();
             }
 
             string contentType;
             new FileExtensionContentTypeProvider().TryGetContentType(document.Name, out contentType);
-            contentType = "application/force-download"; //Hackish, maybe not nessecary 
-            return new FileStreamResult(new MemoryStream(document.DocumentData), contentType) { FileDownloadName = document.Name };
-
+            if (contentType == "application/pdf")
+            {
+                //handle pdf:s separately
+                return new FileStreamResult(new MemoryStream(document.DocumentData), contentType);
+            }
+            else
+            {
+                contentType = "application/force-download"; //Hackish, maybe not nessecary 
+                return new FileStreamResult(new MemoryStream(document.DocumentData), contentType) { FileDownloadName = document.Name };
+            }
         }
     }
 }
